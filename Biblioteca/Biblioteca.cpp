@@ -11,6 +11,7 @@
 #include <algorithm>
 #include <fstream>
 #include <wx/msgdlg.h>
+#include "Utils.h"
 
 string TimeT_a_String(long t){
 	stringstream ss;
@@ -222,6 +223,18 @@ bool Biblioteca::EstaSancionado(int numLector){
 	return false;
 }
 
+int Biblioteca::BuscarTitulo(string parte, int pos_desde) {
+	pasar_a_minusculas(parte);
+	for (int i=pos_desde;i<cantLibros();i++) {
+		Libro l = vLibros[i];
+		string cadena_a_buscar = l.VerTitulo();
+		pasar_a_minusculas(cadena_a_buscar);
+		if (cadena_a_buscar.find(parte,0)!=string::npos)
+			return i;
+	}
+	return NO_SE_ENCUENTRA;
+}
+
 int Biblioteca::cantLibros()const{ return vLibros.size();}
 
 int Biblioteca::cantLectores()const{ return vLectores.size();}
@@ -237,4 +250,6 @@ Lector Biblioteca::VerLector (int i) const { return vLectores[i]; }
 Prestamo Biblioteca::VerPrestamo (int i) const { return vPrestamos[i]; }
 
 Sancion Biblioteca::VerSancion (int i) const { return vSanciones[i]; }
+
+
 

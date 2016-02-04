@@ -9,6 +9,7 @@
 #include <wx/textdlg.h>
 #include <wx/msgdlg.h>
 #include <wx/string.h>
+#include "Utils.h"
 
 
 //constructor
@@ -242,7 +243,6 @@ void Vprincipal::ClickAgregarSancionMenu( wxCommandEvent& event )  {
 //		return;
 	}	
 	
-	
 	wxString cantDias_s = wxGetTextFromUser("Cantidad de días a sancionar:","Nueva Sanción","",this);
 	if (cantDias_s==""){
 		wxMessageBox("Cantidad incorrecta incorrecto!","Error",wxOK|wxICON_ERROR,this);
@@ -250,13 +250,11 @@ void Vprincipal::ClickAgregarSancionMenu( wxCommandEvent& event )  {
 	}
 	int cantDias = atoi(cantDias_s);
 	
-	
 	wxString motivo = wxGetTextFromUser("Motivo de Sanción:","Nueva Sanción","",this);
 	if (motivo==""){
 		wxMessageBox("Agregue un motivo de sanción!","Error",wxOK|wxICON_ERROR,this);
 		return;
 	}
-	
 	
 	wxMessageDialog dial(NULL, wxT("El usuario: " + unLector.VerApellido()  + ", " + unLector.VerNombre() + " será sancionado " + cantDias_s
 								   + " días por "+ motivo +". ¿Confirmar sanción?"), wxT("Question"), wxYES_NO | wxNO_DEFAULT | wxICON_QUESTION);
@@ -270,23 +268,6 @@ void Vprincipal::ClickAgregarSancionMenu( wxCommandEvent& event )  {
 		return;
 	}	
 	return;
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }
 
 
@@ -313,4 +294,20 @@ void Vprincipal::ClickPestaniaSanciones( wxMouseEvent& event )  {
 }
 
 
+
+void Vprincipal::ClickBusquedaPorTitulo( wxCommandEvent& event )  {
+	int fila_actual = gLibros->GetGridCursorRow();
+	int res = Singleton::ObtenerInstancia()->BuscarTitulo(tBusquedaTitulo->GetValue().c_str(),fila_actual+1);
+	if (res==NO_SE_ENCUENTRA) 
+		res=Singleton::ObtenerInstancia()->BuscarTitulo(tBusquedaTitulo->GetValue().c_str(),0);
+	if (res==-1)
+		wxMessageBox("No se encontraron mas coincidencias");
+	else {
+		gLibros->SetGridCursor(res,0); // seleccionar celda
+		gLibros->SelectRow(res); // marcar toda la fila
+		//gLibros->MakeCellVisible(res,0); // asegurarse de que se ve
+	}
+	
+		
+}
 

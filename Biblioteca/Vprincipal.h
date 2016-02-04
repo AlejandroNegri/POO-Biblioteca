@@ -8,6 +8,7 @@ using namespace std;
 class Vprincipal : public VentanaPrincipal {
 
 protected:
+	void ClickBusquedaPorTitulo( wxCommandEvent& event ) ;
 	void ClickAgregarSancionMenu( wxCommandEvent& event ) ;
 
 public:
