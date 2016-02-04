@@ -7,18 +7,18 @@ using namespace std;
 
 class Sancion{
 	int NumeroLector;
-	time_t FechaSancion_T;
+	long FechaSancion_T;
 	string Motivo;
 public:
-	Sancion(int p_numeroLector, string p_motivo);
+	Sancion(int p_numeroLector, string p_motivo, int cant_dias);
 	
-	Sancion(int p_numeroLector, time_t p_fechaSancion_T, string p_motivo);
+	Sancion(int p_numeroLector, long p_fechaSancion_T, string p_motivo);
 	
 	int VerNumeroLector()const;
 	
 	string VerFechaSancion()const;
 	
-	time_t VerFechaSancion_T()const;
+	long VerFechaSancion_T()const;
 	
 	string VerMotivo()const;	
 };

@@ -56,7 +56,8 @@ class VentanaPrincipal : public wxFrame
 		wxGrid* gLectores;
 		wxPanel* pGrillaPrestamos;
 		wxGrid* gPrestamos;
-		wxPanel* m_panel7;
+		wxPanel* pGrillaSanciones;
+		wxGrid* gSanciones;
 		wxButton* bPrestamo;
 		wxButton* bDevolucion;
 		wxButton* bSancion;
@@ -66,9 +67,11 @@ class VentanaPrincipal : public wxFrame
 		virtual void ClickAgregarLectorMenu( wxCommandEvent& event ) { event.Skip(); }
 		virtual void ClickAgregarPrestamoMenu( wxCommandEvent& event ) { event.Skip(); }
 		virtual void ClickAgregarDevolucionMenu( wxCommandEvent& event ) { event.Skip(); }
+		virtual void ClickAgregarSancionMenu( wxCommandEvent& event ) { event.Skip(); }
 		virtual void ClickPestaniaLibros( wxMouseEvent& event ) { event.Skip(); }
 		virtual void ClickPestaniaLectores( wxMouseEvent& event ) { event.Skip(); }
 		virtual void ClickPestaniaPrestamos( wxMouseEvent& event ) { event.Skip(); }
+		virtual void ClickPestaniaSanciones( wxMouseEvent& event ) { event.Skip(); }
 		
 	
 	public:

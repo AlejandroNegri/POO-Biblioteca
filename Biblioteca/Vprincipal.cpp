@@ -56,10 +56,23 @@ void Vprincipal::DibujarPestaniaPrestamos(){
 	Show();
 }
 
+
+void Vprincipal::DibujarPestaniaSanciones(){
+	gSanciones->DeleteRows(0,gSanciones->GetNumberRows(), true);
+	int cant_sanciones = Singleton::ObtenerInstancia()->cantSanciones();
+	gSanciones->AppendRows(cant_sanciones);	
+	for (int i=0;i<cant_sanciones;i++) {
+		CargarFilaSanciones(i);// cargar todos los datos
+	}
+	gSanciones->SetSelectionMode(wxGrid::wxGridSelectRows);
+	Show();
+}
+
 void Vprincipal::RefrescarGrillas(){
 	Vprincipal::DibujarPestaniaLibros();
 	Vprincipal::DibujarPestaniaLectores();
 	Vprincipal::DibujarPestaniaPrestamos();
+	Vprincipal::DibujarPestaniaSanciones();
 }
 
 
@@ -102,6 +115,15 @@ void Vprincipal::CargarFilaPrestamos(int i) {
 	gPrestamos->SetCellValue(i,1,li.VerTitulo());
 	gPrestamos->SetCellValue(i,2,p.VerFechaDesde());
 	gPrestamos->SetCellValue(i,3,p.VerFechaHasta());
+}
+//				SANCIONES
+void Vprincipal::CargarFilaSanciones(int i) {
+	Sancion s = Singleton::ObtenerInstancia()->VerSancion(i);
+	Lector le = Singleton::ObtenerInstancia()->VerLector(s.VerNumeroLector());
+	
+	gSanciones->SetCellValue(i,0,le.VerApellido() + ", " + le.VerNombre());
+	gSanciones->SetCellValue(i,1,s.VerFechaSancion());
+	gSanciones->SetCellValue(i,2,s.VerMotivo());
 }
 
 
@@ -186,7 +208,7 @@ void Vprincipal::ClickAgregarDevolucionMenu( wxCommandEvent& event )  {
 		return;
 	}
 	wxMessageDialog dial(NULL, wxT("¿Confirmar devolución de: " + unLibro.VerTitulo()+ "?"), wxT("Question"), wxYES_NO | wxNO_DEFAULT | wxICON_QUESTION);
-	if (dial.ShowModal()){		
+	if (dial.ShowModal() ==  wxID_YES){		
 		int diasAtrasados = Singleton::ObtenerInstancia()->EliminarPrestamo(unLibro.VerCodigoLibro());		
 		Singleton::ObtenerInstancia()->Guardar(); // actualizar el archivo	
 		RefrescarGrillas();
@@ -203,8 +225,72 @@ void Vprincipal::ClickAgregarDevolucionMenu( wxCommandEvent& event )  {
 	return;
 }
 
+//MENU SANCION: AGREGAR
+void Vprincipal::ClickAgregarSancionMenu( wxCommandEvent& event )  {
+	
+	wxString numLector = wxGetTextFromUser("Ingrese el número de lector","Nueva Sanción","",this);	
+	if (atoi(numLector)>= (Singleton::ObtenerInstancia()->cantLectores())){
+		wxMessageBox("Número de lector incorrecto!","Error",wxOK|wxICON_ERROR,this);
+		return;
+	}
+	Lector unLector = Singleton::ObtenerInstancia()->VerLector(atoi(numLector.c_str()));
+	if (numLector==""){
+		wxMessageBox("Número de lector incorrecto!","Error",wxOK|wxICON_ERROR,this);
+		return;
+//	}else if(Singleton::ObtenerInstancia()->EstaSancionado(atoi(numLector))){
+//		wxMessageBox("Ese lector esta sancionado!","Error",wxOK|wxICON_ERROR,this);
+//		return;
+	}	
+	
+	
+	wxString cantDias_s = wxGetTextFromUser("Cantidad de días a sancionar:","Nueva Sanción","",this);
+	if (cantDias_s==""){
+		wxMessageBox("Cantidad incorrecta incorrecto!","Error",wxOK|wxICON_ERROR,this);
+		return;
+	}
+	int cantDias = atoi(cantDias_s);
+	
+	
+	wxString motivo = wxGetTextFromUser("Motivo de Sanción:","Nueva Sanción","",this);
+	if (motivo==""){
+		wxMessageBox("Agregue un motivo de sanción!","Error",wxOK|wxICON_ERROR,this);
+		return;
+	}
+	
+	
+	wxMessageDialog dial(NULL, wxT("El usuario: " + unLector.VerApellido()  + ", " + unLector.VerNombre() + " será sancionado " + cantDias_s
+								   + " días por "+ motivo +". ¿Confirmar sanción?"), wxT("Question"), wxYES_NO | wxNO_DEFAULT | wxICON_QUESTION);
+	if (dial.ShowModal() ==  wxID_YES){		
+		Singleton::ObtenerInstancia()->AgregarSancion(unLector.VerNumeroLector(), motivo.c_str(), cantDias);
+		Singleton::ObtenerInstancia()->Guardar(); // actualizar el archivo	
+		RefrescarGrillas();
+		wxMessageBox("Sanción Agregada!");
+	}else{
+		wxMessageBox("Sanción Cancelada!");
+		return;
+	}	
+	return;
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}
 
-//eventos
+
+//           EVENTOS DE PESTAÑAS
 void Vprincipal::ClickPestaniaLibros( wxMouseEvent& event )  {
 	Vprincipal::DibujarPestaniaLibros();
 	event.Skip();
@@ -219,5 +305,12 @@ void Vprincipal::ClickPestaniaPrestamos( wxMouseEvent& event )  {
 	Vprincipal::DibujarPestaniaPrestamos();
 	event.Skip();
 }
+
+
+void Vprincipal::ClickPestaniaSanciones( wxMouseEvent& event )  {
+	Vprincipal::DibujarPestaniaSanciones();
+	event.Skip();
+}
+
 
 

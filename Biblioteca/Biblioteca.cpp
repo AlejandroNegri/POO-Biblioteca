@@ -97,8 +97,8 @@ int Biblioteca::EliminarPrestamo(int codigoLibro){
 	return devolucionATiempo;
 }
 
-void Biblioteca::AgregarSancion(int codigoLector, string motivo){
-	Sancion unaSancion(codigoLector, motivo);
+void Biblioteca::AgregarSancion(int codigoLector, string motivo, int cantDias){
+	Sancion unaSancion(codigoLector, motivo, cantDias);
 	vSanciones.push_back(unaSancion);
 }
 
@@ -109,7 +109,7 @@ bool Biblioteca::Guardar() const {
 	ofstream archivoSanciones("./datos/sanciones.txt",ios::trunc);
 	//Guardar libros
 	if (!archivoLibros.is_open()) return false;
-	for(const Libro l:vLibros) {
+	for(const Libro l : vLibros) {
 		archivoLibros 	<< l.VerTitulo() << endl 
 			<< l.VerAutores() << endl 
 			<< l.VerEditorial() << endl 
@@ -121,7 +121,7 @@ bool Biblioteca::Guardar() const {
 	}
 	//Guardar lectores
 	if (!archivoLectores.is_open()) return false;
-	for(const Lector l:vLectores) {
+	for(const Lector l : vLectores) {
 		archivoLectores << l.VerNombre() << endl 
 			<< l.VerApellido() << endl 
 			<< l.VerDNI() << endl 				
@@ -131,17 +131,16 @@ bool Biblioteca::Guardar() const {
 	}
 	//Guardar prestamos
 	if (!archivoPrestamos.is_open()) return false;
-	for(const Prestamo p:vPrestamos) {				
+	for(const Prestamo p : vPrestamos) {				
 		archivoPrestamos << p.VerNumeroLectorPrestamo() << endl
 			<< p.VerCodigoLibroPrestamo()<< endl 
 			<< p.VerFechaDesde_T() << endl 
 			<< p.VerFechaHasta_T()<<endl<<endl; 
 	}
-	return true;
 	//Guardar sanciones
 	if (!archivoSanciones.is_open()) return false;
-	for(const Sancion s:vSanciones) {
-		archivoPrestamos << s.VerNumeroLector() << endl
+	for(const Sancion s : vSanciones) {
+		archivoSanciones << s.VerNumeroLector() << endl
 			<< s.VerFechaSancion_T() << endl 
 			<< s.VerMotivo()<< endl<<endl; 
 	}
@@ -210,7 +209,7 @@ void Biblioteca::CargarSancionesDesdeArchivo(){
 	string LineaVacia;
 	
 	while(getline(archivo,NumeroLector) && getline(archivo, FechaSancion_T) && 
-		  getline(archivo, FechaSancion_T) && getline(archivo, LineaVacia)){
+		  getline(archivo, Motivo) && getline(archivo, LineaVacia)){
 		Sancion unaSancion(atoi(NumeroLector.c_str()), String_a_TimeT(FechaSancion_T), Motivo);
 		vSanciones.push_back(unaSancion);	
 	}
@@ -223,9 +222,6 @@ bool Biblioteca::EstaSancionado(int numLector){
 	return false;
 }
 
-
-
-
 int Biblioteca::cantLibros()const{ return vLibros.size();}
 
 int Biblioteca::cantLectores()const{ return vLectores.size();}
@@ -234,35 +230,11 @@ int Biblioteca::cantPrestamos()const{ return vPrestamos.size();}
 
 int Biblioteca:: cantSanciones()const{ return vSanciones.size();}
 
-Libro Biblioteca::VerLibro (int i) const {
-	return vLibros[i];
-}	
+Libro Biblioteca::VerLibro (int i) const { return vLibros[i]; }	
 
-Lector Biblioteca::VerLector (int i) const {
-	return vLectores[i];
-}
+Lector Biblioteca::VerLector (int i) const { return vLectores[i]; }
 
-Prestamo Biblioteca::VerPrestamo (int i) const {
-	return vPrestamos[i];
-}
+Prestamo Biblioteca::VerPrestamo (int i) const { return vPrestamos[i]; }
 
-//consola
-//void Biblioteca::mostrar(){		
-//	cout <<"***LIBROS***"<<endl;
-//	for( Libro x : vLibros) {			
-//		cout << x.VerTitulo() << " "<< x.VerCodigoLibro()<< " " << x.VerEstado() << endl;
-//	}	
-//	cout <<"***LECTORES***"<<endl;
-//	for( Lector x : vLectores) {
-//		cout << x.VerNombre() << " "<< x.VerNumeroLector()<<endl;
-//	}	
-//	cout <<"***PRESTAMOS***"<<endl;
-//	for( Prestamo x : vPrestamos) {
-//		cout << x.VerNumeroLectorPrestamo() << " "<< x.VerCodigoLibroPrestamo()<<" "<< x.VerFechaDesde() << " " << x.VerFechaHasta()<<endl;
-//	}
-//	cout <<"***SANCIONES***"<<endl;
-//	for( Sancion x : vSanciones) {
-//		cout << x.VerNumeroLector() << " sancionado hasta "<< x.VerFechaSancion_S()<<" por "<< x.VerMotivo()<<endl;
-//	}
-//}	
+Sancion Biblioteca::VerSancion (int i) const { return vSanciones[i]; }
 

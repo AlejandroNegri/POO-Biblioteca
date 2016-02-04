@@ -37,7 +37,7 @@ public:
 	
 	int EliminarPrestamo(int codigoLibro);
 	
-	void AgregarSancion(int codigoLector, string motivo);
+	void AgregarSancion(int codigoLector, string motivo, int cantDias);
 	
 	bool EstaSancionado(int numLector);
 	
@@ -65,7 +65,7 @@ public:
 	
 	Prestamo VerPrestamo (int i) const;
 	
-	//consola
-	//void mostrar();
+	Sancion VerSancion (int i) const;
+
 };
 #endif
