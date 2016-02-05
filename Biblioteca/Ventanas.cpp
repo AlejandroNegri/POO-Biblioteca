@@ -116,7 +116,7 @@ VentanaPrincipal::VentanaPrincipal( wxWindow* parent, wxWindowID id, const wxStr
 	
 	// Rows
 	gLibros->EnableDragRowSize( true );
-	gLibros->SetRowLabelSize( 0 );
+	gLibros->SetRowLabelSize( 1 );
 	gLibros->SetRowLabelAlignment( wxALIGN_CENTRE, wxALIGN_CENTRE );
 	
 	// Label Appearance

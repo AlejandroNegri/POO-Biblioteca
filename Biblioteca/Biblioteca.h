@@ -12,19 +12,13 @@
 
 using namespace std;
 
-string TimeT_a_String(long t);
-
-long String_a_TimeT(string s);
-
-string TimeT_a_FormatoFecha(long t);
-
-long CalcularFecha(int cantDias);
-
 class Biblioteca{
 	vector<Libro> vLibros;
 	vector<Lector> vLectores;
 	vector<Prestamo> vPrestamos;
 	vector<Sancion> vSanciones;	
+	string directorioLibros = "./datos/libros.dat";
+	string directorioLectores = "./datos/lectores.dat";
 public:
 	Biblioteca();
 	

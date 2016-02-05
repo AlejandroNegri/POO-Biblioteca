@@ -2,6 +2,7 @@
 #include "Prestamo.h"
 #include "Biblioteca.h"
 #include <wx/msgdlg.h>
+#include "Utils.h"
 
 Prestamo::Prestamo(int p_numeroLector,int p_CodigoLibro)
 	: NumeroLector(p_numeroLector), CodigoLibro (p_CodigoLibro) {

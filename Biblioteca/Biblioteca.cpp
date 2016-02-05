@@ -13,47 +13,7 @@
 #include <wx/msgdlg.h>
 #include "Utils.h"
 
-string TimeT_a_String(long t){
-	stringstream ss;
-	long long t_l = (long long)t;	
-	string t_s;	
-	ss << t_l;
-	ss >> t_s;
-	return ss.str();
-}
 
-long String_a_TimeT(string s){
-	long t = atol(s.c_str());
-	return t;
-}
-
-string TimeT_a_FormatoFecha(long t1){
-	time_t t = (time_t)t1;
-	tm *fecha_tm = localtime( &t );
-	stringstream ssFecha;
-	ssFecha << fecha_tm->tm_mday << "/" << fecha_tm->tm_mon+1 << "/" << fecha_tm->tm_year+1900 << " "
-		<< fecha_tm->tm_hour << ":" << fecha_tm->tm_min << ":" << fecha_tm->tm_sec <<"hs";
-	return ssFecha.str();
-}
-
-long CalcularFecha(int cantDias){	
-	//segundos en un dia (24*60*60)
-	int dia_t = 86400;	
-	//calculo los segundos hasta ahora y le sumo la cant de dias extra
-	time_t fecha_t = time(NULL) +(cantDias * dia_t);		
-	//si no es la fecha de hoy cambio los minutos
-	if (cantDias>0){
-		//meto el time_t en un tm para modificarle los min y seg
-		tm *fecha_tm = localtime( &fecha_t );
-		//le seteo la hora de entrega hasta las 23:59:59
-		fecha_tm->tm_hour = 23;
-		fecha_tm->tm_min = 59;
-		fecha_tm->tm_sec = 59;		
-		//mktime vuelve el tm a formato time_t
-		fecha_t = mktime(fecha_tm);
-	}	
-	return fecha_t;
-}
 
 Biblioteca::Biblioteca(){
 	CargarLibrosDesdeArchivo();
@@ -104,32 +64,53 @@ void Biblioteca::AgregarSancion(int codigoLector, string motivo, int cantDias){
 }
 
 bool Biblioteca::Guardar() const {
-	ofstream archivoLibros("./datos/libros.txt",ios::trunc);
-	ofstream archivoLectores("./datos/lectores.txt",ios::trunc);
+
 	ofstream archivoPrestamos("./datos/prestamos.txt",ios::trunc);
 	ofstream archivoSanciones("./datos/sanciones.txt",ios::trunc);
-	//Guardar libros
+
+	//Guardar libros	
+	ofstream archivoLibros(directorioLibros.c_str(),ios::binary|ios::trunc);
 	if (!archivoLibros.is_open()) return false;
-	for(const Libro l : vLibros) {
-		archivoLibros 	<< l.VerTitulo() << endl 
-			<< l.VerAutores() << endl 
-			<< l.VerEditorial() << endl 
-			<< l.VerISBN() << endl 
-			<< l.VerEdicion() << endl 
-			<< l.VerCodigoLibro() << endl 
-			<< l.VerTipo() << endl 
-			<< l.VerEstado() << endl<<endl;
+	for (int i=0;i<cantLibros();i++){
+		registro_libro reg_libro;
+		strcpy(reg_libro.titulo, vLibros[i].VerTitulo().c_str());
+		strcpy(reg_libro.autores, vLibros[i].VerAutores().c_str());
+		strcpy(reg_libro.editorial, vLibros[i].VerEditorial().c_str());
+		strcpy(reg_libro.isbn, vLibros[i].VerISBN().c_str());
+		strcpy(reg_libro.edicion, vLibros[i].VerEdicion().c_str());
+		reg_libro.codigoLibro = vLibros[i].VerCodigoLibro();
+		strcpy(reg_libro.tipo, vLibros[i].VerTipo().c_str());
+		strcpy(reg_libro.estado, vLibros[i].VerEstado().c_str());
+		archivoLibros.write((char*)&reg_libro, sizeof(reg_libro));		
 	}
+	archivoLibros.close();
+	
 	//Guardar lectores
+//	if (!archivoLectores.is_open()) return false;
+//	for(const Lector l : vLectores) {
+//		archivoLectores << l.VerNombre() << endl 
+//			<< l.VerApellido() << endl 
+//			<< l.VerDNI() << endl 				
+//			<< l.VerDomicilio() << endl 
+//			<< l.VerTel() << endl 
+//			<< l.VerNumeroLector() << endl<<endl;
+//	}
+	ofstream archivoLectores(directorioLectores.c_str(),ios::binary|ios::trunc);
 	if (!archivoLectores.is_open()) return false;
-	for(const Lector l : vLectores) {
-		archivoLectores << l.VerNombre() << endl 
-			<< l.VerApellido() << endl 
-			<< l.VerDNI() << endl 				
-			<< l.VerDomicilio() << endl 
-			<< l.VerTel() << endl 
-			<< l.VerNumeroLector() << endl<<endl;
+	for (int i=0;i<cantLectores();i++){
+		registro_lector reg_lector;
+		strcpy(reg_lector.nombre, vLectores[i].VerNombre().c_str());
+		strcpy(reg_lector.apellido, vLectores[i].VerApellido().c_str());
+		strcpy(reg_lector.dni, vLectores[i].VerDNI().c_str());
+		strcpy(reg_lector.domicilio, vLectores[i].VerDomicilio().c_str());
+		strcpy(reg_lector.tel, vLectores[i].VerTel().c_str());
+		reg_lector.numeroLector = vLectores[i].VerNumeroLector();
+		archivoLectores.write((char*)&reg_lector, sizeof(reg_lector));	
 	}
+	archivoLectores.close();
+	
+
+	
 	//Guardar prestamos
 	if (!archivoPrestamos.is_open()) return false;
 	for(const Prestamo p : vPrestamos) {				
@@ -150,43 +131,39 @@ bool Biblioteca::Guardar() const {
 
 //*****CARGA DE DATOS DESDE ARCHIVO*****
 void Biblioteca::CargarLibrosDesdeArchivo(){
-	ifstream archivo("./datos/libros.txt");
-	string Titulo;
-	string Autores;
-	string Editorial;
-	string ISBN;
-	string Edicion;
-	string CodigoLibro;
-	string Tipo;	
-	string Estado; //Disponible o Prestado	
-	string LineaVacia;
-	
-	while(getline(archivo,Titulo) && getline(archivo, Autores) && 
-		  getline(archivo, Editorial) && getline(archivo, ISBN) && 
-		  getline(archivo, Edicion) && getline(archivo, CodigoLibro) && 
-		  getline(archivo, Tipo) && getline(archivo, Estado) && getline(archivo, LineaVacia)){
-		Libro unLibro(Titulo, Autores, Editorial, ISBN, Edicion, atoi( CodigoLibro.c_str() ) , Tipo, Estado);
-		vLibros.push_back(unLibro);	
-	}
+	ifstream archivo(directorioLibros.c_str(),ios::binary|ios::ate);
+	if (archivo.is_open()) {
+		int tamanio_archivo = archivo.tellg();
+		int cantLibros = tamanio_archivo/sizeof(registro_libro);
+		//vLibros.resize(cantLibros);
+		archivo.seekg(0,ios::beg);
+		for (int i=0;i<cantLibros;i++){
+			registro_libro reg;
+			archivo.read((char*)&reg,sizeof(reg));		
+			Libro unLibro(reg.titulo, reg.autores, reg.editorial, reg.isbn, reg.edicion, reg.codigoLibro ,reg.tipo, reg.estado);
+			vLibros.push_back(unLibro);				
+		}		
+		archivo.close();
+	}	
 }
+
 void Biblioteca::CargarLectoresDesdeArchivo(){
-	ifstream archivo("./datos/lectores.txt");
-	string Nombre;
-	string Apellido;
-	string DNI;
-	string Domicilio;
-	string Tel;
-	string NumeroLector;	
-	string LineaVacia;
-	
-	while(getline(archivo,Nombre) && getline(archivo, Apellido) && 
-		  getline(archivo, DNI) && getline(archivo, Domicilio) && 
-		  getline(archivo, Tel) && getline(archivo, NumeroLector) && 
-		  getline(archivo, LineaVacia)){
-		Lector unLector(Nombre, Apellido, DNI, Domicilio, Tel, atoi( NumeroLector.c_str() ));
-		vLectores.push_back(unLector);	
-	}
+	ifstream archivo(directorioLectores.c_str(),ios::binary|ios::ate);
+	if (archivo.is_open()) {
+		int tamanio_archivo = archivo.tellg();
+		int cantLectores = tamanio_archivo/sizeof(registro_lector);
+		//vLibros.resize(cantLibros);
+		archivo.seekg(0,ios::beg);
+		for (int i=0;i<cantLectores;i++){
+			registro_lector reg;
+			archivo.read((char*)&reg,sizeof(reg));		
+			Lector unLector(reg.nombre, reg.apellido, reg.dni, reg.domicilio, reg.tel, reg.numeroLector );
+			vLectores.push_back(unLector);				
+		}		
+		archivo.close();
+	}	
 }
+
 void Biblioteca::CargarPrestamosDesdeArchivo(){
 	ifstream archivo("./datos/prestamos.txt");
 	string NumeroLector;
@@ -202,6 +179,7 @@ void Biblioteca::CargarPrestamosDesdeArchivo(){
 		vPrestamos.push_back(unPrestamo);	
 	}
 }
+
 void Biblioteca::CargarSancionesDesdeArchivo(){
 	ifstream archivo("./datos/sanciones.txt");
 	string NumeroLector;

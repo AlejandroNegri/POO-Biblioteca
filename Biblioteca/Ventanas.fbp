@@ -738,7 +738,7 @@
                                                     <property name="default_pane">0</property>
                                                     <property name="dock">Dock</property>
                                                     <property name="dock_fixed">0</property>
-                                                    <property name="docking">Center</property>
+                                                    <property name="docking">Left</property>
                                                     <property name="drag_col_move">0</property>
                                                     <property name="drag_col_size">1</property>
                                                     <property name="drag_grid_size">0</property>
@@ -774,7 +774,7 @@
                                                     <property name="pos"></property>
                                                     <property name="resize">Resizable</property>
                                                     <property name="row_label_horiz_alignment">wxALIGN_CENTRE</property>
-                                                    <property name="row_label_size">0</property>
+                                                    <property name="row_label_size">1</property>
                                                     <property name="row_label_values"></property>
                                                     <property name="row_label_vert_alignment">wxALIGN_CENTRE</property>
                                                     <property name="row_sizes"></property>

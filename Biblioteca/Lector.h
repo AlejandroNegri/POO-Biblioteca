@@ -3,6 +3,15 @@
 #include <string>
 using namespace std;
 
+struct registro_lector {
+	char nombre[256];
+	char apellido[256];
+	char dni[256];
+	char domicilio[256];
+	char tel[256];
+	int numeroLector;
+};
+
 class Lector {	
 	string Nombre;
 	string Apellido;
