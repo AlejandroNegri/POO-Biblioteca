@@ -5,6 +5,12 @@
 #include "Biblioteca.h"
 using namespace std;
 
+struct registro_sancion {
+	int numeroLector;
+	long fechaSancion_t;
+	char motivo[256];	
+};
+
 class Sancion{
 	int NumeroLector;
 	long FechaSancion_T;

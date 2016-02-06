@@ -5,6 +5,14 @@
 #include <sstream>
 using namespace std;
 
+struct registro_prestamo {
+	int numeroLector;
+	int codigoLibro;
+	long fechaDesde_t;
+	long fechaHasta_t;
+
+};
+
 class Prestamo {
 	int NumeroLector;
 	int CodigoLibro;	

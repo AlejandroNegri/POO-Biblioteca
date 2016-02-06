@@ -19,52 +19,37 @@ class Biblioteca{
 	vector<Sancion> vSanciones;	
 	string directorioLibros = "./datos/libros.dat";
 	string directorioLectores = "./datos/lectores.dat";
+	string directorioPrestamos = "./datos/prestamos.dat";
+	string directorioSanciones = "./datos/sanciones.dat";
 public:
-	Biblioteca();
-	
+	Biblioteca();	
 	~Biblioteca();
 	
-	void AgregarLibro(string titulo, string autores, string editorial, string isbn, string edicion, string tipo);
-	
-	void AgregarLector(string nombre, string apellido, string dni, string domicilio, string tel);
-	
+	void AgregarLibro(string titulo, string autores, string editorial, string isbn, string edicion, string tipo);	
+	void AgregarLector(string nombre, string apellido, string dni, string domicilio, string tel);	
 	bool AgregarPrestamo(int numeroLector, int codigoLibro);
-	
-	int EliminarPrestamo(int codigoLibro);
-	
 	void AgregarSancion(int codigoLector, string motivo, int cantDias);
+	int EliminarPrestamo(int codigoLibro);
 	
 	bool EstaSancionado(int numLector);
 	
 	bool Guardar() const;
 	
-	void CargarLibrosDesdeArchivo();
-	
-	void CargarLectoresDesdeArchivo();
-	
-	void CargarPrestamosDesdeArchivo();
-	
+	void CargarLibrosDesdeArchivo();	
+	void CargarLectoresDesdeArchivo();	
+	void CargarPrestamosDesdeArchivo();	
 	void CargarSancionesDesdeArchivo();
 	
 	int BuscarTitulo(string parte, int pos_desde);
 	
-	int cantLibros()const;
-	
-	int cantLectores()const;
-	
-	int cantPrestamos()const;
-	
+	int cantLibros()const;	
+	int cantLectores()const;	
+	int cantPrestamos()const;	
 	int cantSanciones()const;
 	
-	Libro VerLibro (int i) const;
-	
-	Lector VerLector (int i) const;
-	
-	Prestamo VerPrestamo (int i) const;
-	
+	Libro VerLibro (int i) const;	
+	Lector VerLector (int i) const;	
+	Prestamo VerPrestamo (int i) const;	
 	Sancion VerSancion (int i) const;
-	
-	
-
 };
 #endif
