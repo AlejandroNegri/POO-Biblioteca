@@ -26,6 +26,10 @@ VentanaPrincipal::VentanaPrincipal( wxWindow* parent, wxWindowID id, const wxStr
 	mModificarLibro = new wxMenuItem( m_menu2, wxID_ANY, wxString( wxT("MyMenuItem") ) , wxEmptyString, wxITEM_NORMAL );
 	m_menu2->Append( mModificarLibro );
 	
+	wxMenuItem* mEliminarLibro;
+	mEliminarLibro = new wxMenuItem( m_menu2, wxID_ANY, wxString( wxT("Eliminar...") ) , wxEmptyString, wxITEM_NORMAL );
+	m_menu2->Append( mEliminarLibro );
+	
 	m_menubar2->Append( m_menu2, wxT("Libro") ); 
 	
 	m_menu3 = new wxMenu();
@@ -58,29 +62,13 @@ VentanaPrincipal::VentanaPrincipal( wxWindow* parent, wxWindowID id, const wxStr
 	wxBoxSizer* bSizer2;
 	bSizer2 = new wxBoxSizer( wxVERTICAL );
 	
-	wxBoxSizer* bSizer3;
-	bSizer3 = new wxBoxSizer( wxHORIZONTAL );
-	
-	m_staticText2 = new wxStaticText( this, wxID_ANY, wxT("Busqueda por Título: "), wxDefaultPosition, wxDefaultSize, 0 );
-	m_staticText2->Wrap( -1 );
-	bSizer3->Add( m_staticText2, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
-	
-	tBusquedaTitulo = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
-	bSizer3->Add( tBusquedaTitulo, 1, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
-	
-	bBusquedaTitulo = new wxButton( this, wxID_ANY, wxT("Buscar"), wxDefaultPosition, wxDefaultSize, 0 );
-	bSizer3->Add( bBusquedaTitulo, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
-	
-	
-	bSizer2->Add( bSizer3, 0, wxEXPAND, 5 );
-	
 	wxBoxSizer* bSizer21;
 	bSizer21 = new wxBoxSizer( wxVERTICAL );
 	
 	m_notebook2 = new wxNotebook( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0 );
 	pGrillaLibros = new wxPanel( m_notebook2, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
 	wxBoxSizer* sizerLibros;
-	sizerLibros = new wxBoxSizer( wxHORIZONTAL );
+	sizerLibros = new wxBoxSizer( wxVERTICAL );
 	
 	gLibros = new wxGrid( pGrillaLibros, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0 );
 	
@@ -124,6 +112,22 @@ VentanaPrincipal::VentanaPrincipal( wxWindow* parent, wxWindowID id, const wxStr
 	// Cell Defaults
 	gLibros->SetDefaultCellAlignment( wxALIGN_LEFT, wxALIGN_TOP );
 	sizerLibros->Add( gLibros, 1, wxALL|wxEXPAND, 5 );
+	
+	wxBoxSizer* bSizer24;
+	bSizer24 = new wxBoxSizer( wxHORIZONTAL );
+	
+	m_staticText2 = new wxStaticText( pGrillaLibros, wxID_ANY, wxT("Busqueda por Título: "), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText2->Wrap( -1 );
+	bSizer24->Add( m_staticText2, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
+	
+	tBusquedaTitulo = new wxTextCtrl( pGrillaLibros, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	bSizer24->Add( tBusquedaTitulo, 1, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
+	
+	bBusquedaTitulo = new wxButton( pGrillaLibros, wxID_ANY, wxT("Buscar"), wxDefaultPosition, wxDefaultSize, 0 );
+	bSizer24->Add( bBusquedaTitulo, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
+	
+	
+	sizerLibros->Add( bSizer24, 0, wxEXPAND, 5 );
 	
 	
 	pGrillaLibros->SetSizer( sizerLibros );
@@ -293,12 +297,14 @@ VentanaPrincipal::VentanaPrincipal( wxWindow* parent, wxWindowID id, const wxStr
 	
 	// Connect Events
 	this->Connect( mAgregarLibro->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( VentanaPrincipal::ClickAgregarLibroMenu ) );
+	this->Connect( mEliminarLibro->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( VentanaPrincipal::ClickEliminarLibroMenu ) );
 	this->Connect( mAgregarLector->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( VentanaPrincipal::ClickAgregarLectorMenu ) );
 	this->Connect( mAgregarPrestamo->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( VentanaPrincipal::ClickAgregarPrestamoMenu ) );
 	this->Connect( mAgregarDevolucion->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( VentanaPrincipal::ClickAgregarDevolucionMenu ) );
 	this->Connect( mAgregarSancion->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( VentanaPrincipal::ClickAgregarSancionMenu ) );
-	bBusquedaTitulo->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( VentanaPrincipal::ClickBusquedaPorTitulo ), NULL, this );
 	pGrillaLibros->Connect( wxEVT_LEFT_DCLICK, wxMouseEventHandler( VentanaPrincipal::ClickPestaniaLibros ), NULL, this );
+	gLibros->Connect( wxEVT_GRID_CELL_LEFT_DCLICK, wxGridEventHandler( VentanaPrincipal::DClickGrillaLibro ), NULL, this );
+	bBusquedaTitulo->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( VentanaPrincipal::ClickBusquedaPorTitulo ), NULL, this );
 	pGrillaLectores->Connect( wxEVT_LEFT_DCLICK, wxMouseEventHandler( VentanaPrincipal::ClickPestaniaLectores ), NULL, this );
 	pGrillaPrestamos->Connect( wxEVT_LEFT_DCLICK, wxMouseEventHandler( VentanaPrincipal::ClickPestaniaPrestamos ), NULL, this );
 	pGrillaSanciones->Connect( wxEVT_LEFT_DCLICK, wxMouseEventHandler( VentanaPrincipal::ClickPestaniaSanciones ), NULL, this );
@@ -311,12 +317,14 @@ VentanaPrincipal::~VentanaPrincipal()
 {
 	// Disconnect Events
 	this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( VentanaPrincipal::ClickAgregarLibroMenu ) );
+	this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( VentanaPrincipal::ClickEliminarLibroMenu ) );
 	this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( VentanaPrincipal::ClickAgregarLectorMenu ) );
 	this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( VentanaPrincipal::ClickAgregarPrestamoMenu ) );
 	this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( VentanaPrincipal::ClickAgregarDevolucionMenu ) );
 	this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( VentanaPrincipal::ClickAgregarSancionMenu ) );
-	bBusquedaTitulo->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( VentanaPrincipal::ClickBusquedaPorTitulo ), NULL, this );
 	pGrillaLibros->Disconnect( wxEVT_LEFT_DCLICK, wxMouseEventHandler( VentanaPrincipal::ClickPestaniaLibros ), NULL, this );
+	gLibros->Disconnect( wxEVT_GRID_CELL_LEFT_DCLICK, wxGridEventHandler( VentanaPrincipal::DClickGrillaLibro ), NULL, this );
+	bBusquedaTitulo->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( VentanaPrincipal::ClickBusquedaPorTitulo ), NULL, this );
 	pGrillaLectores->Disconnect( wxEVT_LEFT_DCLICK, wxMouseEventHandler( VentanaPrincipal::ClickPestaniaLectores ), NULL, this );
 	pGrillaPrestamos->Disconnect( wxEVT_LEFT_DCLICK, wxMouseEventHandler( VentanaPrincipal::ClickPestaniaPrestamos ), NULL, this );
 	pGrillaSanciones->Disconnect( wxEVT_LEFT_DCLICK, wxMouseEventHandler( VentanaPrincipal::ClickPestaniaSanciones ), NULL, this );

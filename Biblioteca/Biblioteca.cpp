@@ -63,6 +63,10 @@ int Biblioteca::EliminarPrestamo(int codigoLibro){
 	return devolucionATiempo;
 }
 
+void Biblioteca::OcultarLibro(int i){
+	vLibros[i].Ocultar();
+}
+
 //*****GUARDADO DE DATOS AL ARCHIVO*****
 bool Biblioteca::Guardar() const {
 	//Guardar libros	
@@ -78,6 +82,7 @@ bool Biblioteca::Guardar() const {
 		reg_libro.codigoLibro = vLibros[i].VerCodigoLibro();
 		strcpy(reg_libro.tipo, vLibros[i].VerTipo().c_str());
 		strcpy(reg_libro.estado, vLibros[i].VerEstado().c_str());
+		reg_libro.oculto = vLibros[i].EstaOculto();
 		archivoLibros.write((char*)&reg_libro, sizeof(reg_libro));		
 	}
 	archivoLibros.close();
@@ -121,6 +126,8 @@ bool Biblioteca::Guardar() const {
 		archivoSanciones.write((char*)&reg_sancion, sizeof(reg_sancion));	
 	}
 	archivoSanciones.close();
+	
+	return true;
 }
 		
 
@@ -135,7 +142,7 @@ void Biblioteca::CargarLibrosDesdeArchivo(){
 		for (int i=0;i<cantLibros;i++){
 			registro_libro reg;
 			archivo.read((char*)&reg,sizeof(reg));		
-			Libro unLibro(reg.titulo, reg.autores, reg.editorial, reg.isbn, reg.edicion, reg.codigoLibro ,reg.tipo, reg.estado);
+			Libro unLibro(reg.titulo, reg.autores, reg.editorial, reg.isbn, reg.edicion, reg.codigoLibro ,reg.tipo, reg.estado, reg.oculto);
 			vLibros.push_back(unLibro);				
 		}		
 		archivo.close();
@@ -216,6 +223,11 @@ int Biblioteca::cantLectores()const{ return vLectores.size();}
 int Biblioteca::cantPrestamos()const{ return vPrestamos.size();}
 
 int Biblioteca:: cantSanciones()const{ return vSanciones.size();}
+
+int Biblioteca::cantLibrosActivos()const{
+	int cant = count_if (vLibros.begin(), vLibros.end(),NoEstaOculto_Funcion);	
+	return cant;
+}
 
 Libro Biblioteca::VerLibro (int i) const { return vLibros[i]; }	
 

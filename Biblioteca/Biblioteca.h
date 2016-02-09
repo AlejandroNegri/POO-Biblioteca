@@ -30,6 +30,7 @@ public:
 	bool AgregarPrestamo(int numeroLector, int codigoLibro);
 	void AgregarSancion(int codigoLector, string motivo, int cantDias);
 	int EliminarPrestamo(int codigoLibro);
+	void OcultarLibro(int i);	
 	
 	bool EstaSancionado(int numLector);
 	
@@ -43,6 +44,7 @@ public:
 	int BuscarTitulo(string parte, int pos_desde);
 	
 	int cantLibros()const;	
+	int cantLibrosActivos()const;
 	int cantLectores()const;	
 	int cantPrestamos()const;	
 	int cantSanciones()const;

@@ -19,11 +19,11 @@
 #include <wx/font.h>
 #include <wx/colour.h>
 #include <wx/settings.h>
+#include <wx/grid.h>
 #include <wx/stattext.h>
 #include <wx/textctrl.h>
 #include <wx/button.h>
 #include <wx/sizer.h>
-#include <wx/grid.h>
 #include <wx/panel.h>
 #include <wx/notebook.h>
 #include <wx/frame.h>
@@ -46,12 +46,12 @@ class VentanaPrincipal : public wxFrame
 		wxMenu* m_menu3;
 		wxMenu* m_menu4;
 		wxMenu* m_menu7;
-		wxStaticText* m_staticText2;
-		wxTextCtrl* tBusquedaTitulo;
-		wxButton* bBusquedaTitulo;
 		wxNotebook* m_notebook2;
 		wxPanel* pGrillaLibros;
 		wxGrid* gLibros;
+		wxStaticText* m_staticText2;
+		wxTextCtrl* tBusquedaTitulo;
+		wxButton* bBusquedaTitulo;
 		wxPanel* pGrillaLectores;
 		wxGrid* gLectores;
 		wxPanel* pGrillaPrestamos;
@@ -64,12 +64,14 @@ class VentanaPrincipal : public wxFrame
 		
 		// Virtual event handlers, overide them in your derived class
 		virtual void ClickAgregarLibroMenu( wxCommandEvent& event ) { event.Skip(); }
+		virtual void ClickEliminarLibroMenu( wxCommandEvent& event ) { event.Skip(); }
 		virtual void ClickAgregarLectorMenu( wxCommandEvent& event ) { event.Skip(); }
 		virtual void ClickAgregarPrestamoMenu( wxCommandEvent& event ) { event.Skip(); }
 		virtual void ClickAgregarDevolucionMenu( wxCommandEvent& event ) { event.Skip(); }
 		virtual void ClickAgregarSancionMenu( wxCommandEvent& event ) { event.Skip(); }
-		virtual void ClickBusquedaPorTitulo( wxCommandEvent& event ) { event.Skip(); }
 		virtual void ClickPestaniaLibros( wxMouseEvent& event ) { event.Skip(); }
+		virtual void DClickGrillaLibro( wxGridEvent& event ) { event.Skip(); }
+		virtual void ClickBusquedaPorTitulo( wxCommandEvent& event ) { event.Skip(); }
 		virtual void ClickPestaniaLectores( wxMouseEvent& event ) { event.Skip(); }
 		virtual void ClickPestaniaPrestamos( wxMouseEvent& event ) { event.Skip(); }
 		virtual void ClickPestaniaSanciones( wxMouseEvent& event ) { event.Skip(); }

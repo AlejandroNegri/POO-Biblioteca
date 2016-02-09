@@ -10,6 +10,7 @@
 #include <wx/msgdlg.h>
 #include <wx/string.h>
 #include "Utils.h"
+#include <cstdlib>
 
 
 //constructor
@@ -26,10 +27,16 @@ Vprincipal::~Vprincipal(){}
 
 void Vprincipal::DibujarPestaniaLibros(){
 	gLibros->DeleteRows(0,gLibros->GetNumberRows(), true);
+	int cant_libros_activos = Singleton::ObtenerInstancia()->cantLibrosActivos();	
 	int cant_libros = Singleton::ObtenerInstancia()->cantLibros();	
-	gLibros->AppendRows(cant_libros); // agregar tantas filas como libros	
-	for (int i=0;i<cant_libros;i++) {
-		CargarFilaLibros(i);// cargar todos los datos
+	gLibros->AppendRows(cant_libros_activos); // agregar tantas filas como libros activos
+	int fila_a_llenar = 0;
+	for (int i=0;i<cant_libros;i++) {		
+		if (!( Singleton::ObtenerInstancia()->VerLibro(i).EstaOculto())){
+			int cod = Singleton::ObtenerInstancia()->VerLibro(i).VerCodigoLibro();
+			CargarFilaLibros(fila_a_llenar, cod);// cargar todos los datos
+			fila_a_llenar++;
+		}		
 	}
 	gLibros->SetSelectionMode(wxGrid::wxGridSelectRows);
 	Show();
@@ -81,18 +88,18 @@ void Vprincipal::RefrescarGrillas(){
 //********CARGA DE DATOS EN LAS GRILLAS********
 
 //				LIBROS
-void Vprincipal::CargarFilaLibros(int i) {
-	Libro l= Singleton::ObtenerInstancia()->VerLibro(i);
-	gLibros->SetCellValue(i,0,l.VerTitulo());
-	gLibros->SetCellValue(i,1,l.VerAutores());
-	gLibros->SetCellValue(i,2,l.VerEditorial());
-	gLibros->SetCellValue(i,3,l.VerISBN());
-	gLibros->SetCellValue(i,4,l.VerEdicion());	
+void Vprincipal::CargarFilaLibros(int fila_a_llenar, int codL) {
+	Libro l= Singleton::ObtenerInstancia()->VerLibro(codL);
+	gLibros->SetCellValue(fila_a_llenar,0,l.VerTitulo());
+	gLibros->SetCellValue(fila_a_llenar,1,l.VerAutores());
+	gLibros->SetCellValue(fila_a_llenar,2,l.VerEditorial());
+	gLibros->SetCellValue(fila_a_llenar,3,l.VerISBN());
+	gLibros->SetCellValue(fila_a_llenar,4,l.VerEdicion());	
 	wxString cod;
 	cod << l.VerCodigoLibro();	
-	gLibros->SetCellValue(i,5,cod);
-	gLibros->SetCellValue(i,6,l.VerTipo());
-	gLibros->SetCellValue(i,7,l.VerEstado());
+	gLibros->SetCellValue(fila_a_llenar,5,cod);
+	gLibros->SetCellValue(fila_a_llenar,6,l.VerTipo());
+	gLibros->SetCellValue(fila_a_llenar,7,l.VerEstado());
 }
 //				LECTORES
 void Vprincipal::CargarFilaLectores(int i) {
@@ -135,8 +142,7 @@ void Vprincipal::CargarFilaSanciones(int i) {
 void Vprincipal::ClickAgregarLibroMenu( wxCommandEvent& event ) {
 	VagregarLibro nueva_ventana(this); // crear la ventana
 	if (nueva_ventana.ShowModal()==1) { // mostrar y esperar
-		gLibros->AppendRows(1); // agregar el lugar en la grilla
-		CargarFilaLibros(Singleton::ObtenerInstancia()->cantLibros()-1); // copiar en la grilla
+		RefrescarGrillas();
 		Show();
 	}
 }
@@ -145,9 +151,7 @@ void Vprincipal::ClickAgregarLibroMenu( wxCommandEvent& event ) {
 void Vprincipal::ClickAgregarLectorMenu( wxCommandEvent& event )  {
 	VagregarLector nueva_ventana(this); // crear la ventana
 	if (nueva_ventana.ShowModal()==1) { // mostrar y esperar
-		gLectores->AppendRows(1); // agregar el lugar en la grilla
-		CargarFilaLectores(Singleton::ObtenerInstancia()->cantLectores()-1); // copiar en la grilla
-		Show();
+		RefrescarGrillas(); 
 	}
 }
 
@@ -274,7 +278,6 @@ void Vprincipal::ClickAgregarSancionMenu( wxCommandEvent& event )  {
 //           EVENTOS DE PESTAÑAS
 void Vprincipal::ClickPestaniaLibros( wxMouseEvent& event )  {
 	Vprincipal::DibujarPestaniaLibros();
-	event.Skip();
 }
 
 void Vprincipal::ClickPestaniaLectores( wxMouseEvent& event )  {
@@ -306,8 +309,41 @@ void Vprincipal::ClickBusquedaPorTitulo( wxCommandEvent& event )  {
 		gLibros->SetGridCursor(res,0); // seleccionar celda
 		gLibros->SelectRow(res); // marcar toda la fila
 		//gLibros->MakeCellVisible(res,0); // asegurarse de que se ve
+	}	
+}
+
+void Vprincipal::ClickEliminarLibroMenu( wxCommandEvent& event )  {
+	wxString codLibro = wxGetTextFromUser("Ingrese el código del libro","Eliminar Libro","",this);
+	if (atoi(codLibro)>= (Singleton::ObtenerInstancia()->cantLibros())){
+		wxMessageBox("Código de libro incorrecto!","Error",wxOK|wxICON_ERROR,this);
+		return;
 	}
-	
-		
+	if (codLibro==""){
+		wxMessageBox("Código de libro incorrecto!","Error",wxOK|wxICON_ERROR,this);
+		return;
+	}else if(!Singleton::ObtenerInstancia()->VerLibro(atoi(codLibro.c_str())).EstaDisponible()){
+		wxMessageBox("Ese libro esta prestado o eliminado!","Error",wxOK|wxICON_ERROR,this);
+		return;
+	}		
+	wxMessageDialog dial(NULL, wxT("¿Eliminar el libro " + Singleton::ObtenerInstancia()->VerLibro(atoi(codLibro.c_str())).VerTitulo()  
+								   + " (" + Singleton::ObtenerInstancia()->VerLibro(atoi(codLibro.c_str())).EstaDisponible() 
+								   + ") ? "),wxT("Question"), wxYES_NO | wxNO_DEFAULT | wxICON_QUESTION);
+	if (dial.ShowModal() ==  wxID_YES){	
+		int num = atoi(codLibro);
+		Singleton::ObtenerInstancia()->OcultarLibro(num);		
+		Singleton::ObtenerInstancia()->Guardar(); // actualizar el archivo	
+		wxMessageBox("¡El libro ha sido eliminado!");
+		RefrescarGrillas();
+	}else{
+		wxMessageBox("¡El libro no ha sido eliminado!");
+		return;
+	}	
+	return;
+}
+
+
+//doble click en libro
+void Vprincipal::DClickGrillaLibro( wxGridEvent& event )  {
+	event.Skip();
 }
 

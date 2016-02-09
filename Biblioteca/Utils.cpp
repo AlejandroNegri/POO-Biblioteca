@@ -50,3 +50,7 @@ long CalcularFecha(int cantDias){
 	}	
 	return fecha_t;
 }
+
+bool NoEstaOculto_Funcion(Libro l) { 
+	return !(l.EstaOculto()); 
+}
