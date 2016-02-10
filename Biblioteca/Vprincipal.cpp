@@ -22,24 +22,21 @@ Vprincipal::Vprincipal(wxWindow *parent) : VentanaPrincipal(parent) {
 Vprincipal::~Vprincipal(){}
 
 
-
 //********DIBUJAR GRILLAS POR PESTAÑA********
-
 void Vprincipal::DibujarPestaniaLibros(){
-	gLibros->DeleteRows(0,gLibros->GetNumberRows(), true);
-	int cant_libros_activos = Singleton::ObtenerInstancia()->cantLibrosActivos();	
+	gLibros->SetRowMinimalAcceptableHeight(0);
+	gLibros->DeleteRows(0,gLibros->GetNumberRows(), true);	
 	int cant_libros = Singleton::ObtenerInstancia()->cantLibros();	
-	gLibros->AppendRows(cant_libros_activos); // agregar tantas filas como libros activos
-	int fila_a_llenar = 0;
+	gLibros->AppendRows(cant_libros); // agregar tantas filas como libros activos
 	for (int i=0;i<cant_libros;i++) {		
-		if (!( Singleton::ObtenerInstancia()->VerLibro(i).EstaOculto())){
-			int cod = Singleton::ObtenerInstancia()->VerLibro(i).VerCodigoLibro();
-			CargarFilaLibros(fila_a_llenar, cod);// cargar todos los datos
-			fila_a_llenar++;
+		int cod = Singleton::ObtenerInstancia()->VerLibro(i).VerCodigoLibro();
+		CargarFilaLibros(i, cod);// cargar todos los datos
+		if (Singleton::ObtenerInstancia()->VerLibro(i).EstaOculto()){
+			gLibros->SetRowSize(i,0);			
 		}		
 	}
 	gLibros->SetSelectionMode(wxGrid::wxGridSelectRows);
-	Show();
+	Show();	
 }
 
 void Vprincipal::DibujarPestaniaLectores(){
@@ -64,7 +61,6 @@ void Vprincipal::DibujarPestaniaPrestamos(){
 	Show();
 }
 
-
 void Vprincipal::DibujarPestaniaSanciones(){
 	gSanciones->DeleteRows(0,gSanciones->GetNumberRows(), true);
 	int cant_sanciones = Singleton::ObtenerInstancia()->cantSanciones();
@@ -82,8 +78,6 @@ void Vprincipal::RefrescarGrillas(){
 	Vprincipal::DibujarPestaniaPrestamos();
 	Vprincipal::DibujarPestaniaSanciones();
 }
-
-
 
 //********CARGA DE DATOS EN LAS GRILLAS********
 
@@ -119,8 +113,8 @@ void Vprincipal::CargarFilaPrestamos(int i) {
 	Lector le = Singleton::ObtenerInstancia()->VerLector(p.VerNumeroLectorPrestamo());
 	Libro li= Singleton::ObtenerInstancia()->VerLibro(p.VerCodigoLibroPrestamo());	
 	
-	gPrestamos->SetCellValue(i,0,le.VerApellido() + ", " + le.VerNombre());
-	gPrestamos->SetCellValue(i,1,li.VerTitulo());
+	gPrestamos->SetCellValue(i,0,li.VerTitulo());
+	gPrestamos->SetCellValue(i,1,le.VerApellido() + ", " + le.VerNombre());
 	gPrestamos->SetCellValue(i,2,p.VerFechaDesde());
 	gPrestamos->SetCellValue(i,3,p.VerFechaHasta());
 }
