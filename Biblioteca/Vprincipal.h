@@ -8,6 +8,7 @@ using namespace std;
 class Vprincipal : public VentanaPrincipal {
 
 protected:
+	void ClickEliminarLectorMenu( wxCommandEvent& event ) ;
 	void ClickEliminarLibroMenu( wxCommandEvent& event ) ;
 	void DClickGrillaLibro( wxGridEvent& event ) ;
 	void ClickBusquedaPorTitulo( wxCommandEvent& event ) ;
@@ -26,7 +27,7 @@ public:
 	void ClickPestaniaPrestamos( wxMouseEvent& event ) ;
 	void ClickPestaniaSanciones( wxMouseEvent& event ) ;
 	
-	void CargarFilaLibros(int i, int codL);	
+	void CargarFilaLibros(int i);	
 	void CargarFilaLectores(int i);
 	void CargarFilaPrestamos(int i);	
 	void CargarFilaSanciones(int i);	

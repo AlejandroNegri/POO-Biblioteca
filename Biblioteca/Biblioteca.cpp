@@ -24,6 +24,7 @@ Biblioteca::Biblioteca(){
 
 Biblioteca::~Biblioteca(){ Guardar();}	
 
+// ALTAS
 void Biblioteca::AgregarLibro(string titulo, string autores, string editorial, string isbn, string edicion, string tipo){
 	Libro unLibro(titulo, autores, editorial, isbn, edicion, cantLibros(),tipo, "Disponible");
 	vLibros.push_back(unLibro);				
@@ -34,22 +35,26 @@ void Biblioteca::AgregarLector(string nombre, string apellido, string dni, strin
 	vLectores.push_back(unLector);		
 };	
 
-bool Biblioteca::AgregarPrestamo(int numeroLector, int codigoLibro){
-	if (VerLibro(codigoLibro).EstaDisponible()){
-		Prestamo unPrestamo(numeroLector, codigoLibro);	
-		vPrestamos.push_back(unPrestamo);		
-		//poner prestado el libro
-		vLibros[codigoLibro].EstadoPrestado();	
-		return true;
-	}
-	return false;
+void Biblioteca::AgregarPrestamo(int numeroLector, int codigoLibro){
+	Prestamo unPrestamo(numeroLector, codigoLibro);	
+	vPrestamos.push_back(unPrestamo);		
+	vLibros[codigoLibro].EstadoPrestado();	
+
 }
 
-void Biblioteca::AgregarSancion(int codigoLector, string motivo, int cantDias){
-	Sancion unaSancion(codigoLector, motivo, cantDias);
+void Biblioteca::AgregarSancion(int numeroLector, string motivo, int cantDias){
+	Sancion unaSancion(numeroLector, CalcularFecha(cantDias), motivo);
 	vSanciones.push_back(unaSancion);
 }
 
+// BAJAS
+void Biblioteca::OcultarLibro(int i){
+	vLibros[i].Ocultar();
+}
+
+void Biblioteca::OcultarLector(int i){
+	vLectores[i].Ocultar();
+}
 int Biblioteca::EliminarPrestamo(int codigoLibro){	
 	int devolucionATiempo;	//si es mayor a 0, muestra los dias que se sobrepaso
 	vLibros[codigoLibro].EstadoDisponible(); //pongo el libro "disponible"		
@@ -63,9 +68,7 @@ int Biblioteca::EliminarPrestamo(int codigoLibro){
 	return devolucionATiempo;
 }
 
-void Biblioteca::OcultarLibro(int i){
-	vLibros[i].Ocultar();
-}
+
 
 //*****GUARDADO DE DATOS AL ARCHIVO*****
 bool Biblioteca::Guardar() const {
@@ -98,6 +101,7 @@ bool Biblioteca::Guardar() const {
 		strcpy(reg_lector.domicilio, vLectores[i].VerDomicilio().c_str());
 		strcpy(reg_lector.tel, vLectores[i].VerTel().c_str());
 		reg_lector.numeroLector = vLectores[i].VerNumeroLector();
+		reg_lector.oculto = vLectores[i].EstaOculto();
 		archivoLectores.write((char*)&reg_lector, sizeof(reg_lector));	
 	}
 	archivoLectores.close();
@@ -159,7 +163,7 @@ void Biblioteca::CargarLectoresDesdeArchivo(){
 		for (int i=0;i<cantLectores;i++){
 			registro_lector reg;
 			archivo.read((char*)&reg,sizeof(reg));		
-			Lector unLector(reg.nombre, reg.apellido, reg.dni, reg.domicilio, reg.tel, reg.numeroLector );
+			Lector unLector(reg.nombre, reg.apellido, reg.dni, reg.domicilio, reg.tel, reg.numeroLector, reg.oculto);
 			vLectores.push_back(unLector);				
 		}		
 		archivo.close();
@@ -184,17 +188,34 @@ void Biblioteca::CargarPrestamosDesdeArchivo(){
 }
 
 void Biblioteca::CargarSancionesDesdeArchivo(){
-	ifstream archivo("./datos/sanciones.txt");
-	string NumeroLector;
-	string FechaSancion_T;
-	string Motivo;
-	string LineaVacia;
-	
-	while(getline(archivo,NumeroLector) && getline(archivo, FechaSancion_T) && 
-		  getline(archivo, Motivo) && getline(archivo, LineaVacia)){
-		Sancion unaSancion(atoi(NumeroLector.c_str()), String_a_TimeT(FechaSancion_T), Motivo);
-		vSanciones.push_back(unaSancion);	
+	ifstream archivo(directorioSanciones.c_str(),ios::binary|ios::ate);
+	if (archivo.is_open()) {
+		int tamanio_archivo = archivo.tellg();
+		int cantSanciones = tamanio_archivo/sizeof(registro_sancion);
+		//vLibros.resize(cantLibros);
+		archivo.seekg(0,ios::beg);
+		for (int i=0;i<cantSanciones;i++){
+			registro_sancion reg;
+			archivo.read((char*)&reg,sizeof(reg));		
+			Sancion unaSancion(reg.numeroLector, reg.fechaSancion_t, reg.motivo);
+			vSanciones.push_back(unaSancion);				
+		}		
+		archivo.close();
 	}
+	
+	
+	
+	
+//	string NumeroLector;
+//	string FechaSancion_T;
+//	string Motivo;
+//	string LineaVacia;
+//	
+//	while(getline(archivo,NumeroLector) && getline(archivo, FechaSancion_T) && 
+//		  getline(archivo, Motivo) && getline(archivo, LineaVacia)){
+//		Sancion unaSancion(atoi(NumeroLector.c_str()), String_a_TimeT(FechaSancion_T), Motivo);
+//		vSanciones.push_back(unaSancion);	
+//	}
 }
 
 bool Biblioteca::EstaSancionado(int numLector){

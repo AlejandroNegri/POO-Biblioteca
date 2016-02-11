@@ -10,6 +10,7 @@ struct registro_lector {
 	char domicilio[256];
 	char tel[256];
 	int numeroLector;
+	bool oculto;
 };
 
 class Lector {	
@@ -19,13 +20,17 @@ class Lector {
 	string Domicilio;
 	string Tel;
 	int NumeroLector;
+	bool Oculto;
 public: 
 	Lector(string p_nombre, string p_apellido, string p_dni, string p_domicilio, string p_tel, int p_numeroLector);
-		string VerNombre()const;	
-		string VerApellido()const;	
-		string VerDNI() const;	
-		string VerDomicilio() const;	
-		string VerTel() const;	
-		int VerNumeroLector() const; 
+	Lector(string p_nombre, string p_apellido, string p_dni, string p_domicilio, string p_tel, int p_numeroLector, bool p_oculto);
+	string VerNombre()const;	
+	string VerApellido()const;	
+	string VerDNI() const;	
+	string VerDomicilio() const;	
+	string VerTel() const;	
+	int VerNumeroLector() const; 
+	bool EstaOculto() const;
+	void Ocultar();
 };
 #endif

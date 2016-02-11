@@ -66,6 +66,7 @@ class VentanaPrincipal : public wxFrame
 		virtual void ClickAgregarLibroMenu( wxCommandEvent& event ) { event.Skip(); }
 		virtual void ClickEliminarLibroMenu( wxCommandEvent& event ) { event.Skip(); }
 		virtual void ClickAgregarLectorMenu( wxCommandEvent& event ) { event.Skip(); }
+		virtual void ClickEliminarLectorMenu( wxCommandEvent& event ) { event.Skip(); }
 		virtual void ClickAgregarPrestamoMenu( wxCommandEvent& event ) { event.Skip(); }
 		virtual void ClickAgregarDevolucionMenu( wxCommandEvent& event ) { event.Skip(); }
 		virtual void ClickAgregarSancionMenu( wxCommandEvent& event ) { event.Skip(); }

@@ -29,8 +29,7 @@ void Vprincipal::DibujarPestaniaLibros(){
 	int cant_libros = Singleton::ObtenerInstancia()->cantLibros();	
 	gLibros->AppendRows(cant_libros); // agregar tantas filas como libros activos
 	for (int i=0;i<cant_libros;i++) {		
-		int cod = Singleton::ObtenerInstancia()->VerLibro(i).VerCodigoLibro();
-		CargarFilaLibros(i, cod);// cargar todos los datos
+		CargarFilaLibros(i);// cargar todos los datos
 		if (Singleton::ObtenerInstancia()->VerLibro(i).EstaOculto()){
 			gLibros->SetRowSize(i,0);			
 		}		
@@ -40,11 +39,15 @@ void Vprincipal::DibujarPestaniaLibros(){
 }
 
 void Vprincipal::DibujarPestaniaLectores(){
+	gLectores->SetRowMinimalAcceptableHeight(0);
 	gLectores->DeleteRows(0,gLectores->GetNumberRows(), true);
 	int cant_lectores = Singleton::ObtenerInstancia()->cantLectores();
 	gLectores->AppendRows(cant_lectores);	
 	for (int i=0;i<cant_lectores;i++) {
 		CargarFilaLectores(i);// cargar todos los datos
+		if (Singleton::ObtenerInstancia()->VerLector(i).EstaOculto()){
+			gLectores->SetRowSize(i,0);			
+		}		
 	}
 	gLectores->SetSelectionMode(wxGrid::wxGridSelectRows);
 	Show();
@@ -81,19 +84,18 @@ void Vprincipal::RefrescarGrillas(){
 
 //********CARGA DE DATOS EN LAS GRILLAS********
 
-//				LIBROS
-void Vprincipal::CargarFilaLibros(int fila_a_llenar, int codL) {
-	Libro l= Singleton::ObtenerInstancia()->VerLibro(codL);
-	gLibros->SetCellValue(fila_a_llenar,0,l.VerTitulo());
-	gLibros->SetCellValue(fila_a_llenar,1,l.VerAutores());
-	gLibros->SetCellValue(fila_a_llenar,2,l.VerEditorial());
-	gLibros->SetCellValue(fila_a_llenar,3,l.VerISBN());
-	gLibros->SetCellValue(fila_a_llenar,4,l.VerEdicion());	
+void Vprincipal::CargarFilaLibros(int i) {
+	Libro l= Singleton::ObtenerInstancia()->VerLibro(i);
+	gLibros->SetCellValue(i,0,l.VerTitulo());
+	gLibros->SetCellValue(i,1,l.VerAutores());
+	gLibros->SetCellValue(i,2,l.VerEditorial());
+	gLibros->SetCellValue(i,3,l.VerISBN());
+	gLibros->SetCellValue(i,4,l.VerEdicion());	
 	wxString cod;
 	cod << l.VerCodigoLibro();	
-	gLibros->SetCellValue(fila_a_llenar,5,cod);
-	gLibros->SetCellValue(fila_a_llenar,6,l.VerTipo());
-	gLibros->SetCellValue(fila_a_llenar,7,l.VerEstado());
+	gLibros->SetCellValue(i,5,cod);
+	gLibros->SetCellValue(i,6,l.VerTipo());
+	gLibros->SetCellValue(i,7,l.VerEstado());
 }
 //				LECTORES
 void Vprincipal::CargarFilaLectores(int i) {
@@ -163,7 +165,11 @@ void Vprincipal::ClickAgregarPrestamoMenu( wxCommandEvent& event )  {
 	}else if(Singleton::ObtenerInstancia()->EstaSancionado(atoi(numLector))){
 		wxMessageBox("Ese lector esta sancionado!","Error",wxOK|wxICON_ERROR,this);
 		return;
-	}	
+	}else if(unLector.EstaOculto()){
+		wxMessageBox("Ese lector fué eliminado!","Error",wxOK|wxICON_ERROR,this);
+		return;
+	}
+
 	wxString codLibro = wxGetTextFromUser("Ingrese el código del libro","Nuevo Préstamo","",this);
 	if (atoi(codLibro)>= (Singleton::ObtenerInstancia()->cantLibros())){
 		wxMessageBox("Código de libro incorrecto!","Error",wxOK|wxICON_ERROR,this);
@@ -236,10 +242,18 @@ void Vprincipal::ClickAgregarSancionMenu( wxCommandEvent& event )  {
 	if (numLector==""){
 		wxMessageBox("Número de lector incorrecto!","Error",wxOK|wxICON_ERROR,this);
 		return;
+	}else if(unLector.EstaOculto()){
+		wxMessageBox("Ese lector fué eliminado!","Error",wxOK|wxICON_ERROR,this);
+		return;
+	}
+
+		
+		
+		
 //	}else if(Singleton::ObtenerInstancia()->EstaSancionado(atoi(numLector))){
 //		wxMessageBox("Ese lector esta sancionado!","Error",wxOK|wxICON_ERROR,this);
 //		return;
-	}	
+//	}	
 	
 	wxString cantDias_s = wxGetTextFromUser("Cantidad de días a sancionar:","Nueva Sanción","",this);
 	if (cantDias_s==""){
@@ -319,8 +333,7 @@ void Vprincipal::ClickEliminarLibroMenu( wxCommandEvent& event )  {
 		wxMessageBox("Ese libro esta prestado o eliminado!","Error",wxOK|wxICON_ERROR,this);
 		return;
 	}		
-	wxMessageDialog dial(NULL, wxT("¿Eliminar el libro " + Singleton::ObtenerInstancia()->VerLibro(atoi(codLibro.c_str())).VerTitulo()  
-								   + " (" + Singleton::ObtenerInstancia()->VerLibro(atoi(codLibro.c_str())).EstaDisponible() 
+	wxMessageDialog dial(NULL, wxT("¿Eliminar el libro " + Singleton::ObtenerInstancia()->VerLibro(atoi(codLibro.c_str())).VerTitulo() 
 								   + ") ? "),wxT("Question"), wxYES_NO | wxNO_DEFAULT | wxICON_QUESTION);
 	if (dial.ShowModal() ==  wxID_YES){	
 		int num = atoi(codLibro);
@@ -335,9 +348,40 @@ void Vprincipal::ClickEliminarLibroMenu( wxCommandEvent& event )  {
 	return;
 }
 
+void Vprincipal::ClickEliminarLectorMenu( wxCommandEvent& event )  {
+	wxString numLector = wxGetTextFromUser("Ingrese el número de lector","Eliminar Lector","",this);
+	if (atoi(numLector)>= (Singleton::ObtenerInstancia()->cantLectores())){
+		wxMessageBox("Número de lector incorrecto!","Error",wxOK|wxICON_ERROR,this);
+		return;
+	}
+	if (numLector==""){
+		wxMessageBox("Número de lector incorrecto!","Error",wxOK|wxICON_ERROR,this);
+		return;
+	}else if(Singleton::ObtenerInstancia()->VerLector(atoi(numLector.c_str())).EstaOculto()){
+		wxMessageBox("Ese lector ya fué eliminado!","Error",wxOK|wxICON_ERROR,this);
+		return;
+	}		
+	wxMessageDialog dial(NULL, wxT("¿Eliminar el lector " + Singleton::ObtenerInstancia()->VerLector(atoi(numLector.c_str())).VerApellido() 
+								   + ", " + Singleton::ObtenerInstancia()->VerLector(atoi(numLector.c_str())).VerNombre()			   
+								   +"? "),wxT("Question"), wxYES_NO | wxNO_DEFAULT | wxICON_QUESTION);
+	if (dial.ShowModal() ==  wxID_YES){	
+		int num = atoi(numLector);
+		Singleton::ObtenerInstancia()->OcultarLector(num);		
+		Singleton::ObtenerInstancia()->Guardar(); // actualizar el archivo	
+		wxMessageBox("¡El lector ha sido eliminado!");
+		RefrescarGrillas();
+	}else{
+		wxMessageBox("¡El lector no ha sido eliminado!");
+		return;
+	}	
+	return;
+}
+
 
 //doble click en libro
 void Vprincipal::DClickGrillaLibro( wxGridEvent& event )  {
 	event.Skip();
 }
+
+
 

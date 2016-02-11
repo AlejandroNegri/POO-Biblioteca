@@ -24,9 +24,5 @@ bool Libro::EstaDisponible() const{
 		return true;
 	}
 	return false;
-
 }
-bool Libro::EstaOculto() const {
-	return Oculto;
-	
-}
+bool Libro::EstaOculto() const { return Oculto; }

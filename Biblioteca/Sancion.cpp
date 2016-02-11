@@ -3,14 +3,6 @@
 #include "Sancion.h"
 #include "Singleton.h"
 #include "Utils.h"
-
-
-
-Sancion::Sancion(int p_numeroLector, string p_motivo, int p_cant_dias){
-	NumeroLector = p_numeroLector;
-	FechaSancion_T = CalcularFecha(p_cant_dias);
-	Motivo = p_motivo;
-}
 	
 Sancion::Sancion(int p_numeroLector, long p_fechaSancion_T, string p_motivo)
 : NumeroLector(p_numeroLector), FechaSancion_T(p_fechaSancion_T), Motivo(p_motivo){}
