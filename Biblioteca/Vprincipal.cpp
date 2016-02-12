@@ -13,6 +13,7 @@
 #include <cstdlib>
 #include <wx/grid.h>
 #include "vAgregarPrestamo.h"
+#include "vModificarLibro.h"
 
 
 //constructor
@@ -22,7 +23,6 @@ Vprincipal::Vprincipal(wxWindow *parent) : VentanaPrincipal(parent) {
 
 //destructor
 Vprincipal::~Vprincipal(){}
-
 
 //********DIBUJAR GRILLAS POR PESTAÑA********
 void Vprincipal::DibujarPestaniaLibros(){
@@ -123,7 +123,7 @@ void Vprincipal::CargarFilaSanciones(int i) {
 	Sancion s = Singleton::ObtenerInstancia()->VerSancion(i);
 	Lector le = Singleton::ObtenerInstancia()->VerLector(s.VerNumeroLector());
 	
-	gSanciones->SetCellValue(i,0,le.VerApellido() + ", " + le.VerNombre());
+	gSanciones->SetCellValue(i,0,le.VerApellidoYNombre());
 	gSanciones->SetCellValue(i,1,s.VerFechaSancion());
 	gSanciones->SetCellValue(i,2,s.VerMotivo());
 }
@@ -132,11 +132,19 @@ void Vprincipal::CargarFilaSanciones(int i) {
 
 //MENU LIBRO: AGREGAR
 void Vprincipal::ClickAgregarLibroMenu( wxCommandEvent& event ) {
-	VagregarLibro nueva_ventana(this); // crear la ventana
-	if (nueva_ventana.ShowModal()==1) { // mostrar y esperar
+	VagregarLibro nueva_ventana(this);
+	if (nueva_ventana.ShowModal()==1) {
 		RefrescarGrillas();
 	}
 }
+//MENU LIBRO: MODIFICAR
+void Vprincipal::ClickModificarLibroMenu() {	
+	vModificarLibro nueva_ventana(this);	
+	if (nueva_ventana.ShowModal()==1) {
+		RefrescarGrillas();
+	}
+}
+
 //MENU LECTOR: AGREGAR
 void Vprincipal::ClickAgregarLectorMenu( wxCommandEvent& event )  {
 	VagregarLector nueva_ventana(this); // crear la ventana
@@ -144,6 +152,15 @@ void Vprincipal::ClickAgregarLectorMenu( wxCommandEvent& event )  {
 		RefrescarGrillas(); 
 	}
 }
+
+//PRESTAMO: AGREGAR:
+void Vprincipal::ClickAgregarPrestamoMenu(){
+	vAgregarPrestamo ventana_prestamo(this);			
+	if (ventana_prestamo.ShowModal()==1) { // mostrar y esperar
+		RefrescarGrillas();
+	}	
+}
+
 //MENU PRESTAMO: DEVOLVER
 void Vprincipal::ClickAgregarDevolucionMenu( wxCommandEvent& event )  {
 	wxString codLibro = wxGetTextFromUser("Ingrese el código del libro","Nuevo Préstamo","",this);
@@ -243,6 +260,7 @@ void Vprincipal::ClickBusquedaPorTitulo( wxCommandEvent& event )  {
 	}	
 }
 
+//		ELIMINAR
 void Vprincipal::ClickEliminarLibroMenu( wxCommandEvent& event )  {
 	wxString codLibro = wxGetTextFromUser("Ingrese el código del libro","Eliminar Libro","",this);
 	if (atoi(codLibro)>= (Singleton::ObtenerInstancia()->cantLibros())){
@@ -300,36 +318,50 @@ void Vprincipal::ClickEliminarLectorMenu( wxCommandEvent& event )  {
 	return;
 }
 
-//CLICK DERECHO MENU
+
+
+//			CLICK DERECHO 
+//MENU
 void Vprincipal::ClickDerechoGrillaLibro( wxGridEvent& event )  {
 	gLibros->SetGridCursor(event.GetRow(),0); // seleccionar celda
 	gLibros->SelectRow(event.GetRow()); // marcar toda la fila
 	
-	vAgregarPrestamo::ResetearIndicesDePrestamo();
+	ResetearIndices();
 	vAgregarPrestamo::codLibro = event.GetRow();
+	vModificarLibro::codLibro=event.GetRow();
 	
-	wxMenu menu(wxT(""));
 	
+	wxMenu menu(wxT(""));	
 	menu.Append(0, wxT("Prestar"));
 	menu.Append(1, wxT("Modificar"));
 	menu.Append(2, wxT("Eliminar"));
 	menu.Connect(wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(Vprincipal::PopupClickDerechoLibro), NULL, this);
 	PopupMenu(&menu);
 }
-//CLICK DERECHO FUNCIONES
+//FUNCIONES
 void Vprincipal::PopupClickDerechoLibro(wxCommandEvent &event){
 	switch(event.GetId()) {		
-	case 0:{		
-		vAgregarPrestamo ventana_prestamo(this);			
-		if (ventana_prestamo.ShowModal()==1) { // mostrar y esperar
-			RefrescarGrillas();
-		}
+	case 0:
+	{		
+		ClickAgregarPrestamoMenu();
 		break;
 	}
-	case 1: wxMessageBox("Modificar");
-	break;
+	case 1: 
+	{
+		ClickModificarLibroMenu();
+		break;
+	}	
 	case 2: wxMessageBox("Eliminar");
 	break;
 	}
 }
+
+
+//resetea los indices buscadores
+void Vprincipal::ResetearIndices(){
+	vAgregarPrestamo::codLibro = -1;
+	vAgregarPrestamo::numLector = -1;
+	vModificarLibro::codLibro = -1;
+}
+
 

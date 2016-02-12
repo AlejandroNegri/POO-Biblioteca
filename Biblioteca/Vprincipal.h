@@ -8,7 +8,6 @@ using namespace std;
 
 
 class Vprincipal : public VentanaPrincipal {
-
 protected:
 	void ClickDerechoGrillaLibro( wxGridEvent& event ) ;
 	void ClickEliminarLectorMenu( wxCommandEvent& event ) ;
@@ -20,8 +19,11 @@ protected:
 public:
 	Vprincipal(wxWindow *parent=NULL);	
 	~Vprincipal();	
+	
 	void ClickAgregarLibroMenu( wxCommandEvent& event );	
+	void ClickModificarLibroMenu() ;
 	void ClickAgregarLectorMenu( wxCommandEvent& event ) ;
+	void ClickAgregarPrestamoMenu();
 	void ClickAgregarDevolucionMenu( wxCommandEvent& event ) ;
 	
 	void ClickPestaniaLibros( wxMouseEvent& event ) ;
@@ -39,6 +41,8 @@ public:
 	void DibujarPestaniaPrestamos();
 	void DibujarPestaniaSanciones();
 	void RefrescarGrillas();
+	
+	void ResetearIndices();
 };
 
 #endif

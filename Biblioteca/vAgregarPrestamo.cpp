@@ -80,7 +80,3 @@ bool vAgregarPrestamo::ValidarLibro(){
 	return true;	
 }
 
-void vAgregarPrestamo::ResetearIndicesDePrestamo(){
-	vAgregarPrestamo::codLibro = -1 ;
-	vAgregarPrestamo::numLector = -1 ;
-}

@@ -5,9 +5,6 @@
 
 
 class vAgregarPrestamo : public VentanaAgregarPrestamo {
-
-	
-private:
 	
 protected:
 	void ClickAceptarPrestamo( wxCommandEvent& event ) ;
@@ -23,7 +20,6 @@ public:
 	bool ValidarLector();
 	void ActualizarLabelLibro();
 	void ActualizarLabelLector();
-	static void ResetearIndicesDePrestamo();
 	
 	static int codLibro ;
 	static int numLector ;

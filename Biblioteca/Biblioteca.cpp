@@ -24,11 +24,25 @@ Biblioteca::Biblioteca(){
 
 Biblioteca::~Biblioteca(){ Guardar();}	
 
-// ALTAS
-void Biblioteca::AgregarLibro(string titulo, string autores, string editorial, string isbn, string edicion, string tipo){
-	Libro unLibro(titulo, autores, editorial, isbn, edicion, cantLibros(),tipo, "Disponible");
+// LIBRO
+void Biblioteca::AgregarLibro(string titulo, string autores, string editorial, string isbn, string edicion, string tipo, int codLibro, string estado){
+	Libro unLibro(titulo, autores, editorial, isbn, edicion, codLibro,tipo, estado);
 	vLibros.push_back(unLibro);				
 };
+
+void Biblioteca::ModificarLibro(string titulo, string autores, string editorial, string isbn, string edicion, string tipo, int codLibro, string estado){
+	Libro unLibro(titulo, autores, editorial, isbn, edicion, codLibro,tipo, estado);
+	vLibros[codLibro]= unLibro;				
+};
+
+
+
+void Biblioteca::OcultarLibro(int i){
+	vLibros[i].Ocultar();
+}
+
+
+
 
 void Biblioteca::AgregarLector(string nombre, string apellido, string dni, string domicilio, string tel){
 	Lector unLector(nombre, apellido, dni, domicilio, tel, cantLectores());
@@ -38,8 +52,7 @@ void Biblioteca::AgregarLector(string nombre, string apellido, string dni, strin
 void Biblioteca::AgregarPrestamo(int numeroLector, int codigoLibro){
 	Prestamo unPrestamo(numeroLector, codigoLibro);	
 	vPrestamos.push_back(unPrestamo);		
-	vLibros[codigoLibro].EstadoPrestado();	
-
+	vLibros[codigoLibro].EstadoPrestado();
 }
 
 void Biblioteca::AgregarSancion(int numeroLector, string motivo, int cantDias){
@@ -48,9 +61,7 @@ void Biblioteca::AgregarSancion(int numeroLector, string motivo, int cantDias){
 }
 
 // BAJAS
-void Biblioteca::OcultarLibro(int i){
-	vLibros[i].Ocultar();
-}
+
 
 void Biblioteca::OcultarLector(int i){
 	vLectores[i].Ocultar();

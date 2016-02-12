@@ -25,7 +25,9 @@ public:
 	Biblioteca();	
 	~Biblioteca();
 	
-	void AgregarLibro(string titulo, string autores, string editorial, string isbn, string edicion, string tipo);	
+	void AgregarLibro(string titulo, string autores, string editorial, string isbn, string edicion, string tipo, int codLibro, string estado);	
+	void ModificarLibro(string titulo, string autores, string editorial, string isbn, string edicion, string tipo, int codLibro, string estado);	
+
 	void AgregarLector(string nombre, string apellido, string dni, string domicilio, string tel);	
 	void AgregarPrestamo(int numeroLector, int codigoLibro);
 	void AgregarSancion(int numeroLector, string motivo, int cantDias);
