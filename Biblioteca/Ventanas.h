@@ -28,6 +28,7 @@
 #include <wx/notebook.h>
 #include <wx/frame.h>
 #include <wx/dialog.h>
+#include <wx/statline.h>
 
 ///////////////////////////////////////////////////////////////////////////
 
@@ -58,7 +59,6 @@ class VentanaPrincipal : public wxFrame
 		wxGrid* gPrestamos;
 		wxPanel* pGrillaSanciones;
 		wxGrid* gSanciones;
-		wxButton* bPrestamo;
 		wxButton* bDevolucion;
 		wxButton* bSancion;
 		
@@ -67,11 +67,11 @@ class VentanaPrincipal : public wxFrame
 		virtual void ClickEliminarLibroMenu( wxCommandEvent& event ) { event.Skip(); }
 		virtual void ClickAgregarLectorMenu( wxCommandEvent& event ) { event.Skip(); }
 		virtual void ClickEliminarLectorMenu( wxCommandEvent& event ) { event.Skip(); }
-		virtual void ClickAgregarPrestamoMenu( wxCommandEvent& event ) { event.Skip(); }
 		virtual void ClickAgregarDevolucionMenu( wxCommandEvent& event ) { event.Skip(); }
 		virtual void ClickAgregarSancionMenu( wxCommandEvent& event ) { event.Skip(); }
 		virtual void ClickPestaniaLibros( wxMouseEvent& event ) { event.Skip(); }
 		virtual void DClickGrillaLibro( wxGridEvent& event ) { event.Skip(); }
+		virtual void ClickDerechoGrillaLibro( wxGridEvent& event ) { event.Skip(); }
 		virtual void ClickBusquedaPorTitulo( wxCommandEvent& event ) { event.Skip(); }
 		virtual void ClickPestaniaLectores( wxMouseEvent& event ) { event.Skip(); }
 		virtual void ClickPestaniaPrestamos( wxMouseEvent& event ) { event.Skip(); }
@@ -151,6 +151,64 @@ class VentanaAgregarLibro : public wxDialog
 		
 		VentanaAgregarLibro( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Libro"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 350,281 ), long style = wxDEFAULT_DIALOG_STYLE ); 
 		~VentanaAgregarLibro();
+	
+};
+
+///////////////////////////////////////////////////////////////////////////////
+/// Class VentanaBuscarLector
+///////////////////////////////////////////////////////////////////////////////
+class VentanaBuscarLector : public wxDialog 
+{
+	private:
+	
+	protected:
+		wxStaticText* m_staticText2;
+		wxTextCtrl* tBusquedaNombre;
+		wxButton* bBusquedaNombre;
+		wxPanel* pGrillaLibros;
+		wxGrid* gLectoresPrestamo;
+		
+		// Virtual event handlers, overide them in your derived class
+		virtual void ClickBusquedaPorNombreDesdeLibro( wxCommandEvent& event ) { event.Skip(); }
+		virtual void DClickAceptarLectorPrestamo( wxGridEvent& event ) { event.Skip(); }
+		
+	
+	public:
+		
+		VentanaBuscarLector( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Agregar Prestamo"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 904,563 ), long style = wxDEFAULT_DIALOG_STYLE ); 
+		~VentanaBuscarLector();
+	
+};
+
+///////////////////////////////////////////////////////////////////////////////
+/// Class VentanaAgregarPrestamo
+///////////////////////////////////////////////////////////////////////////////
+class VentanaAgregarPrestamo : public wxDialog 
+{
+	private:
+	
+	protected:
+		wxStaticText* m_staticText39;
+		wxStaticText* lLibro;
+		wxButton* bBuscarLibro;
+		wxStaticText* m_staticText391;
+		wxStaticText* lLector;
+		wxButton* bBuscarLector;
+		wxStaticLine* m_staticline1;
+		wxButton* bCancelar;
+		wxButton* bConfirmarPrestamo;
+		
+		// Virtual event handlers, overide them in your derived class
+		virtual void ClickBuscarLibro( wxCommandEvent& event ) { event.Skip(); }
+		virtual void ClickBuscarLector( wxCommandEvent& event ) { event.Skip(); }
+		virtual void ClickCancelar( wxCommandEvent& event ) { event.Skip(); }
+		virtual void ClickAceptarPrestamo( wxCommandEvent& event ) { event.Skip(); }
+		
+	
+	public:
+		
+		VentanaAgregarPrestamo( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Agregar Préstamo"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 470,153 ), long style = wxDEFAULT_DIALOG_STYLE ); 
+		~VentanaAgregarPrestamo();
 	
 };
 

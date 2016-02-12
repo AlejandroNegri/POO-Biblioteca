@@ -5,21 +5,23 @@
 #include "Singleton.h"
 using namespace std;
 
+
+
 class Vprincipal : public VentanaPrincipal {
 
 protected:
+	void ClickDerechoGrillaLibro( wxGridEvent& event ) ;
 	void ClickEliminarLectorMenu( wxCommandEvent& event ) ;
 	void ClickEliminarLibroMenu( wxCommandEvent& event ) ;
-	void DClickGrillaLibro( wxGridEvent& event ) ;
 	void ClickBusquedaPorTitulo( wxCommandEvent& event ) ;
 	void ClickAgregarSancionMenu( wxCommandEvent& event ) ;
+	void PopupClickDerechoLibro(wxCommandEvent &evt);
 
 public:
 	Vprincipal(wxWindow *parent=NULL);	
 	~Vprincipal();	
 	void ClickAgregarLibroMenu( wxCommandEvent& event );	
 	void ClickAgregarLectorMenu( wxCommandEvent& event ) ;
-	void ClickAgregarPrestamoMenu( wxCommandEvent& event ) ;
 	void ClickAgregarDevolucionMenu( wxCommandEvent& event ) ;
 	
 	void ClickPestaniaLibros( wxMouseEvent& event ) ;

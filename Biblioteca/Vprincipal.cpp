@@ -11,6 +11,8 @@
 #include <wx/string.h>
 #include "Utils.h"
 #include <cstdlib>
+#include <wx/grid.h>
+#include "vAgregarPrestamo.h"
 
 
 //constructor
@@ -35,7 +37,6 @@ void Vprincipal::DibujarPestaniaLibros(){
 		}		
 	}
 	gLibros->SetSelectionMode(wxGrid::wxGridSelectRows);
-	Show();	
 }
 
 void Vprincipal::DibujarPestaniaLectores(){
@@ -50,7 +51,6 @@ void Vprincipal::DibujarPestaniaLectores(){
 		}		
 	}
 	gLectores->SetSelectionMode(wxGrid::wxGridSelectRows);
-	Show();
 }
 
 void Vprincipal::DibujarPestaniaPrestamos(){
@@ -61,7 +61,6 @@ void Vprincipal::DibujarPestaniaPrestamos(){
 		CargarFilaPrestamos(i);// cargar todos los datos
 	}
 	gPrestamos->SetSelectionMode(wxGrid::wxGridSelectRows);
-	Show();
 }
 
 void Vprincipal::DibujarPestaniaSanciones(){
@@ -72,7 +71,6 @@ void Vprincipal::DibujarPestaniaSanciones(){
 		CargarFilaSanciones(i);// cargar todos los datos
 	}
 	gSanciones->SetSelectionMode(wxGrid::wxGridSelectRows);
-	Show();
 }
 
 void Vprincipal::RefrescarGrillas(){
@@ -130,8 +128,6 @@ void Vprincipal::CargarFilaSanciones(int i) {
 	gSanciones->SetCellValue(i,2,s.VerMotivo());
 }
 
-
-
 //********EVENTOS DEL MENU********
 
 //MENU LIBRO: AGREGAR
@@ -139,10 +135,8 @@ void Vprincipal::ClickAgregarLibroMenu( wxCommandEvent& event ) {
 	VagregarLibro nueva_ventana(this); // crear la ventana
 	if (nueva_ventana.ShowModal()==1) { // mostrar y esperar
 		RefrescarGrillas();
-		Show();
 	}
 }
-
 //MENU LECTOR: AGREGAR
 void Vprincipal::ClickAgregarLectorMenu( wxCommandEvent& event )  {
 	VagregarLector nueva_ventana(this); // crear la ventana
@@ -150,53 +144,6 @@ void Vprincipal::ClickAgregarLectorMenu( wxCommandEvent& event )  {
 		RefrescarGrillas(); 
 	}
 }
-
-//MENU PRESTAMO: PRESTAR
-void Vprincipal::ClickAgregarPrestamoMenu( wxCommandEvent& event )  {	
-	wxString numLector = wxGetTextFromUser("Ingrese el número de lector","Nuevo Préstamo","",this);	
-	if (atoi(numLector)>= (Singleton::ObtenerInstancia()->cantLectores())){
-		wxMessageBox("Número de lector incorrecto!","Error",wxOK|wxICON_ERROR,this);
-		return;
-	}
-	Lector unLector = Singleton::ObtenerInstancia()->VerLector(atoi(numLector.c_str()));
-	if (numLector==""){
-		wxMessageBox("Número de lector incorrecto!","Error",wxOK|wxICON_ERROR,this);
-		return;
-	}else if(Singleton::ObtenerInstancia()->EstaSancionado(atoi(numLector))){
-		wxMessageBox("Ese lector esta sancionado!","Error",wxOK|wxICON_ERROR,this);
-		return;
-	}else if(unLector.EstaOculto()){
-		wxMessageBox("Ese lector fué eliminado!","Error",wxOK|wxICON_ERROR,this);
-		return;
-	}
-
-	wxString codLibro = wxGetTextFromUser("Ingrese el código del libro","Nuevo Préstamo","",this);
-	if (atoi(codLibro)>= (Singleton::ObtenerInstancia()->cantLibros())){
-		wxMessageBox("Código de libro incorrecto!","Error",wxOK|wxICON_ERROR,this);
-		return;
-	}
-	Libro unLibro = Singleton::ObtenerInstancia()->VerLibro(atoi(codLibro.c_str()));
-	if (codLibro==""){
-		wxMessageBox("Código de libro incorrecto!","Error",wxOK|wxICON_ERROR,this);
-		return;
-	}else if(!unLibro.EstaDisponible()){
-		wxMessageBox("Ese libro esta prestado!","Error",wxOK|wxICON_ERROR,this);
-		return;
-	}	
-	wxMessageDialog dial(NULL, wxT("El usuario: " + unLector.VerApellido()  + ", " + unLector.VerNombre() + " llevará el libro: " + unLibro.VerTitulo()
-								   + ". ¿Confirmar préstamo?"), wxT("Question"), wxYES_NO | wxNO_DEFAULT | wxICON_QUESTION);
-	if (dial.ShowModal() ==  wxID_YES){		
-		Singleton::ObtenerInstancia()->AgregarPrestamo(unLector.VerNumeroLector(), unLibro.VerCodigoLibro());
-		Singleton::ObtenerInstancia()->Guardar(); // actualizar el archivo	
-		RefrescarGrillas();
-		wxMessageBox("Préstamo Agregado!");
-	}else{
-		wxMessageBox("Préstamo Cancelado!");
-		return;
-	}	
-	return;
-}
-
 //MENU PRESTAMO: DEVOLVER
 void Vprincipal::ClickAgregarDevolucionMenu( wxCommandEvent& event )  {
 	wxString codLibro = wxGetTextFromUser("Ingrese el código del libro","Nuevo Préstamo","",this);
@@ -229,7 +176,6 @@ void Vprincipal::ClickAgregarDevolucionMenu( wxCommandEvent& event )  {
 	}	
 	return;
 }
-
 //MENU SANCION: AGREGAR
 void Vprincipal::ClickAgregarSancionMenu( wxCommandEvent& event )  {
 	
@@ -247,14 +193,10 @@ void Vprincipal::ClickAgregarSancionMenu( wxCommandEvent& event )  {
 		return;
 	}
 
-		
-		
-		
 //	}else if(Singleton::ObtenerInstancia()->EstaSancionado(atoi(numLector))){
 //		wxMessageBox("Ese lector esta sancionado!","Error",wxOK|wxICON_ERROR,this);
 //		return;
 //	}	
-	
 	wxString cantDias_s = wxGetTextFromUser("Cantidad de días a sancionar:","Nueva Sanción","",this);
 	if (cantDias_s==""){
 		wxMessageBox("Cantidad incorrecta incorrecto!","Error",wxOK|wxICON_ERROR,this);
@@ -267,7 +209,6 @@ void Vprincipal::ClickAgregarSancionMenu( wxCommandEvent& event )  {
 		wxMessageBox("Agregue un motivo de sanción!","Error",wxOK|wxICON_ERROR,this);
 		return;
 	}
-	
 	wxMessageDialog dial(NULL, wxT("El usuario: " + unLector.VerApellido()  + ", " + unLector.VerNombre() + " será sancionado " + cantDias_s
 								   + " días por "+ motivo +". ¿Confirmar sanción?"), wxT("Question"), wxYES_NO | wxNO_DEFAULT | wxICON_QUESTION);
 	if (dial.ShowModal() ==  wxID_YES){		
@@ -282,29 +223,11 @@ void Vprincipal::ClickAgregarSancionMenu( wxCommandEvent& event )  {
 	return;
 }
 
-
 //           EVENTOS DE PESTAÑAS
-void Vprincipal::ClickPestaniaLibros( wxMouseEvent& event )  {
-	Vprincipal::DibujarPestaniaLibros();
-}
-
-void Vprincipal::ClickPestaniaLectores( wxMouseEvent& event )  {
-	Vprincipal::DibujarPestaniaLectores();
-	event.Skip();
-}
-
-void Vprincipal::ClickPestaniaPrestamos( wxMouseEvent& event )  {
-	Vprincipal::DibujarPestaniaPrestamos();
-	event.Skip();
-}
-
-
-void Vprincipal::ClickPestaniaSanciones( wxMouseEvent& event )  {
-	Vprincipal::DibujarPestaniaSanciones();
-	event.Skip();
-}
-
-
+void Vprincipal::ClickPestaniaLibros( wxMouseEvent& event )  { Vprincipal::DibujarPestaniaLibros(); }
+void Vprincipal::ClickPestaniaLectores( wxMouseEvent& event )  { Vprincipal::DibujarPestaniaLectores(); }
+void Vprincipal::ClickPestaniaPrestamos( wxMouseEvent& event )  { Vprincipal::DibujarPestaniaPrestamos(); }
+void Vprincipal::ClickPestaniaSanciones( wxMouseEvent& event )  { Vprincipal::DibujarPestaniaSanciones(); }
 
 void Vprincipal::ClickBusquedaPorTitulo( wxCommandEvent& event )  {
 	int fila_actual = gLibros->GetGridCursorRow();
@@ -377,11 +300,36 @@ void Vprincipal::ClickEliminarLectorMenu( wxCommandEvent& event )  {
 	return;
 }
 
-
-//doble click en libro
-void Vprincipal::DClickGrillaLibro( wxGridEvent& event )  {
-	event.Skip();
+//CLICK DERECHO MENU
+void Vprincipal::ClickDerechoGrillaLibro( wxGridEvent& event )  {
+	gLibros->SetGridCursor(event.GetRow(),0); // seleccionar celda
+	gLibros->SelectRow(event.GetRow()); // marcar toda la fila
+	
+	vAgregarPrestamo::ResetearIndicesDePrestamo();
+	vAgregarPrestamo::codLibro = event.GetRow();
+	
+	wxMenu menu(wxT(""));
+	
+	menu.Append(0, wxT("Prestar"));
+	menu.Append(1, wxT("Modificar"));
+	menu.Append(2, wxT("Eliminar"));
+	menu.Connect(wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(Vprincipal::PopupClickDerechoLibro), NULL, this);
+	PopupMenu(&menu);
 }
-
-
+//CLICK DERECHO FUNCIONES
+void Vprincipal::PopupClickDerechoLibro(wxCommandEvent &event){
+	switch(event.GetId()) {		
+	case 0:{		
+		vAgregarPrestamo ventana_prestamo(this);			
+		if (ventana_prestamo.ShowModal()==1) { // mostrar y esperar
+			RefrescarGrillas();
+		}
+		break;
+	}
+	case 1: wxMessageBox("Modificar");
+	break;
+	case 2: wxMessageBox("Eliminar");
+	break;
+	}
+}
 

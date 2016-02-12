@@ -26,6 +26,7 @@ public:
 	Lector(string p_nombre, string p_apellido, string p_dni, string p_domicilio, string p_tel, int p_numeroLector, bool p_oculto);
 	string VerNombre()const;	
 	string VerApellido()const;	
+	string VerApellidoYNombre()const;
 	string VerDNI() const;	
 	string VerDomicilio() const;	
 	string VerTel() const;	

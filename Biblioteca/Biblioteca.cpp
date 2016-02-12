@@ -202,20 +202,7 @@ void Biblioteca::CargarSancionesDesdeArchivo(){
 		}		
 		archivo.close();
 	}
-	
-	
-	
-	
-//	string NumeroLector;
-//	string FechaSancion_T;
-//	string Motivo;
-//	string LineaVacia;
-//	
-//	while(getline(archivo,NumeroLector) && getline(archivo, FechaSancion_T) && 
-//		  getline(archivo, Motivo) && getline(archivo, LineaVacia)){
-//		Sancion unaSancion(atoi(NumeroLector.c_str()), String_a_TimeT(FechaSancion_T), Motivo);
-//		vSanciones.push_back(unaSancion);	
-//	}
+
 }
 
 bool Biblioteca::EstaSancionado(int numLector){
