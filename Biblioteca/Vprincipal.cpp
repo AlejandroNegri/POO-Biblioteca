@@ -73,11 +73,11 @@ void Vprincipal::DibujarPestaniaSanciones(){
 	gSanciones->SetSelectionMode(wxGrid::wxGridSelectRows);
 }
 
-void Vprincipal::RefrescarGrillas(){
+void Vprincipal::RefrescarGrillas(){	
 	Vprincipal::DibujarPestaniaLibros();
 	Vprincipal::DibujarPestaniaLectores();
 	Vprincipal::DibujarPestaniaPrestamos();
-	Vprincipal::DibujarPestaniaSanciones();
+	Vprincipal::DibujarPestaniaSanciones();	
 }
 
 //********CARGA DE DATOS EN LAS GRILLAS********
@@ -246,6 +246,8 @@ void Vprincipal::ClickPestaniaLectores( wxMouseEvent& event )  { Vprincipal::Dib
 void Vprincipal::ClickPestaniaPrestamos( wxMouseEvent& event )  { Vprincipal::DibujarPestaniaPrestamos(); }
 void Vprincipal::ClickPestaniaSanciones( wxMouseEvent& event )  { Vprincipal::DibujarPestaniaSanciones(); }
 
+
+// BUSQUEDA
 void Vprincipal::ClickBusquedaPorTitulo( wxCommandEvent& event )  {
 	int fila_actual = gLibros->GetGridCursorRow();
 	int res = Singleton::ObtenerInstancia()->BuscarTitulo(tBusquedaTitulo->GetValue().c_str(),fila_actual+1);
@@ -256,8 +258,20 @@ void Vprincipal::ClickBusquedaPorTitulo( wxCommandEvent& event )  {
 	else {
 		gLibros->SetGridCursor(res,0); // seleccionar celda
 		gLibros->SelectRow(res); // marcar toda la fila
-		//gLibros->MakeCellVisible(res,0); // asegurarse de que se ve
 	}	
+}
+
+void Vprincipal::ClickBusquedaPorNombre( wxCommandEvent& event )  {
+	int fila_actual = gLectores->GetGridCursorRow();
+	int res = Singleton::ObtenerInstancia()->BuscarApellidoYNombre(tBusquedaNombre->GetValue().c_str(),fila_actual+1);
+	if (res==NO_SE_ENCUENTRA) 
+		res=Singleton::ObtenerInstancia()->BuscarApellidoYNombre(tBusquedaNombre->GetValue().c_str(),0);
+	if (res==-1)
+		wxMessageBox("No se encontraron mas coincidencias");
+	else {
+		gLectores->SetGridCursor(res,0); // seleccionar celda
+		gLectores->SelectRow(res); // marcar toda la fila
+	}
 }
 
 //		ELIMINAR

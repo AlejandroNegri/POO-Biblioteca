@@ -55,6 +55,9 @@ class VentanaPrincipal : public wxFrame
 		wxButton* bBusquedaTitulo;
 		wxPanel* pGrillaLectores;
 		wxGrid* gLectores;
+		wxStaticText* m_staticText21;
+		wxTextCtrl* tBusquedaNombre;
+		wxButton* bBusquedaNombre;
 		wxPanel* pGrillaPrestamos;
 		wxGrid* gPrestamos;
 		wxPanel* pGrillaSanciones;
@@ -73,6 +76,7 @@ class VentanaPrincipal : public wxFrame
 		virtual void ClickDerechoGrillaLibro( wxGridEvent& event ) { event.Skip(); }
 		virtual void ClickBusquedaPorTitulo( wxCommandEvent& event ) { event.Skip(); }
 		virtual void ClickPestaniaLectores( wxMouseEvent& event ) { event.Skip(); }
+		virtual void ClickBusquedaPorNombre( wxCommandEvent& event ) { event.Skip(); }
 		virtual void ClickPestaniaPrestamos( wxMouseEvent& event ) { event.Skip(); }
 		virtual void ClickPestaniaSanciones( wxMouseEvent& event ) { event.Skip(); }
 		
@@ -206,7 +210,7 @@ class VentanaBuscarLector : public wxDialog
 	
 	public:
 		
-		VentanaBuscarLector( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Agregar Prestamo"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 904,563 ), long style = wxDEFAULT_DIALOG_STYLE ); 
+		VentanaBuscarLector( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Agregar Préstamo"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 904,563 ), long style = wxDEFAULT_DIALOG_STYLE ); 
 		~VentanaBuscarLector();
 	
 };

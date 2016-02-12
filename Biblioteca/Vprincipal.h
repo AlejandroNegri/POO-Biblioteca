@@ -13,6 +13,7 @@ protected:
 	void ClickEliminarLectorMenu( wxCommandEvent& event ) ;
 	void ClickEliminarLibroMenu( wxCommandEvent& event ) ;
 	void ClickBusquedaPorTitulo( wxCommandEvent& event ) ;
+	void ClickBusquedaPorNombre( wxCommandEvent& event ) ;
 	void ClickAgregarSancionMenu( wxCommandEvent& event ) ;
 	void PopupClickDerechoLibro(wxCommandEvent &evt);
 

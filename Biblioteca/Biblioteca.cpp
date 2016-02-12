@@ -235,6 +235,18 @@ int Biblioteca::BuscarTitulo(string parte, int pos_desde) {
 	return NO_SE_ENCUENTRA;
 }
 
+int Biblioteca::BuscarApellidoYNombre(string parte, int pos_desde) {
+	pasar_a_minusculas(parte);
+	for (int i=pos_desde;i<cantLectores();i++) {
+		Lector l = vLectores[i];
+		string cadena_a_buscar = l.VerApellidoYNombre();
+		pasar_a_minusculas(cadena_a_buscar);
+		if (cadena_a_buscar.find(parte,0)!=string::npos)
+			return i;
+	}
+	return NO_SE_ENCUENTRA;
+}
+
 int Biblioteca::cantLibros()const{ return vLibros.size();}
 
 int Biblioteca::cantLectores()const{ return vLectores.size();}

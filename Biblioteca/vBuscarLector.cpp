@@ -2,6 +2,7 @@
 #include "Singleton.h"
 #include "vAgregarPrestamo.h"
 #include <wx/string.h>
+#include <wx/msgdlg.h>
 
 //constructor
 vBuscarLector::vBuscarLector(wxWindow *parent) : VentanaBuscarLector(parent) {
@@ -20,7 +21,7 @@ vBuscarLector::vBuscarLector(wxWindow *parent) : VentanaBuscarLector(parent) {
 }
 
 //destructor
-vBuscarLector::~vBuscarLector() {}
+vBuscarLector::~vBuscarLector(){}
 
 
 void vBuscarLector::CargarFilaLectores(int i) {
@@ -37,7 +38,17 @@ void vBuscarLector::CargarFilaLectores(int i) {
 
 //busqueda
 void vBuscarLector::ClickBusquedaPorNombreDesdeLibro( wxCommandEvent& event )  {
-	event.Skip();
+	int fila_actual = gLectoresPrestamo->GetGridCursorRow();
+	int res = Singleton::ObtenerInstancia()->BuscarApellidoYNombre(tBusquedaNombre->GetValue().c_str(),fila_actual+1);
+	if (res==NO_SE_ENCUENTRA) 
+		res=Singleton::ObtenerInstancia()->BuscarApellidoYNombre(tBusquedaNombre->GetValue().c_str(),0);
+	if (res==-1)
+		wxMessageBox("No se encontraron mas coincidencias");
+	else {
+		gLectoresPrestamo->SetGridCursor(res,0); // seleccionar celda
+		gLectoresPrestamo->SelectRow(res); // marcar toda la fila
+	}
+	
 }
 
 //ACEPTAR Y CANCELAR

@@ -140,7 +140,7 @@ VentanaPrincipal::VentanaPrincipal( wxWindow* parent, wxWindowID id, const wxStr
 	m_notebook2->AddPage( pGrillaLibros, wxT("Libros"), false );
 	pGrillaLectores = new wxPanel( m_notebook2, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
 	wxBoxSizer* sizerLectores;
-	sizerLectores = new wxBoxSizer( wxHORIZONTAL );
+	sizerLectores = new wxBoxSizer( wxVERTICAL );
 	
 	gLectores = new wxGrid( pGrillaLectores, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0 );
 	
@@ -181,6 +181,22 @@ VentanaPrincipal::VentanaPrincipal( wxWindow* parent, wxWindowID id, const wxStr
 	// Cell Defaults
 	gLectores->SetDefaultCellAlignment( wxALIGN_LEFT, wxALIGN_TOP );
 	sizerLectores->Add( gLectores, 1, wxALL|wxEXPAND|wxALIGN_CENTER_VERTICAL, 5 );
+	
+	wxBoxSizer* bSizer241;
+	bSizer241 = new wxBoxSizer( wxHORIZONTAL );
+	
+	m_staticText21 = new wxStaticText( pGrillaLectores, wxID_ANY, wxT("Busqueda por Nombre y Apellido: "), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText21->Wrap( -1 );
+	bSizer241->Add( m_staticText21, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
+	
+	tBusquedaNombre = new wxTextCtrl( pGrillaLectores, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	bSizer241->Add( tBusquedaNombre, 1, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
+	
+	bBusquedaNombre = new wxButton( pGrillaLectores, wxID_ANY, wxT("Buscar"), wxDefaultPosition, wxDefaultSize, 0 );
+	bSizer241->Add( bBusquedaNombre, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
+	
+	
+	sizerLectores->Add( bSizer241, 0, wxEXPAND, 5 );
 	
 	
 	pGrillaLectores->SetSizer( sizerLectores );
@@ -307,6 +323,7 @@ VentanaPrincipal::VentanaPrincipal( wxWindow* parent, wxWindowID id, const wxStr
 	gLibros->Connect( wxEVT_GRID_CELL_RIGHT_CLICK, wxGridEventHandler( VentanaPrincipal::ClickDerechoGrillaLibro ), NULL, this );
 	bBusquedaTitulo->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( VentanaPrincipal::ClickBusquedaPorTitulo ), NULL, this );
 	pGrillaLectores->Connect( wxEVT_LEFT_DCLICK, wxMouseEventHandler( VentanaPrincipal::ClickPestaniaLectores ), NULL, this );
+	bBusquedaNombre->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( VentanaPrincipal::ClickBusquedaPorNombre ), NULL, this );
 	pGrillaPrestamos->Connect( wxEVT_LEFT_DCLICK, wxMouseEventHandler( VentanaPrincipal::ClickPestaniaPrestamos ), NULL, this );
 	pGrillaSanciones->Connect( wxEVT_LEFT_DCLICK, wxMouseEventHandler( VentanaPrincipal::ClickPestaniaSanciones ), NULL, this );
 	bDevolucion->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( VentanaPrincipal::ClickAgregarDevolucionMenu ), NULL, this );
@@ -326,6 +343,7 @@ VentanaPrincipal::~VentanaPrincipal()
 	gLibros->Disconnect( wxEVT_GRID_CELL_RIGHT_CLICK, wxGridEventHandler( VentanaPrincipal::ClickDerechoGrillaLibro ), NULL, this );
 	bBusquedaTitulo->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( VentanaPrincipal::ClickBusquedaPorTitulo ), NULL, this );
 	pGrillaLectores->Disconnect( wxEVT_LEFT_DCLICK, wxMouseEventHandler( VentanaPrincipal::ClickPestaniaLectores ), NULL, this );
+	bBusquedaNombre->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( VentanaPrincipal::ClickBusquedaPorNombre ), NULL, this );
 	pGrillaPrestamos->Disconnect( wxEVT_LEFT_DCLICK, wxMouseEventHandler( VentanaPrincipal::ClickPestaniaPrestamos ), NULL, this );
 	pGrillaSanciones->Disconnect( wxEVT_LEFT_DCLICK, wxMouseEventHandler( VentanaPrincipal::ClickPestaniaSanciones ), NULL, this );
 	bDevolucion->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( VentanaPrincipal::ClickAgregarDevolucionMenu ), NULL, this );
@@ -650,7 +668,7 @@ VentanaBuscarLector::VentanaBuscarLector( wxWindow* parent, wxWindowID id, const
 	wxBoxSizer* bSizer24;
 	bSizer24 = new wxBoxSizer( wxHORIZONTAL );
 	
-	m_staticText2 = new wxStaticText( this, wxID_ANY, wxT("Busqueda por Nombre: "), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText2 = new wxStaticText( this, wxID_ANY, wxT("Búsqueda por nombre y apellido: "), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText2->Wrap( -1 );
 	bSizer24->Add( m_staticText2, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
 	
