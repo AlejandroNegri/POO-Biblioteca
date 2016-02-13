@@ -35,20 +35,26 @@ void Biblioteca::ModificarLibro(string titulo, string autores, string editorial,
 	vLibros[codLibro]= unLibro;				
 };
 
-
-
 void Biblioteca::OcultarLibro(int i){
 	vLibros[i].Ocultar();
 }
 
-
-
-
-void Biblioteca::AgregarLector(string nombre, string apellido, string dni, string domicilio, string tel){
-	Lector unLector(nombre, apellido, dni, domicilio, tel, cantLectores());
+//LECTOR
+void Biblioteca::AgregarLector(string nombre, string apellido, string dni, string domicilio, string tel, int numLector){
+	Lector unLector(nombre, apellido, dni, domicilio, tel, numLector);
 	vLectores.push_back(unLector);		
 };	
 
+void Biblioteca::ModificarLector(string nombre, string apellido, string dni, string domicilio, string tel, int numLector){
+	Lector unLector(nombre, apellido, dni, domicilio, tel, numLector);
+	vLectores[numLector] = unLector;		
+};	
+
+void Biblioteca::OcultarLector(int i){
+	vLectores[i].Ocultar();
+}
+
+//PRESTAMOS
 void Biblioteca::AgregarPrestamo(int numeroLector, int codigoLibro){
 	Prestamo unPrestamo(numeroLector, codigoLibro);	
 	vPrestamos.push_back(unPrestamo);		
@@ -60,12 +66,7 @@ void Biblioteca::AgregarSancion(int numeroLector, string motivo, int cantDias){
 	vSanciones.push_back(unaSancion);
 }
 
-// BAJAS
 
-
-void Biblioteca::OcultarLector(int i){
-	vLectores[i].Ocultar();
-}
 int Biblioteca::EliminarPrestamo(int codigoLibro){	
 	int devolucionATiempo;	//si es mayor a 0, muestra los dias que se sobrepaso
 	vLibros[codigoLibro].EstadoDisponible(); //pongo el libro "disponible"		
@@ -223,14 +224,22 @@ bool Biblioteca::EstaSancionado(int numLector){
 	return false;
 }
 
+bool Biblioteca::TienePrestamosActivos(int numLector){
+	for( Prestamo x : vPrestamos) {
+		if( x.VerNumeroLectorPrestamo() == numLector){ return true; }
+	}
+	return false;
+}
+
 int Biblioteca::BuscarTitulo(string parte, int pos_desde) {
 	pasar_a_minusculas(parte);
 	for (int i=pos_desde;i<cantLibros();i++) {
-		Libro l = vLibros[i];
-		string cadena_a_buscar = l.VerTitulo();
-		pasar_a_minusculas(cadena_a_buscar);
-		if (cadena_a_buscar.find(parte,0)!=string::npos)
-			return i;
+		if (!VerLibro(i).EstaOculto()){
+			string cadena_a_buscar = VerLibro(i).VerTitulo();
+			pasar_a_minusculas(cadena_a_buscar);
+			if (cadena_a_buscar.find(parte,0)!=string::npos)
+				return i;
+		}
 	}
 	return NO_SE_ENCUENTRA;
 }
@@ -238,11 +247,12 @@ int Biblioteca::BuscarTitulo(string parte, int pos_desde) {
 int Biblioteca::BuscarApellidoYNombre(string parte, int pos_desde) {
 	pasar_a_minusculas(parte);
 	for (int i=pos_desde;i<cantLectores();i++) {
-		Lector l = vLectores[i];
-		string cadena_a_buscar = l.VerApellidoYNombre();
-		pasar_a_minusculas(cadena_a_buscar);
-		if (cadena_a_buscar.find(parte,0)!=string::npos)
-			return i;
+		if (!VerLector(i).EstaOculto()){
+			string cadena_a_buscar = VerLector(i).VerApellidoYNombre();
+			pasar_a_minusculas(cadena_a_buscar);
+			if (cadena_a_buscar.find(parte,0)!=string::npos)
+				return i;
+		}
 	}
 	return NO_SE_ENCUENTRA;
 }

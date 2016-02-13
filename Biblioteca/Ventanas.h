@@ -75,6 +75,7 @@ class VentanaPrincipal : public wxFrame
 		virtual void ClickDerechoGrillaLibro( wxGridEvent& event ) { event.Skip(); }
 		virtual void ClickBusquedaPorTitulo( wxCommandEvent& event ) { event.Skip(); }
 		virtual void ClickPestaniaLectores( wxMouseEvent& event ) { event.Skip(); }
+		virtual void ClickDerechoGrillaLectores( wxGridEvent& event ) { event.Skip(); }
 		virtual void ClickBusquedaPorNombre( wxCommandEvent& event ) { event.Skip(); }
 		virtual void ClickPestaniaPrestamos( wxMouseEvent& event ) { event.Skip(); }
 		virtual void ClickPestaniaSanciones( wxMouseEvent& event ) { event.Skip(); }
@@ -199,11 +200,11 @@ class VentanaBuscarLector : public wxDialog
 		wxStaticText* m_staticText2;
 		wxTextCtrl* tBusquedaNombre;
 		wxButton* bBusquedaNombre;
-		wxPanel* pGrillaLibros;
+		wxPanel* pGrillaLectores;
 		wxGrid* gLectoresPrestamo;
 		
 		// Virtual event handlers, overide them in your derived class
-		virtual void ClickBusquedaPorNombreDesdeLibro( wxCommandEvent& event ) { event.Skip(); }
+		virtual void ClickBusquedaPorNombre( wxCommandEvent& event ) { event.Skip(); }
 		virtual void DClickAceptarLectorPrestamo( wxGridEvent& event ) { event.Skip(); }
 		
 	
@@ -211,6 +212,32 @@ class VentanaBuscarLector : public wxDialog
 		
 		VentanaBuscarLector( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Agregar Préstamo"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 904,563 ), long style = wxDEFAULT_DIALOG_STYLE ); 
 		~VentanaBuscarLector();
+	
+};
+
+///////////////////////////////////////////////////////////////////////////////
+/// Class VentanaBuscarLibro
+///////////////////////////////////////////////////////////////////////////////
+class VentanaBuscarLibro : public wxDialog 
+{
+	private:
+	
+	protected:
+		wxStaticText* m_staticText2;
+		wxTextCtrl* tBusquedaTitulo;
+		wxButton* bBusquedaTitulo;
+		wxPanel* pGrillaLibros;
+		wxGrid* gLibrosPrestamo;
+		
+		// Virtual event handlers, overide them in your derived class
+		virtual void ClickBusquedaPorTitulo( wxCommandEvent& event ) { event.Skip(); }
+		virtual void DClickAceptarLibroPrestamo( wxGridEvent& event ) { event.Skip(); }
+		
+	
+	public:
+		
+		VentanaBuscarLibro( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Agregar Préstamo"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 904,563 ), long style = wxDEFAULT_DIALOG_STYLE ); 
+		~VentanaBuscarLibro();
 	
 };
 

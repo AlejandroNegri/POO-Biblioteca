@@ -14,6 +14,7 @@
 #include <wx/grid.h>
 #include "vAgregarPrestamo.h"
 #include "vModificarLibro.h"
+#include "vModificarLector.h"
 
 
 //constructor
@@ -170,10 +171,33 @@ void Vprincipal::ClickAgregarLectorMenu( wxCommandEvent& event )  {
 		RefrescarGrillas(); 
 	}
 }
+//MENU LECTOR: MODIFICAR
+void Vprincipal::ClickModificarLectorMenu() {	
+	vModificarLector::numLector=indiceGrilla;
+	vModificarLector nueva_ventana(this);	
+	if (nueva_ventana.ShowModal()==1) {
+		RefrescarGrillas();
+	}
+}
+
+void Vprincipal::ClickEliminarLectorMenu()  {
+	if(Singleton::ObtenerInstancia()->TienePrestamosActivos(indiceGrilla)){
+		wxMessageBox("¡No se pueden eliminar lectores con préstamos activos!","Error",wxOK|wxICON_ERROR,this);
+		return;
+	}	
+	wxMessageDialog dial(NULL, wxT("¿Eliminar el lector " + Singleton::ObtenerInstancia()->VerLector(indiceGrilla).VerApellidoYNombre() 
+								   + "? "),wxT("Question"), wxYES_NO | wxNO_DEFAULT | wxICON_QUESTION);
+	if (dial.ShowModal() ==  wxID_YES){	
+		Singleton::ObtenerInstancia()->OcultarLector(indiceGrilla);		
+		Singleton::ObtenerInstancia()->Guardar(); // actualizar el archivo	
+		wxMessageBox("¡El lector ha sido eliminado!");
+		RefrescarGrillas();
+	}
+	return;
+}
 
 //PRESTAMO: AGREGAR:
-void Vprincipal::ClickAgregarPrestamoMenu(){
-	vAgregarPrestamo::codLibro = indiceGrilla;
+void Vprincipal::ClickAgregarPrestamoMenu(){	
 	vAgregarPrestamo ventana_prestamo(this);			
 	if (ventana_prestamo.ShowModal()==1) { // mostrar y esperar
 		RefrescarGrillas();
@@ -294,47 +318,19 @@ void Vprincipal::ClickBusquedaPorNombre( wxCommandEvent& event )  {
 }
 
 
-void Vprincipal::ClickEliminarLectorMenu( wxCommandEvent& event )  {
-	wxString numLector = wxGetTextFromUser("Ingrese el número de lector","Eliminar Lector","",this);
-	if (atoi(numLector)>= (Singleton::ObtenerInstancia()->cantLectores())){
-		wxMessageBox("Número de lector incorrecto!","Error",wxOK|wxICON_ERROR,this);
-		return;
-	}
-	if (numLector==""){
-		wxMessageBox("Número de lector incorrecto!","Error",wxOK|wxICON_ERROR,this);
-		return;
-	}else if(Singleton::ObtenerInstancia()->VerLector(atoi(numLector.c_str())).EstaOculto()){
-		wxMessageBox("Ese lector ya fué eliminado!","Error",wxOK|wxICON_ERROR,this);
-		return;
-	}		
-	wxMessageDialog dial(NULL, wxT("¿Eliminar el lector " + Singleton::ObtenerInstancia()->VerLector(atoi(numLector.c_str())).VerApellido() 
-								   + ", " + Singleton::ObtenerInstancia()->VerLector(atoi(numLector.c_str())).VerNombre()			   
-								   +"? "),wxT("Question"), wxYES_NO | wxNO_DEFAULT | wxICON_QUESTION);
-	if (dial.ShowModal() ==  wxID_YES){	
-		int num = atoi(numLector);
-		Singleton::ObtenerInstancia()->OcultarLector(num);		
-		Singleton::ObtenerInstancia()->Guardar(); // actualizar el archivo	
-		wxMessageBox("¡El lector ha sido eliminado!");
-		RefrescarGrillas();
-	}else{
-		wxMessageBox("¡El lector no ha sido eliminado!");
-		return;
-	}	
-	return;
-}
 
 
 
-//			CLICK DERECHO 
+
+
+//			CLICK DERECHO LIBRO
 //MENU
 void Vprincipal::ClickDerechoGrillaLibro( wxGridEvent& event )  {
 	gLibros->SetGridCursor(event.GetRow(),0); // seleccionar celda
 	gLibros->SelectRow(event.GetRow()); // marcar toda la fila
 	
 	ResetearIndices();	
-	
-	indiceGrilla = event.GetRow();
-	
+	indiceGrilla = event.GetRow();	
 	
 	wxMenu menu(wxT(""));	
 	menu.Append(0, wxT("Prestar"));
@@ -347,7 +343,8 @@ void Vprincipal::ClickDerechoGrillaLibro( wxGridEvent& event )  {
 void Vprincipal::PopupClickDerechoLibro(wxCommandEvent &event){
 	switch(event.GetId()) {		
 		case 0:
-		{		
+		{	
+			vAgregarPrestamo::codLibro = indiceGrilla;
 			ClickAgregarPrestamoMenu();
 			break;
 		}
@@ -363,13 +360,62 @@ void Vprincipal::PopupClickDerechoLibro(wxCommandEvent &event){
 	}
 }
 
+//			CLICK DERECHO LECTORES
+//MENU
+void Vprincipal::ClickDerechoGrillaLectores( wxGridEvent& event )  {
+	gLectores->SetGridCursor(event.GetRow(),0); // seleccionar celda
+	gLectores->SelectRow(event.GetRow()); // marcar toda la fila
+	
+	ResetearIndices();		
+	indiceGrilla = event.GetRow();	
+	
+	wxMenu menu(wxT(""));	
+	menu.Append(0, wxT("Prestar"));
+	menu.Append(1, wxT("Modificar"));
+	menu.Append(2, wxT("Eliminar"));
+	menu.Connect(wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(Vprincipal::PopupClickDerechoLector), NULL, this);
+	PopupMenu(&menu);
+}
+//FUNCIONES
+void Vprincipal::PopupClickDerechoLector(wxCommandEvent &event){
+	switch(event.GetId()) {		
+		case 0:
+		{		
+			vAgregarPrestamo::numLector = indiceGrilla;
+			ClickAgregarPrestamoMenu();
+			break;
+		}
+		case 1: 
+		{
+			ClickModificarLectorMenu();
+			break;
+		}	
+		case 2:{
+			ClickEliminarLectorMenu();
+			break;
+		}
+	}
+}
 
 //resetea los indices buscadores
 void Vprincipal::ResetearIndices(){
 	vAgregarPrestamo::codLibro = -1;
 	vAgregarPrestamo::numLector = -1;
 	vModificarLibro::codLibro = -1;
+	vModificarLector::numLector = -1;
 	indiceGrilla = -1;
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 

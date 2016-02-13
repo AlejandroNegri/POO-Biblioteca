@@ -15,7 +15,8 @@ void VagregarLector::ClickAgregarLectorNuevo( wxCommandEvent& event )  {
 												tApellido->GetValue().c_str(),
 												tDNI->GetValue().c_str(),
 												tDomicilio->GetValue().c_str(),
-												tTelefono->GetValue().c_str());	
+												tTelefono->GetValue().c_str(),
+												Singleton::ObtenerInstancia()->cantLectores());	
 	Singleton::ObtenerInstancia()->Guardar(); // actualizar el archivo	
 	wxMessageBox("Lector Agregado!");
 	EndModal(1); // cerrar indicando que se agrego

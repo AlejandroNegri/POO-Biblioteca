@@ -17,7 +17,6 @@ vBuscarLector::vBuscarLector(wxWindow *parent) : VentanaBuscarLector(parent) {
 		}		
 	}
 	gLectoresPrestamo->SetSelectionMode(wxGrid::wxGridSelectRows);
-	Show();
 }
 
 //destructor
@@ -37,7 +36,7 @@ void vBuscarLector::CargarFilaLectores(int i) {
 }
 
 //busqueda
-void vBuscarLector::ClickBusquedaPorNombreDesdeLibro( wxCommandEvent& event )  {
+void vBuscarLector::ClickBusquedaPorNombre( wxCommandEvent& event )  {
 	int fila_actual = gLectoresPrestamo->GetGridCursorRow();
 	int res = Singleton::ObtenerInstancia()->BuscarApellidoYNombre(tBusquedaNombre->GetValue().c_str(),fila_actual+1);
 	if (res==NO_SE_ENCUENTRA) 
@@ -57,6 +56,4 @@ void vBuscarLector::DClickAceptarLectorPrestamo( wxGridEvent& event )  {
 	EndModal(1);
 }
 
-void vBuscarLector::ClickCancelar( wxCommandEvent& event )  {
-	EndModal(0);
-}
+

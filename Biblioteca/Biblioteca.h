@@ -27,15 +27,21 @@ public:
 	
 	void AgregarLibro(string titulo, string autores, string editorial, string isbn, string edicion, string tipo, int codLibro, string estado);	
 	void ModificarLibro(string titulo, string autores, string editorial, string isbn, string edicion, string tipo, int codLibro, string estado);	
-
-	void AgregarLector(string nombre, string apellido, string dni, string domicilio, string tel);	
-	void AgregarPrestamo(int numeroLector, int codigoLibro);
-	void AgregarSancion(int numeroLector, string motivo, int cantDias);
-	int EliminarPrestamo(int codigoLibro);
 	void OcultarLibro(int i);	
+	
+	void AgregarLector(string nombre, string apellido, string dni, string domicilio, string tel, int numLector);	
+	void ModificarLector(string nombre, string apellido, string dni, string domicilio, string tel, int numLector);
 	void OcultarLector(int i);
 	
+	void AgregarPrestamo(int numeroLector, int codigoLibro);	
+	int EliminarPrestamo(int codigoLibro);
+	
+	void AgregarSancion(int numeroLector, string motivo, int cantDias);
+	
+
+	
 	bool EstaSancionado(int numLector);
+	bool TienePrestamosActivos (int numLector);
 	
 	bool Guardar() const;
 	

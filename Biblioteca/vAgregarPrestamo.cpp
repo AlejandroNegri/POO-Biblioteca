@@ -4,6 +4,7 @@
 #include <string>
 #include "Singleton.h"
 #include <wx/msgdlg.h>
+#include "vBuscarLibro.h"
 
 int vAgregarPrestamo::codLibro = -1 ;
 int vAgregarPrestamo::numLector = -1 ;
@@ -15,12 +16,20 @@ vAgregarPrestamo::vAgregarPrestamo(wxWindow *parent) : VentanaAgregarPrestamo(pa
 
 vAgregarPrestamo::~vAgregarPrestamo() {}
 
-void vAgregarPrestamo::ClickBuscarLibro( wxCommandEvent& event )  {}
+void vAgregarPrestamo::ClickBuscarLibro( wxCommandEvent& event )  {
+	vBuscarLibro ventana_busqueda_lector(this); // crear la ventana	
+	if (ventana_busqueda_lector.ShowModal()==1) { // mostrar y esperar
+		ActualizarLabelLector();	
+		ActualizarLabelLibro();
+	}
+	
+}
 
 void vAgregarPrestamo::ClickBuscarLector( wxCommandEvent& event )  {	
 	vBuscarLector ventana_busqueda_lector(this); // crear la ventana	
 	if (ventana_busqueda_lector.ShowModal()==1) { // mostrar y esperar
-		ActualizarLabelLector();		
+		ActualizarLabelLector();	
+		ActualizarLabelLibro();
 	}
 }
 

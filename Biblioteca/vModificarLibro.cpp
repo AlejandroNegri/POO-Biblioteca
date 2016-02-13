@@ -25,7 +25,7 @@ void vModificarLibro::ClickAgregarLibroNuevo( wxCommandEvent& event )  {
 												tEdicion->GetValue().c_str(),
 												tTipo->GetValue().c_str(),
 												codLibro,												
-												Singleton::ObtenerInstancia()->VerLibro(vModificarLibro::codLibro).VerEstado()
+												Singleton::ObtenerInstancia()->VerLibro(codLibro).VerEstado()
 												);	
 	Singleton::ObtenerInstancia()->Guardar(); // actualizar el archivo	
 	wxMessageBox("¡Libro Modificado!");

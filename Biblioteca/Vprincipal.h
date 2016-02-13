@@ -9,22 +9,29 @@ using namespace std;
 
 class Vprincipal : public VentanaPrincipal {
 	int indiceGrilla;
-protected:
-	void ClickDerechoGrillaLibro( wxGridEvent& event ) ;
-	void ClickEliminarLectorMenu( wxCommandEvent& event ) ;
-	void ClickEliminarLibroMenu() ;
-	void ClickBusquedaPorTitulo( wxCommandEvent& event ) ;
-	void ClickBusquedaPorNombre( wxCommandEvent& event ) ;
-	void ClickAgregarSancionMenu( wxCommandEvent& event ) ;
-	void PopupClickDerechoLibro(wxCommandEvent &evt);
-
 public:
 	Vprincipal(wxWindow *parent=NULL);	
 	~Vprincipal();	
 	
+	void ClickDerechoGrillaLectores( wxGridEvent& event ) ;
+	void ClickDerechoGrillaLibro( wxGridEvent& event ) ;
+	
+	
+	void ClickBusquedaPorTitulo( wxCommandEvent& event ) ;
+	void ClickBusquedaPorNombre( wxCommandEvent& event ) ;
+	void ClickAgregarSancionMenu( wxCommandEvent& event ) ;
+	void PopupClickDerechoLibro(wxCommandEvent &event);
+	void PopupClickDerechoLector(wxCommandEvent &event);
+
+
 	void ClickAgregarLibroMenu( wxCommandEvent& event );	
 	void ClickModificarLibroMenu() ;
+	void ClickEliminarLibroMenu() ;
+	
 	void ClickAgregarLectorMenu( wxCommandEvent& event ) ;
+	void ClickModificarLectorMenu() ;
+	void ClickEliminarLectorMenu() ;
+	
 	void ClickAgregarPrestamoMenu();
 	void ClickAgregarDevolucionMenu( wxCommandEvent& event ) ;
 	
