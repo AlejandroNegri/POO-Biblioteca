@@ -67,7 +67,6 @@ class VentanaPrincipal : public wxFrame
 		
 		// Virtual event handlers, overide them in your derived class
 		virtual void ClickAgregarLibroMenu( wxCommandEvent& event ) { event.Skip(); }
-		virtual void ClickEliminarLibroMenu( wxCommandEvent& event ) { event.Skip(); }
 		virtual void ClickAgregarLectorMenu( wxCommandEvent& event ) { event.Skip(); }
 		virtual void ClickEliminarLectorMenu( wxCommandEvent& event ) { event.Skip(); }
 		virtual void ClickAgregarDevolucionMenu( wxCommandEvent& event ) { event.Skip(); }

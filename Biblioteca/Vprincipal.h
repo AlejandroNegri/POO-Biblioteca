@@ -8,10 +8,11 @@ using namespace std;
 
 
 class Vprincipal : public VentanaPrincipal {
+	int indiceGrilla;
 protected:
 	void ClickDerechoGrillaLibro( wxGridEvent& event ) ;
 	void ClickEliminarLectorMenu( wxCommandEvent& event ) ;
-	void ClickEliminarLibroMenu( wxCommandEvent& event ) ;
+	void ClickEliminarLibroMenu() ;
 	void ClickBusquedaPorTitulo( wxCommandEvent& event ) ;
 	void ClickBusquedaPorNombre( wxCommandEvent& event ) ;
 	void ClickAgregarSancionMenu( wxCommandEvent& event ) ;

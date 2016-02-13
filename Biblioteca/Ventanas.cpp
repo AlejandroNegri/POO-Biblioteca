@@ -22,24 +22,12 @@ VentanaPrincipal::VentanaPrincipal( wxWindow* parent, wxWindowID id, const wxStr
 	mAgregarLibro = new wxMenuItem( m_menu2, wxID_ANY, wxString( wxT("Agregar...") ) , wxEmptyString, wxITEM_NORMAL );
 	m_menu2->Append( mAgregarLibro );
 	
-	wxMenuItem* mModificarLibro;
-	mModificarLibro = new wxMenuItem( m_menu2, wxID_ANY, wxString( wxT("MyMenuItem") ) , wxEmptyString, wxITEM_NORMAL );
-	m_menu2->Append( mModificarLibro );
-	
-	wxMenuItem* mEliminarLibro;
-	mEliminarLibro = new wxMenuItem( m_menu2, wxID_ANY, wxString( wxT("Eliminar...") ) , wxEmptyString, wxITEM_NORMAL );
-	m_menu2->Append( mEliminarLibro );
-	
 	m_menubar2->Append( m_menu2, wxT("Libro") ); 
 	
 	m_menu3 = new wxMenu();
 	wxMenuItem* mAgregarLector;
 	mAgregarLector = new wxMenuItem( m_menu3, wxID_ANY, wxString( wxT("Agregar...") ) , wxEmptyString, wxITEM_NORMAL );
 	m_menu3->Append( mAgregarLector );
-	
-	wxMenuItem* m_menuItem8;
-	m_menuItem8 = new wxMenuItem( m_menu3, wxID_ANY, wxString( wxT("MyMenuItem") ) , wxEmptyString, wxITEM_NORMAL );
-	m_menu3->Append( m_menuItem8 );
 	
 	wxMenuItem* mEliminarLector;
 	mEliminarLector = new wxMenuItem( m_menu3, wxID_ANY, wxString( wxT("Eliminar...") ) , wxEmptyString, wxITEM_NORMAL );
@@ -314,7 +302,6 @@ VentanaPrincipal::VentanaPrincipal( wxWindow* parent, wxWindowID id, const wxStr
 	
 	// Connect Events
 	this->Connect( mAgregarLibro->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( VentanaPrincipal::ClickAgregarLibroMenu ) );
-	this->Connect( mEliminarLibro->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( VentanaPrincipal::ClickEliminarLibroMenu ) );
 	this->Connect( mAgregarLector->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( VentanaPrincipal::ClickAgregarLectorMenu ) );
 	this->Connect( mEliminarLector->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( VentanaPrincipal::ClickEliminarLectorMenu ) );
 	this->Connect( mAgregarDevolucion->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( VentanaPrincipal::ClickAgregarDevolucionMenu ) );
@@ -334,7 +321,6 @@ VentanaPrincipal::~VentanaPrincipal()
 {
 	// Disconnect Events
 	this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( VentanaPrincipal::ClickAgregarLibroMenu ) );
-	this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( VentanaPrincipal::ClickEliminarLibroMenu ) );
 	this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( VentanaPrincipal::ClickAgregarLectorMenu ) );
 	this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( VentanaPrincipal::ClickEliminarLectorMenu ) );
 	this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( VentanaPrincipal::ClickAgregarDevolucionMenu ) );
