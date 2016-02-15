@@ -15,10 +15,13 @@
 #include "vAgregarPrestamo.h"
 #include "vModificarLibro.h"
 #include "vModificarLector.h"
+#include "icono.xpm"
+#include <wx/icon.h>
 
 
 //constructor
 Vprincipal::Vprincipal(wxWindow *parent) : VentanaPrincipal(parent) {	
+	SetIcon(wxIcon(icono));
 	RefrescarGrillas();
 }
 
@@ -114,10 +117,13 @@ void Vprincipal::CargarFilaPrestamos(int i) {
 	Lector le = Singleton::ObtenerInstancia()->VerLector(p.VerNumeroLectorPrestamo());
 	Libro li= Singleton::ObtenerInstancia()->VerLibro(p.VerCodigoLibroPrestamo());	
 	
-	gPrestamos->SetCellValue(i,0,li.VerTitulo());
-	gPrestamos->SetCellValue(i,1,le.VerApellido() + ", " + le.VerNombre());
-	gPrestamos->SetCellValue(i,2,p.VerFechaDesde());
-	gPrestamos->SetCellValue(i,3,p.VerFechaHasta());
+	gPrestamos->SetCellValue(i,1,li.VerTitulo());
+	gPrestamos->SetCellValue(i,0,le.VerApellido() + ", " + le.VerNombre());
+	gPrestamos->SetCellValue(i,3,p.VerFechaDesde());
+	gPrestamos->SetCellValue(i,4,p.VerFechaHasta());
+	wxString codLibro;
+	codLibro << li.VerCodigoLibro();
+	gPrestamos->SetCellValue(i,2,codLibro);
 }
 //				SANCIONES
 void Vprincipal::CargarFilaSanciones(int i) {
@@ -140,7 +146,7 @@ void Vprincipal::ClickAgregarLibroMenu( wxCommandEvent& event ) {
 }
 //MENU LIBRO: MODIFICAR
 void Vprincipal::ClickModificarLibroMenu() {	
-	vModificarLibro::codLibro=indiceGrilla;
+	vModificarLibro::codLibro=indice;
 	vModificarLibro nueva_ventana(this);	
 	if (nueva_ventana.ShowModal()==1) {
 		RefrescarGrillas();
@@ -149,14 +155,14 @@ void Vprincipal::ClickModificarLibroMenu() {
 
 //		ELIMINAR
 void Vprincipal::ClickEliminarLibroMenu()  {
-	if(!Singleton::ObtenerInstancia()->VerLibro(indiceGrilla).EstaDisponible()){
+	if(!Singleton::ObtenerInstancia()->VerLibro(indice).EstaDisponible()){
 		wxMessageBox("¡No se pueden eliminar libros en préstamo!","Error",wxOK|wxICON_ERROR,this);
 		return;
 	}		
-	wxMessageDialog dial(NULL, wxT("¿Eliminar el libro " + Singleton::ObtenerInstancia()->VerLibro(indiceGrilla).VerTitulo() 
+	wxMessageDialog dial(NULL, wxT("¿Eliminar el libro " + Singleton::ObtenerInstancia()->VerLibro(indice).VerTitulo() 
 								   + "? "),wxT("Question"), wxYES_NO | wxNO_DEFAULT | wxICON_QUESTION);
 	if (dial.ShowModal() ==  wxID_YES){	
-		Singleton::ObtenerInstancia()->OcultarLibro(indiceGrilla);		
+		Singleton::ObtenerInstancia()->OcultarLibro(indice);		
 		Singleton::ObtenerInstancia()->Guardar(); // actualizar el archivo	
 		wxMessageBox("¡El libro ha sido eliminado!");
 		RefrescarGrillas();
@@ -173,7 +179,7 @@ void Vprincipal::ClickAgregarLectorMenu( wxCommandEvent& event )  {
 }
 //MENU LECTOR: MODIFICAR
 void Vprincipal::ClickModificarLectorMenu() {	
-	vModificarLector::numLector=indiceGrilla;
+	vModificarLector::numLector=indice;
 	vModificarLector nueva_ventana(this);	
 	if (nueva_ventana.ShowModal()==1) {
 		RefrescarGrillas();
@@ -181,14 +187,14 @@ void Vprincipal::ClickModificarLectorMenu() {
 }
 
 void Vprincipal::ClickEliminarLectorMenu()  {
-	if(Singleton::ObtenerInstancia()->TienePrestamosActivos(indiceGrilla)){
+	if(Singleton::ObtenerInstancia()->TienePrestamosActivos(indice)){
 		wxMessageBox("¡No se pueden eliminar lectores con préstamos activos!","Error",wxOK|wxICON_ERROR,this);
 		return;
 	}	
-	wxMessageDialog dial(NULL, wxT("¿Eliminar el lector " + Singleton::ObtenerInstancia()->VerLector(indiceGrilla).VerApellidoYNombre() 
+	wxMessageDialog dial(NULL, wxT("¿Eliminar el lector " + Singleton::ObtenerInstancia()->VerLector(indice).VerApellidoYNombre() 
 								   + "? "),wxT("Question"), wxYES_NO | wxNO_DEFAULT | wxICON_QUESTION);
 	if (dial.ShowModal() ==  wxID_YES){	
-		Singleton::ObtenerInstancia()->OcultarLector(indiceGrilla);		
+		Singleton::ObtenerInstancia()->OcultarLector(indice);		
 		Singleton::ObtenerInstancia()->Guardar(); // actualizar el archivo	
 		wxMessageBox("¡El lector ha sido eliminado!");
 		RefrescarGrillas();
@@ -205,23 +211,12 @@ void Vprincipal::ClickAgregarPrestamoMenu(){
 }
 
 //MENU PRESTAMO: DEVOLVER
-void Vprincipal::ClickAgregarDevolucionMenu( wxCommandEvent& event )  {
-	wxString codLibro = wxGetTextFromUser("Ingrese el código del libro","Nuevo Préstamo","",this);
-	if (atoi(codLibro)>= (Singleton::ObtenerInstancia()->cantLibros())){
-		wxMessageBox("Código de libro incorrecto!","Error",wxOK|wxICON_ERROR,this);
-		return;
-	}
-	Libro unLibro = Singleton::ObtenerInstancia()->VerLibro(atoi(codLibro.c_str()));
-	if (codLibro==""){
-		wxMessageBox("Código de libro incorrecto!","Error",wxOK|wxICON_ERROR,this);
-		return;
-	}else if(unLibro.EstaDisponible()){
-		wxMessageBox("Ese libro no estaba prestado!","Error",wxOK|wxICON_ERROR,this);
-		return;
-	}
-	wxMessageDialog dial(NULL, wxT("¿Confirmar devolución de: " + unLibro.VerTitulo()+ "?"), wxT("Question"), wxYES_NO | wxNO_DEFAULT | wxICON_QUESTION);
+void Vprincipal::ClickAgregarDevolucionMenu()  {	
+		
+	wxMessageDialog dial(NULL, wxT("¿Confirmar devolución de: " + Singleton::ObtenerInstancia()->VerLibro(indice).VerTitulo()+ "?"), 
+						 wxT("Question"), wxYES_NO | wxNO_DEFAULT | wxICON_QUESTION);
 	if (dial.ShowModal() ==  wxID_YES){		
-		int diasAtrasados = Singleton::ObtenerInstancia()->EliminarPrestamo(unLibro.VerCodigoLibro());		
+		int diasAtrasados = Singleton::ObtenerInstancia()->EliminarPrestamo(Singleton::ObtenerInstancia()->VerLibro(indice).VerCodigoLibro());		
 		Singleton::ObtenerInstancia()->Guardar(); // actualizar el archivo	
 		RefrescarGrillas();
 		
@@ -317,6 +312,18 @@ void Vprincipal::ClickBusquedaPorNombre( wxCommandEvent& event )  {
 	}
 }
 
+void Vprincipal::ClickBusquedaPrestamo( wxCommandEvent& event )  {
+	int fila_actual = gPrestamos->GetGridCursorRow();
+	int res = Singleton::ObtenerInstancia()->BuscarApellidoNombreOTitulo(tBusquedaPrestamo->GetValue().c_str(),fila_actual+1);
+	if (res==NO_SE_ENCUENTRA) 
+		res=Singleton::ObtenerInstancia()->BuscarApellidoNombreOTitulo(tBusquedaPrestamo->GetValue().c_str(),0);
+	if (res==-1)
+		wxMessageBox("No se encontraron mas coincidencias");
+	else {
+		gPrestamos->SetGridCursor(res,0); // seleccionar celda
+		gPrestamos->SelectRow(res); // marcar toda la fila
+	}	
+}
 
 
 
@@ -330,7 +337,7 @@ void Vprincipal::ClickDerechoGrillaLibro( wxGridEvent& event )  {
 	gLibros->SelectRow(event.GetRow()); // marcar toda la fila
 	
 	ResetearIndices();	
-	indiceGrilla = event.GetRow();	
+	indice = event.GetRow();	
 	
 	wxMenu menu(wxT(""));	
 	menu.Append(0, wxT("Prestar"));
@@ -344,7 +351,7 @@ void Vprincipal::PopupClickDerechoLibro(wxCommandEvent &event){
 	switch(event.GetId()) {		
 		case 0:
 		{	
-			vAgregarPrestamo::codLibro = indiceGrilla;
+			vAgregarPrestamo::codLibro = indice;
 			ClickAgregarPrestamoMenu();
 			break;
 		}
@@ -367,7 +374,7 @@ void Vprincipal::ClickDerechoGrillaLectores( wxGridEvent& event )  {
 	gLectores->SelectRow(event.GetRow()); // marcar toda la fila
 	
 	ResetearIndices();		
-	indiceGrilla = event.GetRow();	
+	indice = event.GetRow();	
 	
 	wxMenu menu(wxT(""));	
 	menu.Append(0, wxT("Prestar"));
@@ -381,7 +388,7 @@ void Vprincipal::PopupClickDerechoLector(wxCommandEvent &event){
 	switch(event.GetId()) {		
 		case 0:
 		{		
-			vAgregarPrestamo::numLector = indiceGrilla;
+			vAgregarPrestamo::numLector = indice;
 			ClickAgregarPrestamoMenu();
 			break;
 		}
@@ -397,14 +404,52 @@ void Vprincipal::PopupClickDerechoLector(wxCommandEvent &event){
 	}
 }
 
+
+
+//			CLICK DERECHO PRESTAMOS
+//MENU
+void Vprincipal::ClickDerechoGrillaPrestamo(wxGridEvent& event){
+	gPrestamos->SetGridCursor(event.GetRow(),0); // seleccionar celda
+	gPrestamos->SelectRow(event.GetRow()); // marcar toda la fila
+	
+	ResetearIndices();		
+	
+	indice = Singleton::ObtenerInstancia()->VerPrestamo(event.GetRow()).VerCodigoLibroPrestamo();;	
+	
+	wxMenu menu(wxT(""));	
+	menu.Append(0, wxT("Devolver"));
+	menu.Connect(wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(Vprincipal::PopupClickDerechoPrestamo), NULL, this);
+	PopupMenu(&menu);
+}
+//FUNCIONES
+void Vprincipal::PopupClickDerechoPrestamo(wxCommandEvent &event){
+	switch(event.GetId()) {		
+		case 0:
+		{		
+			ClickAgregarDevolucionMenu();
+			break;
+		}
+	}
+}
+
+
+
+
+
+
+
 //resetea los indices buscadores
 void Vprincipal::ResetearIndices(){
 	vAgregarPrestamo::codLibro = -1;
 	vAgregarPrestamo::numLector = -1;
 	vModificarLibro::codLibro = -1;
 	vModificarLector::numLector = -1;
-	indiceGrilla = -1;
+	indice = -1;
 }
+
+
+
+
 
 
 

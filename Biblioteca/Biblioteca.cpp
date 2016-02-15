@@ -231,6 +231,8 @@ bool Biblioteca::TienePrestamosActivos(int numLector){
 	return false;
 }
 
+
+//BUSQUEDAS
 int Biblioteca::BuscarTitulo(string parte, int pos_desde) {
 	pasar_a_minusculas(parte);
 	for (int i=pos_desde;i<cantLibros();i++) {
@@ -254,6 +256,21 @@ int Biblioteca::BuscarApellidoYNombre(string parte, int pos_desde) {
 				return i;
 		}
 	}
+	return NO_SE_ENCUENTRA;
+}
+
+
+
+int Biblioteca::BuscarApellidoNombreOTitulo(string parte, int pos_desde) {
+	pasar_a_minusculas(parte);
+	for (int i=pos_desde;i<cantPrestamos();i++) {		
+			string cadena_a_buscar_libro = VerLibro(VerPrestamo(i).VerCodigoLibroPrestamo()).VerTitulo();
+			string cadena_a_buscar_lector = VerLector(VerPrestamo(i).VerNumeroLectorPrestamo()).VerApellidoYNombre();
+			pasar_a_minusculas(cadena_a_buscar_libro);			
+			pasar_a_minusculas(cadena_a_buscar_lector);
+			if (cadena_a_buscar_libro.find(parte,0)!=string::npos || cadena_a_buscar_lector.find(parte,0)!=string::npos)
+				return i;			
+	}	
 	return NO_SE_ENCUENTRA;
 }
 

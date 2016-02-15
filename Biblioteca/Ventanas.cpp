@@ -14,40 +14,20 @@ VentanaPrincipal::VentanaPrincipal( wxWindow* parent, wxWindowID id, const wxStr
 	this->SetSizeHints( wxDefaultSize, wxDefaultSize );
 	
 	m_menubar2 = new wxMenuBar( 0 );
-	m_menu1 = new wxMenu();
-	m_menubar2->Append( m_menu1, wxT("Archivo") ); 
-	
 	m_menu2 = new wxMenu();
 	wxMenuItem* mAgregarLibro;
-	mAgregarLibro = new wxMenuItem( m_menu2, wxID_ANY, wxString( wxT("Agregar...") ) , wxEmptyString, wxITEM_NORMAL );
+	mAgregarLibro = new wxMenuItem( m_menu2, wxID_ANY, wxString( wxT("Libro...") ) , wxEmptyString, wxITEM_NORMAL );
 	m_menu2->Append( mAgregarLibro );
 	
-	m_menubar2->Append( m_menu2, wxT("Libro") ); 
-	
-	m_menu3 = new wxMenu();
 	wxMenuItem* mAgregarLector;
-	mAgregarLector = new wxMenuItem( m_menu3, wxID_ANY, wxString( wxT("Agregar...") ) , wxEmptyString, wxITEM_NORMAL );
-	m_menu3->Append( mAgregarLector );
+	mAgregarLector = new wxMenuItem( m_menu2, wxID_ANY, wxString( wxT("Lector...") ) , wxEmptyString, wxITEM_NORMAL );
+	m_menu2->Append( mAgregarLector );
 	
-	wxMenuItem* mEliminarLector;
-	mEliminarLector = new wxMenuItem( m_menu3, wxID_ANY, wxString( wxT("Eliminar...") ) , wxEmptyString, wxITEM_NORMAL );
-	m_menu3->Append( mEliminarLector );
-	
-	m_menubar2->Append( m_menu3, wxT("Lector") ); 
-	
-	m_menu4 = new wxMenu();
-	wxMenuItem* mAgregarDevolucion;
-	mAgregarDevolucion = new wxMenuItem( m_menu4, wxID_ANY, wxString( wxT("Devolver...") ) , wxEmptyString, wxITEM_NORMAL );
-	m_menu4->Append( mAgregarDevolucion );
-	
-	m_menubar2->Append( m_menu4, wxT("Préstamo") ); 
-	
-	m_menu7 = new wxMenu();
 	wxMenuItem* mAgregarSancion;
-	mAgregarSancion = new wxMenuItem( m_menu7, wxID_ANY, wxString( wxT("Agregar...") ) , wxEmptyString, wxITEM_NORMAL );
-	m_menu7->Append( mAgregarSancion );
+	mAgregarSancion = new wxMenuItem( m_menu2, wxID_ANY, wxString( wxT("Sanción...") ) , wxEmptyString, wxITEM_NORMAL );
+	m_menu2->Append( mAgregarSancion );
 	
-	m_menubar2->Append( m_menu7, wxT("Sanción") ); 
+	m_menubar2->Append( m_menu2, wxT("Agregar") ); 
 	
 	this->SetMenuBar( m_menubar2 );
 	
@@ -193,29 +173,31 @@ VentanaPrincipal::VentanaPrincipal( wxWindow* parent, wxWindowID id, const wxStr
 	m_notebook2->AddPage( pGrillaLectores, wxT("Lectores"), false );
 	pGrillaPrestamos = new wxPanel( m_notebook2, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
 	wxBoxSizer* sizerPrestamos;
-	sizerPrestamos = new wxBoxSizer( wxHORIZONTAL );
+	sizerPrestamos = new wxBoxSizer( wxVERTICAL );
 	
 	gPrestamos = new wxGrid( pGrillaPrestamos, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0 );
 	
 	// Grid
-	gPrestamos->CreateGrid( 0, 4 );
+	gPrestamos->CreateGrid( 0, 5 );
 	gPrestamos->EnableEditing( false );
 	gPrestamos->EnableGridLines( true );
 	gPrestamos->EnableDragGridSize( false );
 	gPrestamos->SetMargins( 0, 0 );
 	
 	// Columns
-	gPrestamos->SetColSize( 0, 180 );
+	gPrestamos->SetColSize( 0, 188 );
 	gPrestamos->SetColSize( 1, 149 );
-	gPrestamos->SetColSize( 2, 120 );
-	gPrestamos->SetColSize( 3, 114 );
+	gPrestamos->SetColSize( 2, 99 );
+	gPrestamos->SetColSize( 3, 122 );
+	gPrestamos->SetColSize( 4, 115 );
 	gPrestamos->EnableDragColMove( false );
 	gPrestamos->EnableDragColSize( true );
 	gPrestamos->SetColLabelSize( 30 );
-	gPrestamos->SetColLabelValue( 0, wxT("Libro") );
-	gPrestamos->SetColLabelValue( 1, wxT("Lector") );
-	gPrestamos->SetColLabelValue( 2, wxT("Fecha Entrega") );
-	gPrestamos->SetColLabelValue( 3, wxT("Préstamo Hasta") );
+	gPrestamos->SetColLabelValue( 0, wxT("Lector") );
+	gPrestamos->SetColLabelValue( 1, wxT("Libro") );
+	gPrestamos->SetColLabelValue( 2, wxT("Código (Libro)") );
+	gPrestamos->SetColLabelValue( 3, wxT("Fecha Entrega") );
+	gPrestamos->SetColLabelValue( 4, wxT("Préstamo Hasta") );
 	gPrestamos->SetColLabelAlignment( wxALIGN_CENTRE, wxALIGN_CENTRE );
 	
 	// Rows
@@ -228,6 +210,22 @@ VentanaPrincipal::VentanaPrincipal( wxWindow* parent, wxWindowID id, const wxStr
 	// Cell Defaults
 	gPrestamos->SetDefaultCellAlignment( wxALIGN_LEFT, wxALIGN_TOP );
 	sizerPrestamos->Add( gPrestamos, 1, wxALL|wxEXPAND|wxALIGN_CENTER_VERTICAL, 5 );
+	
+	wxBoxSizer* bSizer242;
+	bSizer242 = new wxBoxSizer( wxHORIZONTAL );
+	
+	m_staticText22 = new wxStaticText( pGrillaPrestamos, wxID_ANY, wxT("Busqueda por Nombre, Apellido o Libro: "), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText22->Wrap( -1 );
+	bSizer242->Add( m_staticText22, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
+	
+	tBusquedaPrestamo = new wxTextCtrl( pGrillaPrestamos, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	bSizer242->Add( tBusquedaPrestamo, 1, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
+	
+	bBusquedaPrestamo = new wxButton( pGrillaPrestamos, wxID_ANY, wxT("Buscar"), wxDefaultPosition, wxDefaultSize, 0 );
+	bSizer242->Add( bBusquedaPrestamo, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
+	
+	
+	sizerPrestamos->Add( bSizer242, 0, wxEXPAND, 5 );
 	
 	
 	pGrillaPrestamos->SetSizer( sizerPrestamos );
@@ -285,9 +283,6 @@ VentanaPrincipal::VentanaPrincipal( wxWindow* parent, wxWindowID id, const wxStr
 	wxBoxSizer* bSizer5;
 	bSizer5 = new wxBoxSizer( wxHORIZONTAL );
 	
-	bDevolucion = new wxButton( this, wxID_ANY, wxT("+ Devolución"), wxDefaultPosition, wxDefaultSize, 0 );
-	bSizer5->Add( bDevolucion, 0, wxALL, 5 );
-	
 	bSancion = new wxButton( this, wxID_ANY, wxT("+ Sanción"), wxDefaultPosition, wxDefaultSize, 0 );
 	bSizer5->Add( bSancion, 0, wxALL, 5 );
 	
@@ -303,8 +298,6 @@ VentanaPrincipal::VentanaPrincipal( wxWindow* parent, wxWindowID id, const wxStr
 	// Connect Events
 	this->Connect( mAgregarLibro->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( VentanaPrincipal::ClickAgregarLibroMenu ) );
 	this->Connect( mAgregarLector->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( VentanaPrincipal::ClickAgregarLectorMenu ) );
-	this->Connect( mEliminarLector->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( VentanaPrincipal::ClickEliminarLectorMenu ) );
-	this->Connect( mAgregarDevolucion->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( VentanaPrincipal::ClickAgregarDevolucionMenu ) );
 	this->Connect( mAgregarSancion->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( VentanaPrincipal::ClickAgregarSancionMenu ) );
 	pGrillaLibros->Connect( wxEVT_LEFT_DCLICK, wxMouseEventHandler( VentanaPrincipal::ClickPestaniaLibros ), NULL, this );
 	gLibros->Connect( wxEVT_GRID_CELL_RIGHT_CLICK, wxGridEventHandler( VentanaPrincipal::ClickDerechoGrillaLibro ), NULL, this );
@@ -313,8 +306,9 @@ VentanaPrincipal::VentanaPrincipal( wxWindow* parent, wxWindowID id, const wxStr
 	gLectores->Connect( wxEVT_GRID_CELL_RIGHT_CLICK, wxGridEventHandler( VentanaPrincipal::ClickDerechoGrillaLectores ), NULL, this );
 	bBusquedaNombre->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( VentanaPrincipal::ClickBusquedaPorNombre ), NULL, this );
 	pGrillaPrestamos->Connect( wxEVT_LEFT_DCLICK, wxMouseEventHandler( VentanaPrincipal::ClickPestaniaPrestamos ), NULL, this );
+	gPrestamos->Connect( wxEVT_GRID_CELL_RIGHT_CLICK, wxGridEventHandler( VentanaPrincipal::ClickDerechoGrillaPrestamo ), NULL, this );
+	bBusquedaPrestamo->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( VentanaPrincipal::ClickBusquedaPrestamo ), NULL, this );
 	pGrillaSanciones->Connect( wxEVT_LEFT_DCLICK, wxMouseEventHandler( VentanaPrincipal::ClickPestaniaSanciones ), NULL, this );
-	bDevolucion->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( VentanaPrincipal::ClickAgregarDevolucionMenu ), NULL, this );
 	bSancion->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( VentanaPrincipal::ClickAgregarSancionMenu ), NULL, this );
 }
 
@@ -323,8 +317,6 @@ VentanaPrincipal::~VentanaPrincipal()
 	// Disconnect Events
 	this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( VentanaPrincipal::ClickAgregarLibroMenu ) );
 	this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( VentanaPrincipal::ClickAgregarLectorMenu ) );
-	this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( VentanaPrincipal::ClickEliminarLectorMenu ) );
-	this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( VentanaPrincipal::ClickAgregarDevolucionMenu ) );
 	this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( VentanaPrincipal::ClickAgregarSancionMenu ) );
 	pGrillaLibros->Disconnect( wxEVT_LEFT_DCLICK, wxMouseEventHandler( VentanaPrincipal::ClickPestaniaLibros ), NULL, this );
 	gLibros->Disconnect( wxEVT_GRID_CELL_RIGHT_CLICK, wxGridEventHandler( VentanaPrincipal::ClickDerechoGrillaLibro ), NULL, this );
@@ -333,8 +325,9 @@ VentanaPrincipal::~VentanaPrincipal()
 	gLectores->Disconnect( wxEVT_GRID_CELL_RIGHT_CLICK, wxGridEventHandler( VentanaPrincipal::ClickDerechoGrillaLectores ), NULL, this );
 	bBusquedaNombre->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( VentanaPrincipal::ClickBusquedaPorNombre ), NULL, this );
 	pGrillaPrestamos->Disconnect( wxEVT_LEFT_DCLICK, wxMouseEventHandler( VentanaPrincipal::ClickPestaniaPrestamos ), NULL, this );
+	gPrestamos->Disconnect( wxEVT_GRID_CELL_RIGHT_CLICK, wxGridEventHandler( VentanaPrincipal::ClickDerechoGrillaPrestamo ), NULL, this );
+	bBusquedaPrestamo->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( VentanaPrincipal::ClickBusquedaPrestamo ), NULL, this );
 	pGrillaSanciones->Disconnect( wxEVT_LEFT_DCLICK, wxMouseEventHandler( VentanaPrincipal::ClickPestaniaSanciones ), NULL, this );
-	bDevolucion->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( VentanaPrincipal::ClickAgregarDevolucionMenu ), NULL, this );
 	bSancion->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( VentanaPrincipal::ClickAgregarSancionMenu ), NULL, this );
 	
 }

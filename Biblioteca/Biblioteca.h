@@ -52,6 +52,7 @@ public:
 	
 	int BuscarTitulo(string parte, int pos_desde);
 	int BuscarApellidoYNombre(string parte, int pos_desde);
+	int BuscarApellidoNombreOTitulo(string parte, int pos_desde);
 	
 	int cantLibros()const;	
 	int cantLibrosActivos()const;

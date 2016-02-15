@@ -11,10 +11,10 @@
 #include <wx/artprov.h>
 #include <wx/xrc/xmlres.h>
 #include <wx/string.h>
-#include <wx/menu.h>
 #include <wx/bitmap.h>
 #include <wx/image.h>
 #include <wx/icon.h>
+#include <wx/menu.h>
 #include <wx/gdicmn.h>
 #include <wx/font.h>
 #include <wx/colour.h>
@@ -42,11 +42,7 @@ class VentanaPrincipal : public wxFrame
 	
 	protected:
 		wxMenuBar* m_menubar2;
-		wxMenu* m_menu1;
 		wxMenu* m_menu2;
-		wxMenu* m_menu3;
-		wxMenu* m_menu4;
-		wxMenu* m_menu7;
 		wxNotebook* m_notebook2;
 		wxPanel* pGrillaLibros;
 		wxGrid* gLibros;
@@ -60,16 +56,16 @@ class VentanaPrincipal : public wxFrame
 		wxButton* bBusquedaNombre;
 		wxPanel* pGrillaPrestamos;
 		wxGrid* gPrestamos;
+		wxStaticText* m_staticText22;
+		wxTextCtrl* tBusquedaPrestamo;
+		wxButton* bBusquedaPrestamo;
 		wxPanel* pGrillaSanciones;
 		wxGrid* gSanciones;
-		wxButton* bDevolucion;
 		wxButton* bSancion;
 		
 		// Virtual event handlers, overide them in your derived class
 		virtual void ClickAgregarLibroMenu( wxCommandEvent& event ) { event.Skip(); }
 		virtual void ClickAgregarLectorMenu( wxCommandEvent& event ) { event.Skip(); }
-		virtual void ClickEliminarLectorMenu( wxCommandEvent& event ) { event.Skip(); }
-		virtual void ClickAgregarDevolucionMenu( wxCommandEvent& event ) { event.Skip(); }
 		virtual void ClickAgregarSancionMenu( wxCommandEvent& event ) { event.Skip(); }
 		virtual void ClickPestaniaLibros( wxMouseEvent& event ) { event.Skip(); }
 		virtual void ClickDerechoGrillaLibro( wxGridEvent& event ) { event.Skip(); }
@@ -78,6 +74,8 @@ class VentanaPrincipal : public wxFrame
 		virtual void ClickDerechoGrillaLectores( wxGridEvent& event ) { event.Skip(); }
 		virtual void ClickBusquedaPorNombre( wxCommandEvent& event ) { event.Skip(); }
 		virtual void ClickPestaniaPrestamos( wxMouseEvent& event ) { event.Skip(); }
+		virtual void ClickDerechoGrillaPrestamo( wxGridEvent& event ) { event.Skip(); }
+		virtual void ClickBusquedaPrestamo( wxCommandEvent& event ) { event.Skip(); }
 		virtual void ClickPestaniaSanciones( wxMouseEvent& event ) { event.Skip(); }
 		
 	
