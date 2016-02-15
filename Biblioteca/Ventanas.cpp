@@ -23,10 +23,6 @@ VentanaPrincipal::VentanaPrincipal( wxWindow* parent, wxWindowID id, const wxStr
 	mAgregarLector = new wxMenuItem( m_menu2, wxID_ANY, wxString( wxT("Lector...") ) , wxEmptyString, wxITEM_NORMAL );
 	m_menu2->Append( mAgregarLector );
 	
-	wxMenuItem* mAgregarSancion;
-	mAgregarSancion = new wxMenuItem( m_menu2, wxID_ANY, wxString( wxT("Sanción...") ) , wxEmptyString, wxITEM_NORMAL );
-	m_menu2->Append( mAgregarSancion );
-	
 	m_menubar2->Append( m_menu2, wxT("Agregar") ); 
 	
 	this->SetMenuBar( m_menubar2 );
@@ -298,7 +294,6 @@ VentanaPrincipal::VentanaPrincipal( wxWindow* parent, wxWindowID id, const wxStr
 	// Connect Events
 	this->Connect( mAgregarLibro->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( VentanaPrincipal::ClickAgregarLibroMenu ) );
 	this->Connect( mAgregarLector->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( VentanaPrincipal::ClickAgregarLectorMenu ) );
-	this->Connect( mAgregarSancion->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( VentanaPrincipal::ClickAgregarSancionMenu ) );
 	pGrillaLibros->Connect( wxEVT_LEFT_DCLICK, wxMouseEventHandler( VentanaPrincipal::ClickPestaniaLibros ), NULL, this );
 	gLibros->Connect( wxEVT_GRID_CELL_RIGHT_CLICK, wxGridEventHandler( VentanaPrincipal::ClickDerechoGrillaLibro ), NULL, this );
 	bBusquedaTitulo->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( VentanaPrincipal::ClickBusquedaPorTitulo ), NULL, this );
@@ -317,7 +312,6 @@ VentanaPrincipal::~VentanaPrincipal()
 	// Disconnect Events
 	this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( VentanaPrincipal::ClickAgregarLibroMenu ) );
 	this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( VentanaPrincipal::ClickAgregarLectorMenu ) );
-	this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( VentanaPrincipal::ClickAgregarSancionMenu ) );
 	pGrillaLibros->Disconnect( wxEVT_LEFT_DCLICK, wxMouseEventHandler( VentanaPrincipal::ClickPestaniaLibros ), NULL, this );
 	gLibros->Disconnect( wxEVT_GRID_CELL_RIGHT_CLICK, wxGridEventHandler( VentanaPrincipal::ClickDerechoGrillaLibro ), NULL, this );
 	bBusquedaTitulo->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( VentanaPrincipal::ClickBusquedaPorTitulo ), NULL, this );

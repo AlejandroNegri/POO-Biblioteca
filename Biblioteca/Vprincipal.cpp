@@ -212,69 +212,50 @@ void Vprincipal::ClickAgregarPrestamoMenu(){
 
 //MENU PRESTAMO: DEVOLVER
 void Vprincipal::ClickAgregarDevolucionMenu()  {	
-		
-	wxMessageDialog dial(NULL, wxT("¿Confirmar devolución de: " + Singleton::ObtenerInstancia()->VerLibro(indice).VerTitulo()+ "?"), 
+	int codLibro = Singleton::ObtenerInstancia()->VerPrestamo(indice).VerCodigoLibroPrestamo();
+	int numLector = Singleton::ObtenerInstancia()->VerPrestamo(indice).VerNumeroLectorPrestamo();
+	wxMessageDialog dial(NULL, wxT("¿Confirmar devolución de: " + Singleton::ObtenerInstancia()-> VerLibro(codLibro).VerTitulo()+ "?"), 
 						 wxT("Question"), wxYES_NO | wxNO_DEFAULT | wxICON_QUESTION);
-	if (dial.ShowModal() ==  wxID_YES){		
-		int diasAtrasados = Singleton::ObtenerInstancia()->EliminarPrestamo(Singleton::ObtenerInstancia()->VerLibro(indice).VerCodigoLibro());		
-		Singleton::ObtenerInstancia()->Guardar(); // actualizar el archivo	
-		RefrescarGrillas();
-		
-		wxString diasAtrasados_s;
-		diasAtrasados_s << diasAtrasados;	
-		
-		
-		wxMessageBox("Devolución Agregada! " + diasAtrasados_s + " días tarde!" );
-	}else{
-		wxMessageBox("Devolución Cancelada!");
-		return;
+	if (dial.ShowModal() ==  wxID_YES){				
+		int diasAtrasados = Singleton::ObtenerInstancia()->EliminarPrestamo(Singleton::ObtenerInstancia()->VerLibro(codLibro).VerCodigoLibro());		
+		Singleton::ObtenerInstancia()->Guardar(); 			
+		if (diasAtrasados == 0){
+			wxMessageBox("Devolución a tiempo! " );
+		}else{
+			wxString diasAtrasados_s;
+			diasAtrasados_s << diasAtrasados;			
+			wxMessageDialog dial2(NULL, wxT("Devolución Agregada! " + diasAtrasados_s + " días tarde! ¿Desea aplicar una sanción?"), 
+								  wxT("Question"), wxYES_NO | wxNO_DEFAULT | wxICON_QUESTION);
+			if (dial2.ShowModal() ==  wxID_YES){		
+				ClickAgregarSancionMenu(numLector);	
+			}				
+		}
 	}	
+	RefrescarGrillas();
 	return;
 }
 //MENU SANCION: AGREGAR
-void Vprincipal::ClickAgregarSancionMenu( wxCommandEvent& event )  {
-	
-	wxString numLector = wxGetTextFromUser("Ingrese el número de lector","Nueva Sanción","",this);	
-	if (atoi(numLector)>= (Singleton::ObtenerInstancia()->cantLectores())){
-		wxMessageBox("Número de lector incorrecto!","Error",wxOK|wxICON_ERROR,this);
-		return;
-	}
-	Lector unLector = Singleton::ObtenerInstancia()->VerLector(atoi(numLector.c_str()));
-	if (numLector==""){
-		wxMessageBox("Número de lector incorrecto!","Error",wxOK|wxICON_ERROR,this);
-		return;
-	}else if(unLector.EstaOculto()){
-		wxMessageBox("Ese lector fué eliminado!","Error",wxOK|wxICON_ERROR,this);
-		return;
-	}
-
-//	}else if(Singleton::ObtenerInstancia()->EstaSancionado(atoi(numLector))){
-//		wxMessageBox("Ese lector esta sancionado!","Error",wxOK|wxICON_ERROR,this);
-//		return;
-//	}	
+void Vprincipal::ClickAgregarSancionMenu(int numLector)  {
 	wxString cantDias_s = wxGetTextFromUser("Cantidad de días a sancionar:","Nueva Sanción","",this);
 	if (cantDias_s==""){
 		wxMessageBox("Cantidad incorrecta incorrecto!","Error",wxOK|wxICON_ERROR,this);
 		return;
 	}
-	int cantDias = atoi(cantDias_s);
-	
+	int cantDias = atoi(cantDias_s);	
 	wxString motivo = wxGetTextFromUser("Motivo de Sanción:","Nueva Sanción","",this);
 	if (motivo==""){
 		wxMessageBox("Agregue un motivo de sanción!","Error",wxOK|wxICON_ERROR,this);
 		return;
 	}
-	wxMessageDialog dial(NULL, wxT("El usuario: " + unLector.VerApellido()  + ", " + unLector.VerNombre() + " será sancionado " + cantDias_s
+	wxMessageDialog dial(NULL, wxT("El usuario: " + Singleton::ObtenerInstancia()->VerLector(numLector).VerApellidoYNombre() + " será sancionado " + cantDias_s
 								   + " días por "+ motivo +". ¿Confirmar sanción?"), wxT("Question"), wxYES_NO | wxNO_DEFAULT | wxICON_QUESTION);
 	if (dial.ShowModal() ==  wxID_YES){		
-		Singleton::ObtenerInstancia()->AgregarSancion(unLector.VerNumeroLector(), motivo.c_str(), cantDias);
+		Singleton::ObtenerInstancia()->AgregarSancion(numLector, motivo.c_str(), cantDias);
 		Singleton::ObtenerInstancia()->Guardar(); // actualizar el archivo	
-		RefrescarGrillas();
 		wxMessageBox("Sanción Agregada!");
-	}else{
-		wxMessageBox("Sanción Cancelada!");
-		return;
-	}	
+		
+	}
+	RefrescarGrillas();
 	return;
 }
 
@@ -283,7 +264,6 @@ void Vprincipal::ClickPestaniaLibros( wxMouseEvent& event )  { Vprincipal::Dibuj
 void Vprincipal::ClickPestaniaLectores( wxMouseEvent& event )  { Vprincipal::DibujarPestaniaLectores(); }
 void Vprincipal::ClickPestaniaPrestamos( wxMouseEvent& event )  { Vprincipal::DibujarPestaniaPrestamos(); }
 void Vprincipal::ClickPestaniaSanciones( wxMouseEvent& event )  { Vprincipal::DibujarPestaniaSanciones(); }
-
 
 // BUSQUEDA
 void Vprincipal::ClickBusquedaPorTitulo( wxCommandEvent& event )  {
@@ -380,6 +360,7 @@ void Vprincipal::ClickDerechoGrillaLectores( wxGridEvent& event )  {
 	menu.Append(0, wxT("Prestar"));
 	menu.Append(1, wxT("Modificar"));
 	menu.Append(2, wxT("Eliminar"));
+	menu.Append(3, wxT("Sancionar"));
 	menu.Connect(wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(Vprincipal::PopupClickDerechoLector), NULL, this);
 	PopupMenu(&menu);
 }
@@ -401,6 +382,11 @@ void Vprincipal::PopupClickDerechoLector(wxCommandEvent &event){
 			ClickEliminarLectorMenu();
 			break;
 		}
+		case 3:{
+				ClickAgregarSancionMenu(indice);
+				break;
+			}
+			
 	}
 }
 
@@ -414,7 +400,7 @@ void Vprincipal::ClickDerechoGrillaPrestamo(wxGridEvent& event){
 	
 	ResetearIndices();		
 	
-	indice = Singleton::ObtenerInstancia()->VerPrestamo(event.GetRow()).VerCodigoLibroPrestamo();;	
+	indice = event.GetRow();
 	
 	wxMenu menu(wxT(""));	
 	menu.Append(0, wxT("Devolver"));

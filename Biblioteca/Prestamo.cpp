@@ -6,8 +6,8 @@
 
 Prestamo::Prestamo(int p_numeroLector,int p_CodigoLibro)
 	: NumeroLector(p_numeroLector), CodigoLibro (p_CodigoLibro) {
-	FechaDesde_T = CalcularFecha(0);
-	FechaHasta_T = CalcularFecha(7);
+	FechaDesde_T = CalcularFechaLimite(0);
+	FechaHasta_T = CalcularFechaLimite(7);
 
 }
 
@@ -28,7 +28,7 @@ Prestamo::Prestamo(int p_numeroLector,int p_CodigoLibro, long p_FechaDesde_T, lo
 		
 	int Prestamo::VerificarEntregaATiempo()const{		
 		int ATiempo;		
-		long long hoy_T = CalcularFecha(0);		
+		long long hoy_T = CalcularFechaLimite(0);		
 		if (( hoy_T -  FechaHasta_T) <= 0){	
 			ATiempo = 0;	
 		}else{

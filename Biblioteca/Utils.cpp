@@ -9,20 +9,6 @@ void pasar_a_minusculas(string &s) {
 		s[i]=tolower(s[i]);
 }
 
-string TimeT_a_String(long t){
-	stringstream ss;
-	long long t_l = (long long)t;	
-	string t_s;	
-	ss << t_l;
-	ss >> t_s;
-	return ss.str();
-}
-
-long String_a_TimeT(string s){
-	long t = atol(s.c_str());
-	return t;
-}
-
 string TimeT_a_FormatoFecha(long t1){
 	time_t t = (time_t)t1;
 	tm *fecha_tm = localtime( &t );
@@ -32,7 +18,13 @@ string TimeT_a_FormatoFecha(long t1){
 	return ssFecha.str();
 }
 
-long CalcularFecha(int cantDias){	
+long Dias_a_TimeT(int cantDias){	
+	//segundos en un dia (24*60*60)
+	int dia_t = 86400;		
+	return cantDias * dia_t;
+}
+
+long CalcularFechaLimite(int cantDias){	
 	//segundos en un dia (24*60*60)
 	int dia_t = 86400;	
 	//calculo los segundos hasta ahora y le sumo la cant de dias extra

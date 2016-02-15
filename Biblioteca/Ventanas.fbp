@@ -167,21 +167,6 @@
                         <event name="OnMenuSelection">ClickAgregarLectorMenu</event>
                         <event name="OnUpdateUI"></event>
                     </object>
-                    <object class="wxMenuItem" expanded="0">
-                        <property name="bitmap"></property>
-                        <property name="checked">0</property>
-                        <property name="enabled">1</property>
-                        <property name="help"></property>
-                        <property name="id">wxID_ANY</property>
-                        <property name="kind">wxITEM_NORMAL</property>
-                        <property name="label">Sanción...</property>
-                        <property name="name">mAgregarSancion</property>
-                        <property name="permission">none</property>
-                        <property name="shortcut"></property>
-                        <property name="unchecked_bitmap"></property>
-                        <event name="OnMenuSelection">ClickAgregarSancionMenu</event>
-                        <event name="OnUpdateUI"></event>
-                    </object>
                 </object>
             </object>
             <object class="wxBoxSizer" expanded="1">

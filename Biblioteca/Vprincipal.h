@@ -29,7 +29,8 @@ public:
 	//busquedas
 	void ClickBusquedaPorTitulo( wxCommandEvent& event ) ;
 	void ClickBusquedaPorNombre( wxCommandEvent& event ) ;
-	void ClickAgregarSancionMenu( wxCommandEvent& event ) ;
+	
+	void ClickAgregarSancionMenu( int numLector) ;
 
 	//libro
 	void ClickAgregarLibroMenu( wxCommandEvent& event );	

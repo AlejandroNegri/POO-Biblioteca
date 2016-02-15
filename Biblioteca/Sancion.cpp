@@ -6,6 +6,11 @@
 	
 Sancion::Sancion(int p_numeroLector, long p_fechaSancion_T, string p_motivo)
 : NumeroLector(p_numeroLector), FechaSancion_T(p_fechaSancion_T), Motivo(p_motivo){}
+
+void Sancion::ProlongarSancion(long cantDias, string p_motivo){
+	FechaSancion_T = FechaSancion_T + Dias_a_TimeT(cantDias);
+	Motivo +=", " + p_motivo;
+}
 	
 int Sancion::VerNumeroLector()const{ return NumeroLector;}
 	

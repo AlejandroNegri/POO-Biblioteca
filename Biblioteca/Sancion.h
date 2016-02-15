@@ -19,6 +19,8 @@ public:
 	
 	Sancion(int p_numeroLector, long p_fechaSancion_T, string p_motivo);
 	
+	void ProlongarSancion(long cantDias, string p_motivo);
+	
 	int VerNumeroLector()const;
 	
 	string VerFechaSancion()const;

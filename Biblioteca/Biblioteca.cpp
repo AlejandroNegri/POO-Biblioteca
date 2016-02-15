@@ -3,6 +3,7 @@
 #include "Lector.h"
 #include "Sancion.h"
 #include "Prestamo.h"
+#include "Utils.h"
 #include <string>
 #include <ctime>
 #include <sstream>
@@ -11,7 +12,6 @@
 #include <algorithm>
 #include <fstream>
 #include <wx/msgdlg.h>
-#include "Utils.h"
 
 
 
@@ -61,9 +61,19 @@ void Biblioteca::AgregarPrestamo(int numeroLector, int codigoLibro){
 	vLibros[codigoLibro].EstadoPrestado();
 }
 
-void Biblioteca::AgregarSancion(int numeroLector, string motivo, int cantDias){
-	Sancion unaSancion(numeroLector, CalcularFecha(cantDias), motivo);
-	vSanciones.push_back(unaSancion);
+//sanciones
+//si está sancionado, le agrego dias y motivos a la sancion. Sino, la creo
+void Biblioteca::AgregarSancion(int numeroLector, string motivo, int cantDias){	
+	if(EstaSancionado(numeroLector)){
+		for(int i=0;i<cantSanciones();i++) {
+			if( vSanciones[i].VerNumeroLector() == numeroLector){ 
+				vSanciones[i].ProlongarSancion(cantDias, motivo);
+			}			
+		}				
+	}else{	
+		Sancion unaSancion(numeroLector, CalcularFechaLimite(cantDias), motivo);
+		vSanciones.push_back(unaSancion);
+	}
 }
 
 
@@ -153,7 +163,6 @@ void Biblioteca::CargarLibrosDesdeArchivo(){
 	if (archivo.is_open()) {
 		int tamanio_archivo = archivo.tellg();
 		int cantLibros = tamanio_archivo/sizeof(registro_libro);
-		//vLibros.resize(cantLibros);
 		archivo.seekg(0,ios::beg);
 		for (int i=0;i<cantLibros;i++){
 			registro_libro reg;
