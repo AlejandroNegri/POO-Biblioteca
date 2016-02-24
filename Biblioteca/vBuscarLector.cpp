@@ -3,6 +3,7 @@
 #include "vAgregarPrestamo.h"
 #include <wx/string.h>
 #include <wx/msgdlg.h>
+#include "Utils.h"
 
 //constructor
 vBuscarLector::vBuscarLector(wxWindow *parent) : VentanaBuscarLector(parent) {

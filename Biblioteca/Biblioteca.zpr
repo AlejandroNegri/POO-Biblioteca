@@ -13,7 +13,7 @@ version_required=20131219
 custom_tabs=0
 tab_use_spaces=0
 explorer_path=
-current_source=Vprincipal.h
+current_source=vBuscarLibro.cpp
 path_char=\
 [source]
 path=Application.cpp
@@ -67,7 +67,7 @@ cursor=20:33
 open=true
 [source]
 path=vBuscarLector.cpp
-cursor=22:29
+cursor=33:45
 open=true
 [source]
 path=vAgregarPrestamo.cpp
@@ -79,7 +79,7 @@ cursor=14:1
 open=true
 [source]
 path=vBuscarLibro.cpp
-cursor=36:11
+cursor=29:44
 open=true
 [source]
 path=vModificarLector.cpp

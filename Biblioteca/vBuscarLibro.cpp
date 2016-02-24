@@ -2,6 +2,7 @@
 #include "Singleton.h"
 #include <wx/msgdlg.h>
 #include "vAgregarPrestamo.h"
+#include "Utils.h"
 
 vBuscarLibro::vBuscarLibro(wxWindow *parent) : VentanaBuscarLibro(parent) {
 	gLibrosPrestamo->SetRowMinimalAcceptableHeight(0);
