@@ -34,9 +34,9 @@ long CalcularFechaLimite(int cantDias){
 		//meto el time_t en un tm para modificarle los min y seg
 		tm *fecha_tm = localtime( &fecha_t );
 		//le seteo la hora de entrega hasta las 23:59:59
-		fecha_tm->tm_hour = 23;
-		fecha_tm->tm_min = 59;
-		fecha_tm->tm_sec = 59;		
+		fecha_tm->tm_hour	= 23;
+		fecha_tm->tm_min	= 59;
+		fecha_tm->tm_sec 	= 59;		
 		//mktime vuelve el tm a formato time_t
 		fecha_t = mktime(fecha_tm);
 	}	
@@ -45,4 +45,10 @@ long CalcularFechaLimite(int cantDias){
 
 bool NoEstaOculto_Funcion(Libro l) { 
 	return !(l.EstaOculto()); 
+}
+
+string IntToString(int num){
+	stringstream ss;
+	ss << num;
+	return ss.str();	
 }

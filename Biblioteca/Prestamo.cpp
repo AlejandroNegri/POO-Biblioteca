@@ -8,7 +8,6 @@ Prestamo::Prestamo(int p_numeroLector,int p_CodigoLibro)
 	: NumeroLector(p_numeroLector), CodigoLibro (p_CodigoLibro) {
 	FechaDesde_T = CalcularFechaLimite(0);
 	FechaHasta_T = CalcularFechaLimite(7);
-
 }
 
 Prestamo::Prestamo(int p_numeroLector,int p_CodigoLibro, long p_FechaDesde_T, long p_FechaHasta_T)
@@ -16,15 +15,15 @@ Prestamo::Prestamo(int p_numeroLector,int p_CodigoLibro, long p_FechaDesde_T, lo
 	
 	int Prestamo::VerNumeroLectorPrestamo()const{ return NumeroLector;}
 	
-	int Prestamo::VerCodigoLibroPrestamo()const{ return CodigoLibro;}
+	int Prestamo::VerCodigoLibroPrestamo()const	{ return CodigoLibro;}
 	
-	long Prestamo::VerFechaDesde_T()const{ return FechaDesde_T;}
+	long Prestamo::VerFechaDesde_T()const		{ return FechaDesde_T;}
 	
-	long Prestamo::VerFechaHasta_T()const{ return FechaHasta_T;}
+	long Prestamo::VerFechaHasta_T()const		{ return FechaHasta_T;}
 	
-	string Prestamo::VerFechaDesde()const{ return TimeT_a_FormatoFecha(FechaDesde_T);}
+	string Prestamo::VerFechaDesde()const		{ return TimeT_a_FormatoFecha(FechaDesde_T);}
 	
-	string Prestamo::VerFechaHasta()const{ return TimeT_a_FormatoFecha(FechaHasta_T);}
+	string Prestamo::VerFechaHasta()const		{ return TimeT_a_FormatoFecha(FechaHasta_T);}
 		
 	int Prestamo::VerificarEntregaATiempo()const{		
 		int ATiempo;		

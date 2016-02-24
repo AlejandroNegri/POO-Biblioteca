@@ -4,8 +4,7 @@
 
 
 
-class vAgregarPrestamo : public VentanaAgregarPrestamo {
-	
+class vAgregarPrestamo : public VentanaAgregarPrestamo {	
 protected:
 	void ClickAceptarPrestamo( wxCommandEvent& event ) ;
 	void ClickBuscarLector( wxCommandEvent& event ) ;
@@ -14,22 +13,13 @@ protected:
 	
 public:
 	vAgregarPrestamo(wxWindow *parent=NULL);
-	~vAgregarPrestamo();
-	
+	~vAgregarPrestamo();	
 	bool ValidarLibro();
 	bool ValidarLector();
 	void ActualizarLabelLibro();
-	void ActualizarLabelLector();
-	
+	void ActualizarLabelLector();	
 	static int codLibro ;
 	static int numLector ;
-	
-	
-	
-	
 };
-
-
-
 #endif
 

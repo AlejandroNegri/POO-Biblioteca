@@ -2,6 +2,7 @@
 #include "Vprincipal.h"
 #include "Singleton.h"
 #include <wx/msgdlg.h>
+#include <string>
 
 
 VagregarLibro::VagregarLibro(wxWindow *parent) : VentanaAgregarLibro(parent) {
@@ -19,10 +20,8 @@ void VagregarLibro::ClickAgregarLibroNuevo( wxCommandEvent& event ) {
 												tTipo->GetValue().c_str(),
 												Singleton::ObtenerInstancia()->cantLibros(),
 												"Disponible"
-												);
-	
-	Singleton::ObtenerInstancia()->Guardar(); // actualizar el archivo	
-	wxMessageBox("¡Libro Agregado!");
+												);	
+	wxMessageBox("¡Libro Agregado!");	
 	EndModal(1);
 }
 

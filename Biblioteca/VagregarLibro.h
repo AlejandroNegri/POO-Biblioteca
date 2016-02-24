@@ -4,19 +4,14 @@
 #include "Singleton.h"
 
 
-class VagregarLibro : public VentanaAgregarLibro {
-	
+class VagregarLibro : public VentanaAgregarLibro {	
 protected:
-	void bCancelarAgregarLibro( wxCommandEvent& event ) ;
-	
+	void bCancelarAgregarLibro( wxCommandEvent& event ) ;	
 	void ClickAgregarLibroNuevo( wxCommandEvent& event ) ;
 
 public:
-	VagregarLibro(wxWindow *parent=NULL);
-	
+	VagregarLibro(wxWindow *parent=NULL);	
 	~VagregarLibro();
-	
-
 };
 
 #endif

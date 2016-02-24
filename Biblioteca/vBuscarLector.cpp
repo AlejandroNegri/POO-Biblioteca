@@ -30,15 +30,13 @@ void vBuscarLector::CargarFilaLectores(int i) {
 	gLectoresPrestamo->SetCellValue(i,2,l.VerDNI());
 	gLectoresPrestamo->SetCellValue(i,3,l.VerDomicilio());
 	gLectoresPrestamo->SetCellValue(i,4,l.VerTel());	
-	wxString numLector;
-	numLector << l.VerNumeroLector();	
-	gLectoresPrestamo->SetCellValue(i,5,numLector);
+	gLectoresPrestamo->SetCellValue(i,5,IntToString(l.VerNumeroLector()));
 }
 
 //busqueda
 void vBuscarLector::ClickBusquedaPorNombre( wxCommandEvent& event )  {
-	int fila_actual = gLectoresPrestamo->GetGridCursorRow();
-	int res = Singleton::ObtenerInstancia()->BuscarApellidoYNombre(tBusquedaNombre->GetValue().c_str(),fila_actual+1);
+	int fila_actual	= gLectoresPrestamo->GetGridCursorRow();
+	int res 		= Singleton::ObtenerInstancia()->BuscarApellidoYNombre(tBusquedaNombre->GetValue().c_str(),fila_actual+1);
 	if (res==NO_SE_ENCUENTRA) 
 		res=Singleton::ObtenerInstancia()->BuscarApellidoYNombre(tBusquedaNombre->GetValue().c_str(),0);
 	if (res==-1)

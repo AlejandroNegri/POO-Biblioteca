@@ -25,10 +25,8 @@ void vBuscarLibro::CargarFilaLibros(int i) {
 	gLibrosPrestamo->SetCellValue(i,1,l.VerAutores());
 	gLibrosPrestamo->SetCellValue(i,2,l.VerEditorial());
 	gLibrosPrestamo->SetCellValue(i,3,l.VerISBN());
-	gLibrosPrestamo->SetCellValue(i,4,l.VerEdicion());	
-	wxString cod;
-	cod << l.VerCodigoLibro();	
-	gLibrosPrestamo->SetCellValue(i,5,cod);
+	gLibrosPrestamo->SetCellValue(i,4,l.VerEdicion());		
+	gLibrosPrestamo->SetCellValue(i,5,IntToString(l.VerCodigoLibro()));
 	gLibrosPrestamo->SetCellValue(i,6,l.VerTipo());
 	gLibrosPrestamo->SetCellValue(i,7,l.VerEstado());
 }
@@ -36,7 +34,7 @@ void vBuscarLibro::CargarFilaLibros(int i) {
 
 void vBuscarLibro::ClickBusquedaPorTitulo( wxCommandEvent& event )  {
 	int fila_actual = gLibrosPrestamo->GetGridCursorRow();
-	int res = Singleton::ObtenerInstancia()->BuscarTitulo(tBusquedaTitulo->GetValue().c_str(),fila_actual+1);
+	int res 		= Singleton::ObtenerInstancia()->BuscarTitulo(tBusquedaTitulo->GetValue().c_str(),fila_actual+1);
 	if (res==NO_SE_ENCUENTRA) 
 		res=Singleton::ObtenerInstancia()->BuscarTitulo(tBusquedaTitulo->GetValue().c_str(),0);
 	if (res==-1)

@@ -520,7 +520,7 @@ VentanaAgregarLector::VentanaAgregarLector( wxWindow* parent, wxWindowID id, con
 	bCancelar = new wxButton( this, wxID_ANY, wxT("Cancelar"), wxDefaultPosition, wxDefaultSize, 0 );
 	bSizer20->Add( bCancelar, 0, wxALL, 5 );
 	
-	bAgregarLector = new wxButton( this, wxID_ANY, wxT("Agregar"), wxDefaultPosition, wxDefaultSize, 0 );
+	bAgregarLector = new wxButton( this, wxID_ANY, wxT("Aceptar"), wxDefaultPosition, wxDefaultSize, 0 );
 	bSizer20->Add( bAgregarLector, 0, wxALL, 5 );
 	
 	

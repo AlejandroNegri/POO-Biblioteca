@@ -21,8 +21,7 @@ void vAgregarPrestamo::ClickBuscarLibro( wxCommandEvent& event )  {
 	if (ventana_busqueda_lector.ShowModal()==1) { // mostrar y esperar
 		ActualizarLabelLector();	
 		ActualizarLabelLibro();
-	}
-	
+	}	
 }
 
 void vAgregarPrestamo::ClickBuscarLector( wxCommandEvent& event )  {	
@@ -33,13 +32,11 @@ void vAgregarPrestamo::ClickBuscarLector( wxCommandEvent& event )  {
 	}
 }
 
-
 //aceptar y cancelar
 void vAgregarPrestamo::ClickAceptarPrestamo( wxCommandEvent& event )  {	
 	if(ValidarLector() && ValidarLibro()){
 		Singleton::ObtenerInstancia()->AgregarPrestamo(Singleton::ObtenerInstancia()->VerLector(vAgregarPrestamo::numLector).VerNumeroLector(), 
 													   Singleton::ObtenerInstancia()->VerLibro(vAgregarPrestamo::codLibro).VerCodigoLibro() );
-		Singleton::ObtenerInstancia()->Guardar(); // actualizar el archivo	
 		wxMessageBox("¡Préstamo Agregado!");
 		EndModal(1);		
 	}	

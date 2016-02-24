@@ -1,0 +1,25 @@
+se agrego: la guitarra de lolo
+se agrego: es un chano
+[16/2/2016 16:48:21hs]se agrego: el caballito rengo
+[16/2/2016 17:16:34hs]Se agregó el libro: " martin fierro" - Código: 15
+[16/2/2016 17:59:51hs]Se agregó el libro: " lima" - Código: 15
+[16/2/2016 18:26:17hs]Se modificó el libro: " EL zorro" - Código: 15
+[16/2/2016 18:32:3hs]Se eliminó el libro: " ddddd" - Código: 9
+[16/2/2016 19:12:49hs]Se modificó el lector: "cuenca, carlos" - Núm. lector: 0
+[16/2/2016 19:13:41hs]Se eliminó el lector: "asdsad213, aseda1231" - Núm. Lector: 4
+[16/2/2016 19:14:13hs]Se agregó el lector: "lopez, ignacio" - Núm. lector: 9
+[23/2/2016 15:40:53hs]Se agregó el libro: " hola don pepito" - Código: 16
+[23/2/2016 15:43:18hs]Se agregó el libro: " hola don jose" - Código: 17
+[23/2/2016 15:51:13hs]Se modificó el libro: "el loco gg" - Código: 7
+[23/2/2016 15:51:14hs]Se modificó el libro: "el loco gg" - Código: 7
+[23/2/2016 15:52:51hs]Se modificó el libro: "holulix" - Código: 6
+[23/2/2016 15:56:33hs]Se agregó el libro: " como le fue" - Código: 18
+[23/2/2016 16:5:25hs]Se eliminó el libro: "es un chano" - Código: 12
+[23/2/2016 16:23:0hs]Se modificó el lector: "cuenca, carlos" - Núm. lector: 0
+[23/2/2016 16:25:15hs]Se agregó el lector: "monje, pepe" - Núm. lector: 10
+[23/2/2016 16:25:23hs]Se eliminó el lector: "asdas, 1asdasd" - Núm. Lector: 5
+[23/2/2016 17:5:23hs]Se prestó el libro: "hola don pepito(16) al lector: lopez, ignacio(9)
+[23/2/2016 17:7:22hs]Se prestó el libro: "caperucita2"(8) al lector: "lopez, ignacio"(9)
+[23/2/2016 17:58:34hs]Se devolvió el libro: "caperucita2"(8) 0 días tarde
+[23/2/2016 19:5:36hs]Se sancionó al lector: "lopez, ignacio"(9) por 1días
+[23/2/2016 19:7:58hs]Se sancionó 3 días al lector: "monje, pepe"(10) por retraso

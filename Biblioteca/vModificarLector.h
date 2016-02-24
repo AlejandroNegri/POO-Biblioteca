@@ -3,17 +3,13 @@
 #include "Ventanas.h"
 
 class vModificarLector : public VentanaAgregarLector {
-	
-private:
-	
 protected:
 	void bCancelarAgregarLector( wxCommandEvent& event ) ;
 	void ClickAgregarLectorNuevo( wxCommandEvent& event ) ;
 	
 public:
 	vModificarLector(wxWindow *parent=NULL);
-	~vModificarLector();
-	
+	~vModificarLector();	
 	static int numLector;
 };
 

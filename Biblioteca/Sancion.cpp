@@ -12,10 +12,10 @@ void Sancion::ProlongarSancion(long cantDias, string p_motivo){
 	Motivo +=", " + p_motivo;
 }
 	
-int Sancion::VerNumeroLector()const{ return NumeroLector;}
+int Sancion::VerNumeroLector()const		{ return NumeroLector;}
 	
-string Sancion::VerFechaSancion()const{ return TimeT_a_FormatoFecha(FechaSancion_T);}
+string Sancion::VerFechaSancion()const	{ return TimeT_a_FormatoFecha(FechaSancion_T);}
 
-long Sancion::VerFechaSancion_T()const{ return FechaSancion_T;}
+long Sancion::VerFechaSancion_T()const	{ return FechaSancion_T;}
 	
-string Sancion::VerMotivo()const{ return Motivo;}	
+string Sancion::VerMotivo()const		{ return Motivo;}	

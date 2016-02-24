@@ -9,14 +9,9 @@ using namespace std;
 
 class Vprincipal : public VentanaPrincipal {
 	int indice;
-protected:
-	
-
 public:
 	Vprincipal(wxWindow *parent=NULL);	
 	~Vprincipal();	
-	
-	
 	
 	//click derechos y sus popups
 	void ClickDerechoGrillaLectores( wxGridEvent& event ) ;
@@ -61,8 +56,6 @@ public:
 	void CargarFilaPrestamos(int i);	
 	void CargarFilaSanciones(int i);	
 	void RefrescarGrillas();
-	
-	
 	void ResetearIndices();
 };
 
