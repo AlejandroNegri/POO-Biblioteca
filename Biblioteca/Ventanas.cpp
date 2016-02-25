@@ -276,15 +276,6 @@ VentanaPrincipal::VentanaPrincipal( wxWindow* parent, wxWindowID id, const wxStr
 	
 	bSizer2->Add( bSizer21, 1, wxEXPAND|wxALIGN_CENTER_HORIZONTAL, 5 );
 	
-	wxBoxSizer* bSizer5;
-	bSizer5 = new wxBoxSizer( wxHORIZONTAL );
-	
-	bSancion = new wxButton( this, wxID_ANY, wxT("+ Sanción"), wxDefaultPosition, wxDefaultSize, 0 );
-	bSizer5->Add( bSancion, 0, wxALL, 5 );
-	
-	
-	bSizer2->Add( bSizer5, 0, wxALIGN_RIGHT, 5 );
-	
 	
 	this->SetSizer( bSizer2 );
 	this->Layout();
@@ -304,7 +295,6 @@ VentanaPrincipal::VentanaPrincipal( wxWindow* parent, wxWindowID id, const wxStr
 	gPrestamos->Connect( wxEVT_GRID_CELL_RIGHT_CLICK, wxGridEventHandler( VentanaPrincipal::ClickDerechoGrillaPrestamo ), NULL, this );
 	bBusquedaPrestamo->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( VentanaPrincipal::ClickBusquedaPrestamo ), NULL, this );
 	pGrillaSanciones->Connect( wxEVT_LEFT_DCLICK, wxMouseEventHandler( VentanaPrincipal::ClickPestaniaSanciones ), NULL, this );
-	bSancion->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( VentanaPrincipal::ClickAgregarSancionMenu ), NULL, this );
 }
 
 VentanaPrincipal::~VentanaPrincipal()
@@ -322,7 +312,6 @@ VentanaPrincipal::~VentanaPrincipal()
 	gPrestamos->Disconnect( wxEVT_GRID_CELL_RIGHT_CLICK, wxGridEventHandler( VentanaPrincipal::ClickDerechoGrillaPrestamo ), NULL, this );
 	bBusquedaPrestamo->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( VentanaPrincipal::ClickBusquedaPrestamo ), NULL, this );
 	pGrillaSanciones->Disconnect( wxEVT_LEFT_DCLICK, wxMouseEventHandler( VentanaPrincipal::ClickPestaniaSanciones ), NULL, this );
-	bSancion->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( VentanaPrincipal::ClickAgregarSancionMenu ), NULL, this );
 	
 }
 

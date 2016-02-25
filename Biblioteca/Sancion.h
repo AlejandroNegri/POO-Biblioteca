@@ -3,7 +3,6 @@
 #include <ctime>
 #include <string>
 #include "Biblioteca.h"
-using namespace std;
 
 struct registro_sancion {
 	int 	numeroLector;

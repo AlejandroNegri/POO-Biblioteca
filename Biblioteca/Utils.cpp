@@ -2,6 +2,8 @@
 #include <sstream>
 #include <ctime>
 #include <cstdlib>
+using std::string;
+using std::stringstream;
 
 void pasar_a_minusculas(string &s) {
 	int i,c=s.size();

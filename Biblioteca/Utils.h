@@ -2,7 +2,7 @@
 #define UTILS_H
 #include <string>
 #include "Libro.h"
-using namespace std;
+using std::string;
 
 void 	pasar_a_minusculas(string &s);
 string	TimeT_a_FormatoFecha(long t);

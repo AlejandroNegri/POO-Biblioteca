@@ -1,16 +1,14 @@
 #ifndef PRESTAMO_H
 #define PRESTAMO_H
+
 #include <string>
-#include <ctime>
-#include <sstream>
-using namespace std;
+using std::string;
 
 struct registro_prestamo {
 	int numeroLector;
 	int codigoLibro;
 	long fechaDesde_t;
 	long fechaHasta_t;
-
 };
 
 class Prestamo {

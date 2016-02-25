@@ -61,7 +61,6 @@ class VentanaPrincipal : public wxFrame
 		wxButton* bBusquedaPrestamo;
 		wxPanel* pGrillaSanciones;
 		wxGrid* gSanciones;
-		wxButton* bSancion;
 		
 		// Virtual event handlers, overide them in your derived class
 		virtual void ClickAgregarLibroMenu( wxCommandEvent& event ) { event.Skip(); }
@@ -76,7 +75,6 @@ class VentanaPrincipal : public wxFrame
 		virtual void ClickDerechoGrillaPrestamo( wxGridEvent& event ) { event.Skip(); }
 		virtual void ClickBusquedaPrestamo( wxCommandEvent& event ) { event.Skip(); }
 		virtual void ClickPestaniaSanciones( wxMouseEvent& event ) { event.Skip(); }
-		virtual void ClickAgregarSancionMenu( wxCommandEvent& event ) { event.Skip(); }
 		
 	
 	public:

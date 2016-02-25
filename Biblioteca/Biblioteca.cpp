@@ -1,3 +1,7 @@
+/**
+* @file Biblioteca.cpp
+* @brief Declaraciones de todo lo necesario para trabajar con la clase Biblioteca
+**/
 #include "Biblioteca.h"
 #include "Libro.h"
 #include "Lector.h"
@@ -14,8 +18,6 @@
 #include <wx/msgdlg.h>
 #include "Vprincipal.h"
 
-
-
 Biblioteca::Biblioteca(){
 	CargarLibrosDesdeArchivo();
 	CargarLectoresDesdeArchivo();
@@ -24,22 +26,23 @@ Biblioteca::Biblioteca(){
 	EliminarSancionesCumplidas();
 }
 
-Biblioteca::~Biblioteca(){ Guardar();}	
+Biblioteca::~Biblioteca(){ 
+	Guardar();
+}	
 
-// ABM LIBRO
 void Biblioteca::AgregarLibro(string titulo, string autores, string editorial, string isbn, string edicion, string tipo, int codLibro, string estado){
 	Libro unLibro(titulo, autores, editorial, isbn, edicion, codLibro,tipo, estado);
 	vLibros.push_back(unLibro);		
 	Guardar();
 	EscribirLog("Se agregó el libro: \" " + titulo + "\" - Código: " + IntToString(codLibro));	
-};
+}
 
 void Biblioteca::ModificarLibro(string titulo, string autores, string editorial, string isbn, string edicion, string tipo, int codLibro, string estado){
 	Libro unLibro(titulo, autores, editorial, isbn, edicion, codLibro,tipo, estado);
 	vLibros[codLibro]= unLibro;	
 	Guardar();
 	EscribirLog("Se modificó el libro: \"" + titulo + "\" - Código: " + IntToString(codLibro));
-};
+}
 
 void Biblioteca::OcultarLibro(int i){
 	vLibros[i].Ocultar();
@@ -47,20 +50,19 @@ void Biblioteca::OcultarLibro(int i){
 	EscribirLog("Se eliminó el libro: \"" + VerLibro(i).VerTitulo()+ "\" - Código: " + IntToString(VerLibro(i).VerCodigoLibro()));	
 }
 
-// ABM LECTOR
 void Biblioteca::AgregarLector(string nombre, string apellido, string dni, string domicilio, string tel, int numLector){
 	Lector unLector(nombre, apellido, dni, domicilio, tel, numLector);
 	vLectores.push_back(unLector);		
 	Guardar();
 	EscribirLog("Se agregó el lector: \"" + apellido + ", "+ nombre + "\" - Núm. lector: " + IntToString(numLector));
-};	
+}	
 
 void Biblioteca::ModificarLector(string nombre, string apellido, string dni, string domicilio, string tel, int numLector){
 	Lector unLector(nombre, apellido, dni, domicilio, tel, numLector);
 	vLectores[numLector] = unLector;		
 	Guardar();	
 	EscribirLog("Se modificó el lector: \"" + apellido + ", "+ nombre + "\" - Núm. lector: " + IntToString(numLector));
-};	
+}
 
 void Biblioteca::OcultarLector(int i){
 	vLectores[i].Ocultar();
@@ -68,7 +70,6 @@ void Biblioteca::OcultarLector(int i){
 	EscribirLog("Se eliminó el lector: \"" + VerLector(i).VerApellidoYNombre() + "\" - Núm. Lector: " + IntToString(i));
 }
 
-// ABM PRESTAMOS
 void Biblioteca::AgregarPrestamo(int numeroLector, int codigoLibro){
 	Prestamo unPrestamo(numeroLector, codigoLibro);	
 	vPrestamos.push_back(unPrestamo);		
@@ -94,8 +95,15 @@ int Biblioteca::EliminarPrestamo(int codigoLibro){
 	return devolucionATiempo;
 }
 
+bool Biblioteca::TienePrestamosActivos(int numLector){
+	for( Prestamo x : vPrestamos) {
+		if( x.VerNumeroLectorPrestamo() == numLector){ 
+			return true; 
+		}
+	}
+	return false;
+}
 
-// ABM SANCIONES
 //si está sancionado, le agrego dias y motivos a la sancion. Sino, la creo
 void Biblioteca::AgregarSancion(int numeroLector, string motivo, int cantDias){	
 	if(EstaSancionado(numeroLector)){
@@ -112,7 +120,6 @@ void Biblioteca::AgregarSancion(int numeroLector, string motivo, int cantDias){
 	EscribirLog("Se sancionó " + IntToString(cantDias) + " días al lector \"" + VerLector(numeroLector).VerApellidoYNombre() + "\"(" + IntToString(numeroLector) +") por "+ motivo);
 }
 
-//al iniciar el programa elimina las sanciones que ya cumplieron su tiempo
 void Biblioteca::EliminarSancionesCumplidas(){
 	time_t fechaHoy_t = time(NULL);
 	for(int i=0;i<cantSanciones();i++){
@@ -123,9 +130,16 @@ void Biblioteca::EliminarSancionesCumplidas(){
 	Guardar();
 }
 
-//*****GUARDADO DE DATOS AL ARCHIVO*****
+bool Biblioteca::EstaSancionado(int numLector){
+	for( Sancion x : vSanciones){
+		if( x.VerNumeroLector() == numLector){ 
+			return true; 
+		}
+	}
+	return false;
+}
+
 bool Biblioteca::Guardar() const {
-	//Guardar libros	
 	ofstream archivoLibros(directorioLibros.c_str(),ios::binary|ios::trunc);
 	if (!archivoLibros.is_open())
 		return false;
@@ -144,7 +158,6 @@ bool Biblioteca::Guardar() const {
 	}
 	archivoLibros.close();
 	
-	//Guardar lectores
 	ofstream archivoLectores(directorioLectores.c_str(),ios::binary|ios::trunc);
 	if (!archivoLectores.is_open()) return false;
 	for (int i=0;i<cantLectores();i++){
@@ -160,7 +173,6 @@ bool Biblioteca::Guardar() const {
 	}
 	archivoLectores.close();
 	
-	//Guardar prestamos
 	ofstream archivoPrestamos(directorioPrestamos.c_str(),ios::binary|ios::trunc);
 	if (!archivoPrestamos.is_open()) return false;
 	for (int i=0;i<cantPrestamos();i++){
@@ -173,7 +185,6 @@ bool Biblioteca::Guardar() const {
 	}
 	archivoPrestamos.close();
 	
-	//Guardar sanciones
 	ofstream archivoSanciones(directorioSanciones.c_str(),ios::binary|ios::trunc);
 	if (!archivoSanciones.is_open()){ 
 		return false; 
@@ -189,16 +200,13 @@ bool Biblioteca::Guardar() const {
 	return true;
 }
 
-//*****CARGA DE DATOS DESDE ARCHIVO*****
 void Biblioteca::CargarLibrosDesdeArchivo(){
 	ifstream archivo(directorioLibros.c_str(),ios::binary|ios::ate);
-	if (archivo.is_open()) 
-	{
+	if (archivo.is_open()){
 		int tamanio_archivo	= archivo.tellg();
 		int cantLibros 		= tamanio_archivo/sizeof(registro_libro);
 		archivo.seekg(0,ios::beg);
-		for (int i=0;i<cantLibros;i++)
-		{
+		for (int i=0;i<cantLibros;i++){
 			registro_libro reg;
 			archivo.read((char*)&reg,sizeof(reg));		
 			Libro unLibro(reg.titulo, reg.autores, reg.editorial, reg.isbn, reg.edicion, reg.codigoLibro ,reg.tipo, reg.estado, reg.oculto);
@@ -254,28 +262,8 @@ void Biblioteca::CargarSancionesDesdeArchivo(){
 		}		
 		archivo.close();
 	}
-
 }
 
-bool Biblioteca::EstaSancionado(int numLector){
-	for( Sancion x : vSanciones){
-		if( x.VerNumeroLector() == numLector){ 
-			return true; 
-		}
-	}
-	return false;
-}
-
-bool Biblioteca::TienePrestamosActivos(int numLector){
-	for( Prestamo x : vPrestamos) {
-		if( x.VerNumeroLectorPrestamo() == numLector){ 
-			return true; 
-		}
-	}
-	return false;
-}
-
-//BUSQUEDAS
 int Biblioteca::BuscarTitulo(string parte, int pos_desde) {
 	pasar_a_minusculas(parte);
 	for (int i=pos_desde;i<cantLibros();i++) {

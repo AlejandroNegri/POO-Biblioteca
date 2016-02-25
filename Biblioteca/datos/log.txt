@@ -23,3 +23,4 @@ se agrego: es un chano
 [23/2/2016 17:58:34hs]Se devolvió el libro: "caperucita2"(8) 0 días tarde
 [23/2/2016 19:5:36hs]Se sancionó al lector: "lopez, ignacio"(9) por 1días
 [23/2/2016 19:7:58hs]Se sancionó 3 días al lector: "monje, pepe"(10) por retraso
+[24/2/2016 17:2:42hs]Se prestó el libro: "hola don jose"(17) al lector: "carlos, juan"(6)

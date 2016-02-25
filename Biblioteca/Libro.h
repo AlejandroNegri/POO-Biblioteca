@@ -1,7 +1,7 @@
 #ifndef LIBRO_H
 #define LIBRO_H
 #include <string>
-using namespace std;
+using std::string;
 
 struct registro_libro {
 	char	titulo[256];
@@ -16,14 +16,14 @@ struct registro_libro {
 };
 
 class Libro {
-	string 	Titulo;
-	string 	Autores;
-	string 	Editorial;
-	string 	ISBN;
-	string 	Edicion;
-	int 	CodigoLibro;
-	string 	Tipo;	
-	string 	Estado; //Disponible o Prestado
+	std::string 	Titulo;
+	std::string 	Autores;
+	std::string 	Editorial;
+	std::string 	ISBN;
+	std::string 	Edicion;
+	int 			CodigoLibro;
+	std::string 	Tipo;	
+	std::string 	Estado; //Disponible o Prestado
 	bool 	Oculto;
 public: 
 	Libro(string p_titulo, string p_autores, string p_editorial, string p_isbn, string p_edicion, int p_codigoLibro, string p_tipo, string p_Estado);	

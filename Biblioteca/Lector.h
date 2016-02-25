@@ -1,7 +1,7 @@
 #ifndef LECTOR_H
 #define LECTOR_H
 #include <string>
-using namespace std;
+using std::string;
 
 struct registro_lector {
 	char	nombre[256];
