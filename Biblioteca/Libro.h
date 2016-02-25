@@ -41,7 +41,5 @@ public:
 	string 	VerEstado() const;
 	bool 	EstaDisponible() const;
 	bool 	EstaOculto() const;
-	
-
 };
 #endif

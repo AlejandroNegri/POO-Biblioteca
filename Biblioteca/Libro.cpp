@@ -28,4 +28,3 @@ bool Libro::EstaDisponible()const{
 	}
 	return false;
 }
-

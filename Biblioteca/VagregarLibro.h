@@ -12,6 +12,7 @@ protected:
 public:
 	VagregarLibro(wxWindow *parent=NULL);	
 	~VagregarLibro();
+	string ValidarDatos();
 };
 
 #endif

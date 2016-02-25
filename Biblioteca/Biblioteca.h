@@ -33,10 +33,10 @@ using std::string;
 class Biblioteca{
 private:
 	/// @brief Vectores STL donde guardaremos las instancias
-	vector<Libro> vLibros;
-	vector<Lector> vLectores;
-	vector<Prestamo> vPrestamos;
-	vector<Sancion> vSanciones;	
+	vector<Libro> vLibros; ///< vector de libros
+	vector<Lector> vLectores; ///< vector de lectores
+	vector<Prestamo> vPrestamos; ///< vector de prestamos
+	vector<Sancion> vSanciones;	///< vector de sanciones
 	
 	/// @brief Ruta de los archivos binarios donde guardaremos los datos
 	string directorioLibros 		= "./datos/libros.dat";

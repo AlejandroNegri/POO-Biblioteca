@@ -1,3 +1,7 @@
+/**
+* @file Lector.cpp
+* @brief Implementaciones de todo lo necesario para trabajar con la clase Lector
+**/
 #include <algorithm>
 #include "Lector.h"
 

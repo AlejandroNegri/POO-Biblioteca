@@ -1,6 +1,7 @@
 #ifndef VMODIFICARLIBRO_H
 #define VMODIFICARLIBRO_H
 #include "Ventanas.h"
+using std::string;
 
 class vModificarLibro : public VentanaAgregarLibro {
 protected:
@@ -11,6 +12,7 @@ public:
 	vModificarLibro(wxWindow *parent=NULL);
 	~vModificarLibro();	
 	static int codLibro;
+	string ValidarDatos();
 };
 
 #endif

@@ -24,3 +24,7 @@ se agrego: es un chano
 [23/2/2016 19:5:36hs]Se sancionó al lector: "lopez, ignacio"(9) por 1días
 [23/2/2016 19:7:58hs]Se sancionó 3 días al lector: "monje, pepe"(10) por retraso
 [24/2/2016 17:2:42hs]Se prestó el libro: "hola don jose"(17) al lector: "carlos, juan"(6)
+[25/2/2016 18:39:21hs]Se agregó el libro: " " - Código: 19
+[25/2/2016 18:39:28hs]Se eliminó el libro: "" - Código: 19
+[25/2/2016 19:7:8hs]Se agregó el libro: " sdfsd" - Código: 20
+[25/2/2016 17:1:50hs]Se agregó el lector: "asd, asdasd" - Núm. lector: 11
