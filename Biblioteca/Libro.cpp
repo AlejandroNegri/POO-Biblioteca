@@ -1,7 +1,5 @@
 #include <algorithm>
 #include "Libro.h"
-#include <cstring>
-#include <fstream>
 
 Libro::Libro(string p_titulo, string p_autores, string p_editorial, string p_isbn, string p_edicion, int p_codigoLibro, string p_tipo, string p_Estado)
 	:Titulo(p_titulo), Autores(p_autores), Editorial(p_editorial), ISBN(p_isbn), Edicion(p_edicion), CodigoLibro(p_codigoLibro), Tipo(p_tipo), Estado(p_Estado), Oculto(false){}
