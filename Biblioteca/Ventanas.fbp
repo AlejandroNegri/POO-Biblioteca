@@ -44,7 +44,7 @@
             <property name="minimum_size"></property>
             <property name="name">VentanaPrincipal</property>
             <property name="pos"></property>
-            <property name="size">816,600</property>
+            <property name="size">829,600</property>
             <property name="style">wxDEFAULT_FRAME_STYLE</property>
             <property name="subclass"></property>
             <property name="title">Corinthian</property>
@@ -268,7 +268,7 @@
                                 <object class="notebookpage" expanded="0">
                                     <property name="bitmap"></property>
                                     <property name="label">Libros</property>
-                                    <property name="select">0</property>
+                                    <property name="select">1</property>
                                     <object class="wxPanel" expanded="0">
                                         <property name="BottomDockable">1</property>
                                         <property name="LeftDockable">1</property>
@@ -379,7 +379,7 @@
                                                     <property name="col_label_values">&quot;Título&quot; &quot;Autor&quot; &quot;Editorial&quot; &quot;ISBN&quot; &quot;Edición&quot; &quot;Código&quot; &quot;Tipo&quot; &quot;Estado&quot; &quot;&quot;</property>
                                                     <property name="col_label_vert_alignment">wxALIGN_CENTRE</property>
                                                     <property name="cols">8</property>
-                                                    <property name="column_sizes">164,80,80,80,80,80,80,87</property>
+                                                    <property name="column_sizes">159,102,106,94,146,50,56,58</property>
                                                     <property name="context_help"></property>
                                                     <property name="context_menu">1</property>
                                                     <property name="default_pane">0</property>
@@ -881,7 +881,7 @@
                                                     <property name="col_label_values">&quot;Apellido&quot; &quot;Nombre&quot; &quot;DNI&quot; &quot;Domicilio&quot; &quot;Teléfono&quot; &quot;Nº Lector&quot;</property>
                                                     <property name="col_label_vert_alignment">wxALIGN_CENTRE</property>
                                                     <property name="cols">6</property>
-                                                    <property name="column_sizes">164,80,80,80,80,80,80,80</property>
+                                                    <property name="column_sizes">140,100,80,152,80,68</property>
                                                     <property name="context_help"></property>
                                                     <property name="context_menu">1</property>
                                                     <property name="default_pane">0</property>
@@ -1272,7 +1272,7 @@
                                 <object class="notebookpage" expanded="0">
                                     <property name="bitmap"></property>
                                     <property name="label">Préstamos</property>
-                                    <property name="select">1</property>
+                                    <property name="select">0</property>
                                     <object class="wxPanel" expanded="0">
                                         <property name="BottomDockable">1</property>
                                         <property name="LeftDockable">1</property>

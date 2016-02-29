@@ -1,3 +1,7 @@
+/**
+* @brief Implementa los metodos para buscar lector para prestamo
+**/
+
 #include "vBuscarLector.h"
 #include "Singleton.h"
 #include "vAgregarPrestamo.h"

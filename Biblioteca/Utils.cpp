@@ -1,3 +1,11 @@
+/**
+* @file Utils.h
+* @brief Declaraciones de todo lo necesario para trabajar con la clase Sancion
+*
+* Este archivo define la clase Sancion, las funciones auxiliares para prolongar 
+* el tiempo de la sanción y el struct que hace de intermediario para guardar y 
+* leer en archivo binarios.
+**/
 #include "Utils.h"
 #include <sstream>
 #include <ctime>

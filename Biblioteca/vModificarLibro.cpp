@@ -1,3 +1,8 @@
+/**
+* @brief Implementa los metodos para modificar los datos de un libro
+**/
+
+
 #include "vModificarLibro.h"
 #include "Singleton.h"
 #include <wx/msgdlg.h>

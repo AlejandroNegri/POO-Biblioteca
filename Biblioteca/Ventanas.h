@@ -79,7 +79,7 @@ class VentanaPrincipal : public wxFrame
 	
 	public:
 		
-		VentanaPrincipal( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Corinthian"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 816,600 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
+		VentanaPrincipal( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Corinthian"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 829,600 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
 		
 		~VentanaPrincipal();
 	

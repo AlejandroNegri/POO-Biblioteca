@@ -1,3 +1,7 @@
+/**
+* @file Biblioteca.cpp
+* @brief Declaraciones de todo lo necesario para trabajar con la clase Prestamo
+**/
 #include <algorithm>
 #include "Prestamo.h"
 #include "Biblioteca.h"

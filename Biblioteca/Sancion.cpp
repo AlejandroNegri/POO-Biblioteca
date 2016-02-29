@@ -1,3 +1,7 @@
+/**
+* @file Biblioteca.cpp
+* @brief Declaraciones de todo lo necesario para trabajar con la clase Sancion
+**/
 #include <algorithm>
 #include "Biblioteca.h"
 #include "Sancion.h"

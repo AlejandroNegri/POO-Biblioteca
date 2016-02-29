@@ -1,3 +1,7 @@
+/**
+* @file vAgregarPrestamo.cpp
+* @brief Implementa los eventos de la ventana para agregar prestamos
+**/
 #include "vAgregarPrestamo.h"
 #include "vBuscarLector.h"
 #include <wx/string.h>

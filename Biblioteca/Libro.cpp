@@ -1,3 +1,7 @@
+/**
+* @file Biblioteca.cpp
+* @brief Declaraciones de todo lo necesario para trabajar con la clase Libro
+**/
 #include <algorithm>
 #include "Libro.h"
 

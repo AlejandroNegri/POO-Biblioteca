@@ -48,14 +48,14 @@ VentanaPrincipal::VentanaPrincipal( wxWindow* parent, wxWindowID id, const wxStr
 	gLibros->SetMargins( 0, 0 );
 	
 	// Columns
-	gLibros->SetColSize( 0, 164 );
-	gLibros->SetColSize( 1, 80 );
-	gLibros->SetColSize( 2, 80 );
-	gLibros->SetColSize( 3, 80 );
-	gLibros->SetColSize( 4, 80 );
-	gLibros->SetColSize( 5, 80 );
-	gLibros->SetColSize( 6, 80 );
-	gLibros->SetColSize( 7, 87 );
+	gLibros->SetColSize( 0, 159 );
+	gLibros->SetColSize( 1, 102 );
+	gLibros->SetColSize( 2, 106 );
+	gLibros->SetColSize( 3, 94 );
+	gLibros->SetColSize( 4, 146 );
+	gLibros->SetColSize( 5, 50 );
+	gLibros->SetColSize( 6, 56 );
+	gLibros->SetColSize( 7, 58 );
 	gLibros->EnableDragColMove( false );
 	gLibros->EnableDragColSize( true );
 	gLibros->SetColLabelSize( 30 );
@@ -101,7 +101,7 @@ VentanaPrincipal::VentanaPrincipal( wxWindow* parent, wxWindowID id, const wxStr
 	pGrillaLibros->SetSizer( sizerLibros );
 	pGrillaLibros->Layout();
 	sizerLibros->Fit( pGrillaLibros );
-	m_notebook2->AddPage( pGrillaLibros, wxT("Libros"), false );
+	m_notebook2->AddPage( pGrillaLibros, wxT("Libros"), true );
 	pGrillaLectores = new wxPanel( m_notebook2, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
 	wxBoxSizer* sizerLectores;
 	sizerLectores = new wxBoxSizer( wxVERTICAL );
@@ -116,14 +116,12 @@ VentanaPrincipal::VentanaPrincipal( wxWindow* parent, wxWindowID id, const wxStr
 	gLectores->SetMargins( 0, 0 );
 	
 	// Columns
-	gLectores->SetColSize( 0, 164 );
-	gLectores->SetColSize( 1, 80 );
+	gLectores->SetColSize( 0, 140 );
+	gLectores->SetColSize( 1, 100 );
 	gLectores->SetColSize( 2, 80 );
-	gLectores->SetColSize( 3, 80 );
+	gLectores->SetColSize( 3, 152 );
 	gLectores->SetColSize( 4, 80 );
-	gLectores->SetColSize( 5, 80 );
-	gLectores->SetColSize( 6, 80 );
-	gLectores->SetColSize( 7, 80 );
+	gLectores->SetColSize( 5, 68 );
 	gLectores->EnableDragColMove( false );
 	gLectores->EnableDragColSize( true );
 	gLectores->SetColLabelSize( 30 );
@@ -227,7 +225,7 @@ VentanaPrincipal::VentanaPrincipal( wxWindow* parent, wxWindowID id, const wxStr
 	pGrillaPrestamos->SetSizer( sizerPrestamos );
 	pGrillaPrestamos->Layout();
 	sizerPrestamos->Fit( pGrillaPrestamos );
-	m_notebook2->AddPage( pGrillaPrestamos, wxT("Préstamos"), true );
+	m_notebook2->AddPage( pGrillaPrestamos, wxT("Préstamos"), false );
 	pGrillaSanciones = new wxPanel( m_notebook2, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
 	wxBoxSizer* sizerSanciones;
 	sizerSanciones = new wxBoxSizer( wxHORIZONTAL );

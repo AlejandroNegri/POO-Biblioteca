@@ -1,3 +1,8 @@
+/**
+* @file VagregarLector.cpp
+* @brief Implementa los eventos de la ventana para agregar lectores nuevos
+**/
+
 #include "VagregarLector.h"
 #include "Singleton.h"
 #include <wx/msgdlg.h>

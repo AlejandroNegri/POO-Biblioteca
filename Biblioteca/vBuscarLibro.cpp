@@ -1,3 +1,6 @@
+/**
+* @brief Implementa los metodos para buscar libro para prestamo
+**/
 #include "vBuscarLibro.h"
 #include "Singleton.h"
 #include <wx/msgdlg.h>

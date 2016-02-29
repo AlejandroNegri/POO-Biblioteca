@@ -1,3 +1,7 @@
+/**
+* @file VagregarLibro.cpp
+* @brief Implementa los eventos de la ventana para agregar libros nuevos
+**/
 #include "VagregarLibro.h"
 #include "Vprincipal.h"
 #include "Singleton.h"

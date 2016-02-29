@@ -1,3 +1,7 @@
+/**
+* @brief Implementa los metodos para modificar los datos de un lector
+**/
+
 #include "vModificarLector.h"
 #include "Singleton.h"
 #include <wx/msgdlg.h>
