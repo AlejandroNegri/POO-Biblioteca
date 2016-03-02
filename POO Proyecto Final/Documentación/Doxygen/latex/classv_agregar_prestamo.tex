@@ -1,0 +1,69 @@
+\hypertarget{classv_agregar_prestamo}{}\section{v\+Agregar\+Prestamo Class Reference}
+\label{classv_agregar_prestamo}\index{v\+Agregar\+Prestamo@{v\+Agregar\+Prestamo}}
+
+
+Ventana cargar los datos de un nuevo \hyperlink{class_prestamo}{Prestamo}.  
+
+
+
+
+{\ttfamily \#include $<$v\+Agregar\+Prestamo.\+h$>$}
+
+Inheritance diagram for v\+Agregar\+Prestamo\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{classv_agregar_prestamo}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries v\+Agregar\+Prestamo} (wx\+Window $\ast$parent=N\+U\+LL)\hypertarget{classv_agregar_prestamo_a515c133ac2af77bce4108930e6dfce5f}{}\label{classv_agregar_prestamo_a515c133ac2af77bce4108930e6dfce5f}
+
+\item 
+bool \hyperlink{classv_agregar_prestamo_afc5121b40bfaa0349e9d830aba3f4ff9}{Validar\+Libro} ()\hypertarget{classv_agregar_prestamo_afc5121b40bfaa0349e9d830aba3f4ff9}{}\label{classv_agregar_prestamo_afc5121b40bfaa0349e9d830aba3f4ff9}
+
+\begin{DoxyCompactList}\small\item\em Chequea que se elija un libro y que no este prestado. \end{DoxyCompactList}\item 
+bool \hyperlink{classv_agregar_prestamo_ab813531853a031f015f9765d88776cc0}{Validar\+Lector} ()\hypertarget{classv_agregar_prestamo_ab813531853a031f015f9765d88776cc0}{}\label{classv_agregar_prestamo_ab813531853a031f015f9765d88776cc0}
+
+\begin{DoxyCompactList}\small\item\em Chequea que se elija un lector y que no este sancionado. \end{DoxyCompactList}\item 
+void \hyperlink{classv_agregar_prestamo_a2eada8be7864922c56543edfcc01741e}{Actualizar\+Label\+Libro} ()\hypertarget{classv_agregar_prestamo_a2eada8be7864922c56543edfcc01741e}{}\label{classv_agregar_prestamo_a2eada8be7864922c56543edfcc01741e}
+
+\begin{DoxyCompactList}\small\item\em Actualiza el label del libro una vez elegido. \end{DoxyCompactList}\item 
+void \hyperlink{classv_agregar_prestamo_a96536c490efb539cf025a349c30e570c}{Actualizar\+Label\+Lector} ()\hypertarget{classv_agregar_prestamo_a96536c490efb539cf025a349c30e570c}{}\label{classv_agregar_prestamo_a96536c490efb539cf025a349c30e570c}
+
+\begin{DoxyCompactList}\small\item\em Actualiza el label del lector una vez elegido. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static int \hyperlink{classv_agregar_prestamo_a82beccc02f45e937cae62e68b00fba6b}{cod\+Libro} = -\/1\hypertarget{classv_agregar_prestamo_a82beccc02f45e937cae62e68b00fba6b}{}\label{classv_agregar_prestamo_a82beccc02f45e937cae62e68b00fba6b}
+
+\begin{DoxyCompactList}\small\item\em variable estatica del codigo del libro \end{DoxyCompactList}\item 
+static int \hyperlink{classv_agregar_prestamo_a8bd94dc889e369f2dfff0f47d9e862d5}{num\+Lector} = -\/1\hypertarget{classv_agregar_prestamo_a8bd94dc889e369f2dfff0f47d9e862d5}{}\label{classv_agregar_prestamo_a8bd94dc889e369f2dfff0f47d9e862d5}
+
+\begin{DoxyCompactList}\small\item\em variable estatica del numero del lector \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{classv_agregar_prestamo_a9cb84e29a5ec874fcf1f9c8882131271}{Click\+Aceptar\+Prestamo} (wx\+Command\+Event \&event)\hypertarget{classv_agregar_prestamo_a9cb84e29a5ec874fcf1f9c8882131271}{}\label{classv_agregar_prestamo_a9cb84e29a5ec874fcf1f9c8882131271}
+
+\begin{DoxyCompactList}\small\item\em Guarda el nuevo dato y cierra la ventana (boton \char`\"{}\+Aceptar\char`\"{});. \end{DoxyCompactList}\item 
+void \hyperlink{classv_agregar_prestamo_a6c161bb598feb58d8547573dcb4c23a1}{Click\+Cancelar} (wx\+Command\+Event \&event)\hypertarget{classv_agregar_prestamo_a6c161bb598feb58d8547573dcb4c23a1}{}\label{classv_agregar_prestamo_a6c161bb598feb58d8547573dcb4c23a1}
+
+\begin{DoxyCompactList}\small\item\em Cierra la ventana sin agregar el nuevo dato (boton \char`\"{}\+Cancelar\char`\"{}) \end{DoxyCompactList}\item 
+void \hyperlink{classv_agregar_prestamo_ad2ad588e036b261a5b03d3f80d30fca0}{Click\+Buscar\+Lector} (wx\+Command\+Event \&event)\hypertarget{classv_agregar_prestamo_ad2ad588e036b261a5b03d3f80d30fca0}{}\label{classv_agregar_prestamo_ad2ad588e036b261a5b03d3f80d30fca0}
+
+\begin{DoxyCompactList}\small\item\em Abre una ventana para elegir el lector del prestamo. \end{DoxyCompactList}\item 
+void \hyperlink{classv_agregar_prestamo_a62a63c956c51c7726a88769414ad6046}{Click\+Buscar\+Libro} (wx\+Command\+Event \&event)\hypertarget{classv_agregar_prestamo_a62a63c956c51c7726a88769414ad6046}{}\label{classv_agregar_prestamo_a62a63c956c51c7726a88769414ad6046}
+
+\begin{DoxyCompactList}\small\item\em Abre una ventana para elegir el libro del prestamo. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+Ventana cargar los datos de un nuevo \hyperlink{class_prestamo}{Prestamo}. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+v\+Agregar\+Prestamo.\+h\item 
+\hyperlink{v_agregar_prestamo_8cpp}{v\+Agregar\+Prestamo.\+cpp}\end{DoxyCompactItemize}

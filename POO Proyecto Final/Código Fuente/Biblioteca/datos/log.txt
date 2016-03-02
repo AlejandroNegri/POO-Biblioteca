@@ -1,0 +1,14 @@
+[29/2/2016 1:1:46hs]Se agregó el lector: "Perez, Juan" - Núm. lector: 0
+[29/2/2016 1:2:47hs]Se agregó el lector: "Lopez, Marcos" - Núm. lector: 1
+[29/2/2016 1:4:53hs]Se agregó el lector: "Martinez, Pedro" - Núm. lector: 2
+[29/2/2016 1:7:33hs]Se agregó el lector: "Villagra, Maria" - Núm. lector: 3
+[29/2/2016 1:8:25hs]Se agregó el lector: "Lopez, Victoria" - Núm. lector: 4
+[29/2/2016 12:29:45hs]Se agregó el libro: " Kingdom Come" - Código: 0
+[29/2/2016 12:32:29hs]Se agregó el libro: " Hellsing Tomo 1" - Código: 1
+[29/2/2016 12:33:40hs]Se agregó el libro: " Hellsing Tomo 2" - Código: 2
+[29/2/2016 12:40:33hs]Se agregó el libro: " American Gods" - Código: 3
+[29/2/2016 12:50:5hs]Se agregó el libro: " Watchmen" - Código: 4
+[29/2/2016 12:50:34hs]Se modificó el libro: "Kingdom Come" - Código: 0
+[29/2/2016 13:0:43hs]Se prestó el libro: "Watchmen"(4) al lector: "Lopez, Victoria"(4)
+[29/2/2016 13:1:15hs]Se devolvió el libro: "Watchmen"(4) 0 días tarde
+[29/2/2016 14:14:51hs]Se prestó el libro: "Watchmen"(4) al lector: "Villagra, Maria"(3)

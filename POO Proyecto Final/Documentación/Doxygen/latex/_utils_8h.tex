@@ -1,0 +1,36 @@
+\hypertarget{_utils_8h}{}\section{Utils.\+h File Reference}
+\label{_utils_8h}\index{Utils.\+h@{Utils.\+h}}
+
+
+Declaraciones de todo lo necesario para trabajar con la clase \hyperlink{class_sancion}{Sancion}.  
+
+
+{\ttfamily \#include $<$string$>$}\\*
+{\ttfamily \#include \char`\"{}Libro.\+h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{_utils_8h_a6963579f8c443e075c8b807c5b7f3370}{pasar\+\_\+a\+\_\+minusculas} (string \&s)\hypertarget{_utils_8h_a6963579f8c443e075c8b807c5b7f3370}{}\label{_utils_8h_a6963579f8c443e075c8b807c5b7f3370}
+
+\begin{DoxyCompactList}\small\item\em Convierte una cadena a solo minusculas. \end{DoxyCompactList}\item 
+string \hyperlink{_utils_8h_a6ddd68c31d80664e0e89723b6e7e4a27}{Time\+T\+\_\+a\+\_\+\+Formato\+Fecha} (long t)\hypertarget{_utils_8h_a6ddd68c31d80664e0e89723b6e7e4a27}{}\label{_utils_8h_a6ddd68c31d80664e0e89723b6e7e4a27}
+
+\begin{DoxyCompactList}\small\item\em Convierte un long (time\+\_\+t) a un string con formato fecha. \end{DoxyCompactList}\item 
+long \hyperlink{_utils_8h_a53da48ea02f67db0c1cd41a86de11808}{Dias\+\_\+a\+\_\+\+TimeT} (int cant\+Dias)\hypertarget{_utils_8h_a53da48ea02f67db0c1cd41a86de11808}{}\label{_utils_8h_a53da48ea02f67db0c1cd41a86de11808}
+
+\begin{DoxyCompactList}\small\item\em Convierte una cantidad de dias a time\+\_\+t. \end{DoxyCompactList}\item 
+long \hyperlink{_utils_8h_a08e8521c9eca97c2783b7ad64f74add5}{Calcular\+Fecha\+Limite} (int cant\+Dias)\hypertarget{_utils_8h_a08e8521c9eca97c2783b7ad64f74add5}{}\label{_utils_8h_a08e8521c9eca97c2783b7ad64f74add5}
+
+\begin{DoxyCompactList}\small\item\em Calcula la fecha limite en la que se debe devolver un préstamo. \end{DoxyCompactList}\item 
+bool \hyperlink{_utils_8h_aeac1e5be6d4add8cb1abc43e755e2cf0}{No\+Esta\+Oculto\+\_\+\+Funcion} (\hyperlink{class_libro}{Libro} l)\hypertarget{_utils_8h_aeac1e5be6d4add8cb1abc43e755e2cf0}{}\label{_utils_8h_aeac1e5be6d4add8cb1abc43e755e2cf0}
+
+\begin{DoxyCompactList}\small\item\em Bool que devuelve si un libro no esta oculto. \end{DoxyCompactList}\item 
+string \hyperlink{_utils_8h_a06caf1914c6df5296dee05240b74ebe6}{Int\+To\+String} (int num)\hypertarget{_utils_8h_a06caf1914c6df5296dee05240b74ebe6}{}\label{_utils_8h_a06caf1914c6df5296dee05240b74ebe6}
+
+\begin{DoxyCompactList}\small\item\em Convierte un entero en string. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Declaraciones de todo lo necesario para trabajar con la clase \hyperlink{class_sancion}{Sancion}. 
+
+Este archivo define la clase \hyperlink{class_sancion}{Sancion}, las funciones auxiliares para prolongar el tiempo de la sanción y el struct que hace de intermediario para guardar y leer en archivo binarios. 

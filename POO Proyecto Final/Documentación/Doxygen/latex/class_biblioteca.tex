@@ -1,0 +1,127 @@
+\hypertarget{class_biblioteca}{}\section{Biblioteca Class Reference}
+\label{class_biblioteca}\index{Biblioteca@{Biblioteca}}
+
+
+Clase contenedora que administra la \hyperlink{class_biblioteca}{Biblioteca}. La misma será utilizada mediante un \hyperlink{class_singleton}{Singleton} para evitar múltiples instancias.  
+
+
+
+
+{\ttfamily \#include $<$Biblioteca.\+h$>$}
+
+Inheritance diagram for Biblioteca\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_biblioteca}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_biblioteca_a5e12ea4e7a4edb14d210a41708fc1c10}{Biblioteca} ()\hypertarget{class_biblioteca_a5e12ea4e7a4edb14d210a41708fc1c10}{}\label{class_biblioteca_a5e12ea4e7a4edb14d210a41708fc1c10}
+
+\begin{DoxyCompactList}\small\item\em Crea el objeto, carga los datos desde los archivos y elimina sanciones viejas. \end{DoxyCompactList}\item 
+\hyperlink{class_biblioteca_ae3f55e8952ed4bdddb82ece48c52f6c0}{$\sim$\+Biblioteca} ()\hypertarget{class_biblioteca_ae3f55e8952ed4bdddb82ece48c52f6c0}{}\label{class_biblioteca_ae3f55e8952ed4bdddb82ece48c52f6c0}
+
+\begin{DoxyCompactList}\small\item\em Destructor, guarda todos los cambios antes de cerrar. \end{DoxyCompactList}\item 
+void \hyperlink{class_biblioteca_a183d7a2d3371aa96839af90969a760b4}{Agregar\+Libro} (string titulo, string autores, string editorial, string isbn, string edicion, string tipo, int cod\+Libro, string estado)\hypertarget{class_biblioteca_a183d7a2d3371aa96839af90969a760b4}{}\label{class_biblioteca_a183d7a2d3371aa96839af90969a760b4}
+
+\begin{DoxyCompactList}\small\item\em Agregar un libro. \end{DoxyCompactList}\item 
+void \hyperlink{class_biblioteca_a05ea6460b9e61c271ae433f1f9d2b997}{Modificar\+Libro} (string titulo, string autores, string editorial, string isbn, string edicion, string tipo, int cod\+Libro, string estado)\hypertarget{class_biblioteca_a05ea6460b9e61c271ae433f1f9d2b997}{}\label{class_biblioteca_a05ea6460b9e61c271ae433f1f9d2b997}
+
+\begin{DoxyCompactList}\small\item\em Modificar un libro. \end{DoxyCompactList}\item 
+void \hyperlink{class_biblioteca_a6936988204544a620644d1130f90e840}{Ocultar\+Libro} (int i)\hypertarget{class_biblioteca_a6936988204544a620644d1130f90e840}{}\label{class_biblioteca_a6936988204544a620644d1130f90e840}
+
+\begin{DoxyCompactList}\small\item\em Oculta un libro de la grilla, funciona como \char`\"{}eliminar\char`\"{} para el usuario. \end{DoxyCompactList}\item 
+void \hyperlink{class_biblioteca_acebc2e73ac75bcb3bd42119d71757533}{Agregar\+Lector} (string nombre, string apellido, string dni, string domicilio, string tel, int num\+Lector)\hypertarget{class_biblioteca_acebc2e73ac75bcb3bd42119d71757533}{}\label{class_biblioteca_acebc2e73ac75bcb3bd42119d71757533}
+
+\begin{DoxyCompactList}\small\item\em Agregar un lector. \end{DoxyCompactList}\item 
+void \hyperlink{class_biblioteca_a70bf48f7132623ea2f95a3eaf7dd0988}{Modificar\+Lector} (string nombre, string apellido, string dni, string domicilio, string tel, int num\+Lector)\hypertarget{class_biblioteca_a70bf48f7132623ea2f95a3eaf7dd0988}{}\label{class_biblioteca_a70bf48f7132623ea2f95a3eaf7dd0988}
+
+\begin{DoxyCompactList}\small\item\em Modificar un libro. \end{DoxyCompactList}\item 
+void \hyperlink{class_biblioteca_a3397bc5478d185f1edfe494b01a7b36f}{Ocultar\+Lector} (int i)\hypertarget{class_biblioteca_a3397bc5478d185f1edfe494b01a7b36f}{}\label{class_biblioteca_a3397bc5478d185f1edfe494b01a7b36f}
+
+\begin{DoxyCompactList}\small\item\em Oculta un lector de la grilla, funciona como \char`\"{}eliminar\char`\"{} para el usuario. \end{DoxyCompactList}\item 
+void \hyperlink{class_biblioteca_a636779658541f0f82e0f9505bcb4d66d}{Agregar\+Prestamo} (int numero\+Lector, int codigo\+Libro)\hypertarget{class_biblioteca_a636779658541f0f82e0f9505bcb4d66d}{}\label{class_biblioteca_a636779658541f0f82e0f9505bcb4d66d}
+
+\begin{DoxyCompactList}\small\item\em Agregar un préstamo. \end{DoxyCompactList}\item 
+int \hyperlink{class_biblioteca_af37ce8c8ef211ab754e70897f3fae0e2}{Eliminar\+Prestamo} (int codigo\+Libro)\hypertarget{class_biblioteca_af37ce8c8ef211ab754e70897f3fae0e2}{}\label{class_biblioteca_af37ce8c8ef211ab754e70897f3fae0e2}
+
+\begin{DoxyCompactList}\small\item\em Eliminar un préstamo mediante una devolución \end{DoxyCompactList}\item 
+bool \hyperlink{class_biblioteca_a8049c596bc7e22a08c63ed0cf465054d}{Tiene\+Prestamos\+Activos} (int num\+Lector)\hypertarget{class_biblioteca_a8049c596bc7e22a08c63ed0cf465054d}{}\label{class_biblioteca_a8049c596bc7e22a08c63ed0cf465054d}
+
+\begin{DoxyCompactList}\small\item\em Verifica si un lector tiene préstamos activos. \end{DoxyCompactList}\item 
+void \hyperlink{class_biblioteca_a5f2603f4d430df4e7dfea62e68decebf}{Agregar\+Sancion} (int numero\+Lector, string motivo, int cant\+Dias)\hypertarget{class_biblioteca_a5f2603f4d430df4e7dfea62e68decebf}{}\label{class_biblioteca_a5f2603f4d430df4e7dfea62e68decebf}
+
+\begin{DoxyCompactList}\small\item\em Agregar una sanción \end{DoxyCompactList}\item 
+void \hyperlink{class_biblioteca_ad0820f1f00b5ccae5e6fc856248579c8}{Eliminar\+Sanciones\+Cumplidas} ()\hypertarget{class_biblioteca_ad0820f1f00b5ccae5e6fc856248579c8}{}\label{class_biblioteca_ad0820f1f00b5ccae5e6fc856248579c8}
+
+\begin{DoxyCompactList}\small\item\em Chequea las sanciones al inicio y elimina las que caducaron. \end{DoxyCompactList}\item 
+bool \hyperlink{class_biblioteca_ada5eb122af895870f953d8e9f94f5b18}{Esta\+Sancionado} (int num\+Lector)\hypertarget{class_biblioteca_ada5eb122af895870f953d8e9f94f5b18}{}\label{class_biblioteca_ada5eb122af895870f953d8e9f94f5b18}
+
+\begin{DoxyCompactList}\small\item\em Verifica si un lector esta sancionado. \end{DoxyCompactList}\item 
+bool \hyperlink{class_biblioteca_a77e293d2b3fdccd400f2119c47a7dd31}{Guardar} () const \hypertarget{class_biblioteca_a77e293d2b3fdccd400f2119c47a7dd31}{}\label{class_biblioteca_a77e293d2b3fdccd400f2119c47a7dd31}
+
+\begin{DoxyCompactList}\small\item\em Guarda el contenido de los vectores en los archivos. \end{DoxyCompactList}\item 
+void \hyperlink{class_biblioteca_a4a2a975acf55cc92b6d61de19e16f2a3}{Escribir\+Log} (string mensaje)\hypertarget{class_biblioteca_a4a2a975acf55cc92b6d61de19e16f2a3}{}\label{class_biblioteca_a4a2a975acf55cc92b6d61de19e16f2a3}
+
+\begin{DoxyCompactList}\small\item\em Guarda en un txt un mensaje con fecha acerca de los eventos ocurridos. \end{DoxyCompactList}\item 
+void \hyperlink{class_biblioteca_a30bd3b27cbb2da5e0e4a3c5df1153fee}{Cargar\+Libros\+Desde\+Archivo} ()\hypertarget{class_biblioteca_a30bd3b27cbb2da5e0e4a3c5df1153fee}{}\label{class_biblioteca_a30bd3b27cbb2da5e0e4a3c5df1153fee}
+
+\begin{DoxyCompactList}\small\item\em Carga los libros desde el archivo. \end{DoxyCompactList}\item 
+void \hyperlink{class_biblioteca_a22eb1e57a9b2133e1dd32ae735f7c575}{Cargar\+Lectores\+Desde\+Archivo} ()\hypertarget{class_biblioteca_a22eb1e57a9b2133e1dd32ae735f7c575}{}\label{class_biblioteca_a22eb1e57a9b2133e1dd32ae735f7c575}
+
+\begin{DoxyCompactList}\small\item\em Carga los lectores desde el archivo. \end{DoxyCompactList}\item 
+void \hyperlink{class_biblioteca_a7e837920c5d48306bc8be3d882975876}{Cargar\+Prestamos\+Desde\+Archivo} ()\hypertarget{class_biblioteca_a7e837920c5d48306bc8be3d882975876}{}\label{class_biblioteca_a7e837920c5d48306bc8be3d882975876}
+
+\begin{DoxyCompactList}\small\item\em Carga los préstamos desde el archivo. \end{DoxyCompactList}\item 
+void \hyperlink{class_biblioteca_a90b47c3dde2a0d78d2259c265b3e8619}{Cargar\+Sanciones\+Desde\+Archivo} ()\hypertarget{class_biblioteca_a90b47c3dde2a0d78d2259c265b3e8619}{}\label{class_biblioteca_a90b47c3dde2a0d78d2259c265b3e8619}
+
+\begin{DoxyCompactList}\small\item\em Carga las sanciones desde el archivo. \end{DoxyCompactList}\item 
+int \hyperlink{class_biblioteca_af10a2bcd13615668374e2fa11cdaeec3}{Buscar\+Titulo} (string parte, int pos\+\_\+desde)\hypertarget{class_biblioteca_af10a2bcd13615668374e2fa11cdaeec3}{}\label{class_biblioteca_af10a2bcd13615668374e2fa11cdaeec3}
+
+\begin{DoxyCompactList}\small\item\em Busqueda por título en la grilla. \end{DoxyCompactList}\item 
+int \hyperlink{class_biblioteca_a71052da035de9de2b358f5913197f7ae}{Buscar\+Apellido\+Y\+Nombre} (string parte, int pos\+\_\+desde)\hypertarget{class_biblioteca_a71052da035de9de2b358f5913197f7ae}{}\label{class_biblioteca_a71052da035de9de2b358f5913197f7ae}
+
+\begin{DoxyCompactList}\small\item\em Busqueda por apellido y nombre en la grilla. \end{DoxyCompactList}\item 
+int \hyperlink{class_biblioteca_ac56266e135c24f2bbd99005e508c0e40}{Buscar\+Apellido\+Nombre\+O\+Titulo} (string parte, int pos\+\_\+desde)\hypertarget{class_biblioteca_ac56266e135c24f2bbd99005e508c0e40}{}\label{class_biblioteca_ac56266e135c24f2bbd99005e508c0e40}
+
+\begin{DoxyCompactList}\small\item\em Busqueda por título, apellido y nombre en la grilla. \end{DoxyCompactList}\item 
+int \hyperlink{class_biblioteca_ab6d891537be1eb5e1da58e07e98f00d9}{cant\+Libros} () const \hypertarget{class_biblioteca_ab6d891537be1eb5e1da58e07e98f00d9}{}\label{class_biblioteca_ab6d891537be1eb5e1da58e07e98f00d9}
+
+\begin{DoxyCompactList}\small\item\em Devuelve la cantidad de libros en v\+Libros. \end{DoxyCompactList}\item 
+int \hyperlink{class_biblioteca_a84e2cda3c20b42243f42c95f67dc8614}{cant\+Libros\+Activos} () const \hypertarget{class_biblioteca_a84e2cda3c20b42243f42c95f67dc8614}{}\label{class_biblioteca_a84e2cda3c20b42243f42c95f67dc8614}
+
+\begin{DoxyCompactList}\small\item\em Devuelve la cantidad de libros activos en v\+Libros. \end{DoxyCompactList}\item 
+int \hyperlink{class_biblioteca_aa3de0dd6e7f6c6b5baba057fcfbd2e7d}{cant\+Lectores} () const \hypertarget{class_biblioteca_aa3de0dd6e7f6c6b5baba057fcfbd2e7d}{}\label{class_biblioteca_aa3de0dd6e7f6c6b5baba057fcfbd2e7d}
+
+\begin{DoxyCompactList}\small\item\em Devuelve la cantidad de lectores en v\+Lectores. \end{DoxyCompactList}\item 
+int \hyperlink{class_biblioteca_ae5ed7d4575cc03b3e096dc103ac9fef8}{cant\+Prestamos} () const \hypertarget{class_biblioteca_ae5ed7d4575cc03b3e096dc103ac9fef8}{}\label{class_biblioteca_ae5ed7d4575cc03b3e096dc103ac9fef8}
+
+\begin{DoxyCompactList}\small\item\em Devuelve la cantidad de préstamos en v\+Prestamos. \end{DoxyCompactList}\item 
+int \hyperlink{class_biblioteca_a8d14fa04a6dc9fcfc2b8e6f0e4d80175}{cant\+Sanciones} () const \hypertarget{class_biblioteca_a8d14fa04a6dc9fcfc2b8e6f0e4d80175}{}\label{class_biblioteca_a8d14fa04a6dc9fcfc2b8e6f0e4d80175}
+
+\begin{DoxyCompactList}\small\item\em Devuelve la cantidad de sanciones en v\+Sanciones. \end{DoxyCompactList}\item 
+\hyperlink{class_libro}{Libro} \hyperlink{class_biblioteca_adcc29644a52d7a9abb0a23c4cfff2a64}{Ver\+Libro} (int i) const \hypertarget{class_biblioteca_adcc29644a52d7a9abb0a23c4cfff2a64}{}\label{class_biblioteca_adcc29644a52d7a9abb0a23c4cfff2a64}
+
+\begin{DoxyCompactList}\small\item\em Devuelve un \hyperlink{class_libro}{Libro} de v\+Libros. \end{DoxyCompactList}\item 
+\hyperlink{class_lector}{Lector} \hyperlink{class_biblioteca_a0024ccced3594f917f2e3ab34e40865b}{Ver\+Lector} (int i) const \hypertarget{class_biblioteca_a0024ccced3594f917f2e3ab34e40865b}{}\label{class_biblioteca_a0024ccced3594f917f2e3ab34e40865b}
+
+\begin{DoxyCompactList}\small\item\em Devuelve un lector de v\+Lectores. \end{DoxyCompactList}\item 
+\hyperlink{class_prestamo}{Prestamo} \hyperlink{class_biblioteca_a5ab75abec4902ea5a4d16be14d2cad80}{Ver\+Prestamo} (int i) const \hypertarget{class_biblioteca_a5ab75abec4902ea5a4d16be14d2cad80}{}\label{class_biblioteca_a5ab75abec4902ea5a4d16be14d2cad80}
+
+\begin{DoxyCompactList}\small\item\em Devuelve un préstamo de v\+Prestamos. \end{DoxyCompactList}\item 
+\hyperlink{class_sancion}{Sancion} \hyperlink{class_biblioteca_adfe6eb80307519e5dd26f3d5fa90847f}{Ver\+Sancion} (int i) const \hypertarget{class_biblioteca_adfe6eb80307519e5dd26f3d5fa90847f}{}\label{class_biblioteca_adfe6eb80307519e5dd26f3d5fa90847f}
+
+\begin{DoxyCompactList}\small\item\em Devuelve una sanción de v\+Sanciones. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Clase contenedora que administra la \hyperlink{class_biblioteca}{Biblioteca}. La misma será utilizada mediante un \hyperlink{class_singleton}{Singleton} para evitar múltiples instancias. 
+
+Contiene la lista de libros, lectores, préstamos y sanciones, y los metodos para guardarlos y buscarlos en sus respectivas pestañas. Tambíen contiene los métodos para agregar, modificar y eliminar elementos. Los datos estan siempre en memoria, y al realizar alguna operación se debe llamar al metodo Guardar para persistir los cambios en los archivos. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{_biblioteca_8h}{Biblioteca.\+h}\item 
+\hyperlink{_biblioteca_8cpp}{Biblioteca.\+cpp}\end{DoxyCompactItemize}

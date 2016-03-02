@@ -1,0 +1,70 @@
+\hypertarget{class_libro}{}\section{Libro Class Reference}
+\label{class_libro}\index{Libro@{Libro}}
+
+
+Clase que representa a un \hyperlink{class_libro}{Libro}.  
+
+
+
+
+{\ttfamily \#include $<$Libro.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Libro} (string p\+\_\+titulo, string p\+\_\+autores, string p\+\_\+editorial, string p\+\_\+isbn, string p\+\_\+edicion, int p\+\_\+codigo\+Libro, string p\+\_\+tipo, string p\+\_\+\+Estado)\hypertarget{class_libro_ad73e88d873105db9a67311de1e17f749}{}\label{class_libro_ad73e88d873105db9a67311de1e17f749}
+
+\item 
+{\bfseries Libro} (string p\+\_\+titulo, string p\+\_\+autores, string p\+\_\+editorial, string p\+\_\+isbn, string p\+\_\+edicion, int p\+\_\+codigo\+Libro, string p\+\_\+tipo, string p\+\_\+\+Estado, bool p\+\_\+oculto)\hypertarget{class_libro_abffe0deb9e9309ed87e683ee796b4095}{}\label{class_libro_abffe0deb9e9309ed87e683ee796b4095}
+
+\item 
+void \hyperlink{class_libro_a212507bd78e7a4bb7b43adb849155c62}{Estado\+Prestado} ()\hypertarget{class_libro_a212507bd78e7a4bb7b43adb849155c62}{}\label{class_libro_a212507bd78e7a4bb7b43adb849155c62}
+
+\begin{DoxyCompactList}\small\item\em cambiar el estado a \char`\"{}\+Prestado\char`\"{} \end{DoxyCompactList}\item 
+void \hyperlink{class_libro_ae74afa27b044ada9f30f6e30aedd80c0}{Estado\+Disponible} ()\hypertarget{class_libro_ae74afa27b044ada9f30f6e30aedd80c0}{}\label{class_libro_ae74afa27b044ada9f30f6e30aedd80c0}
+
+\begin{DoxyCompactList}\small\item\em cambiar el estado a \char`\"{}\+Disponible\char`\"{} \end{DoxyCompactList}\item 
+void \hyperlink{class_libro_ac20c12b5fe3fc54501136086e67bcc05}{Ocultar} ()\hypertarget{class_libro_ac20c12b5fe3fc54501136086e67bcc05}{}\label{class_libro_ac20c12b5fe3fc54501136086e67bcc05}
+
+\begin{DoxyCompactList}\small\item\em ocultar/eliminar lector \end{DoxyCompactList}\item 
+string \hyperlink{class_libro_a13def8d3db34a7863f4c0c88bcb37726}{Ver\+Titulo} () const \hypertarget{class_libro_a13def8d3db34a7863f4c0c88bcb37726}{}\label{class_libro_a13def8d3db34a7863f4c0c88bcb37726}
+
+\begin{DoxyCompactList}\small\item\em devuelve el titulo del \hyperlink{class_libro}{Libro} \end{DoxyCompactList}\item 
+string \hyperlink{class_libro_a1ae9e67ab55102827352e482447e2424}{Ver\+Autores} () const \hypertarget{class_libro_a1ae9e67ab55102827352e482447e2424}{}\label{class_libro_a1ae9e67ab55102827352e482447e2424}
+
+\begin{DoxyCompactList}\small\item\em devuelve los autores del \hyperlink{class_libro}{Libro} \end{DoxyCompactList}\item 
+string \hyperlink{class_libro_abfd1bc8c6b4fd7c6208ec987467fcb62}{Ver\+Editorial} () const \hypertarget{class_libro_abfd1bc8c6b4fd7c6208ec987467fcb62}{}\label{class_libro_abfd1bc8c6b4fd7c6208ec987467fcb62}
+
+\begin{DoxyCompactList}\small\item\em devuelve la editorial del \hyperlink{class_libro}{Libro} \end{DoxyCompactList}\item 
+string \hyperlink{class_libro_a3ed1f24feab829570efd1b196f992e81}{Ver\+I\+S\+BN} () const \hypertarget{class_libro_a3ed1f24feab829570efd1b196f992e81}{}\label{class_libro_a3ed1f24feab829570efd1b196f992e81}
+
+\begin{DoxyCompactList}\small\item\em devuelve el I\+S\+BN del \hyperlink{class_libro}{Libro} \end{DoxyCompactList}\item 
+string \hyperlink{class_libro_a725af16e6dc968e66a25aaff90561bc5}{Ver\+Edicion} () const \hypertarget{class_libro_a725af16e6dc968e66a25aaff90561bc5}{}\label{class_libro_a725af16e6dc968e66a25aaff90561bc5}
+
+\begin{DoxyCompactList}\small\item\em devuelve la edición del \hyperlink{class_libro}{Libro} \end{DoxyCompactList}\item 
+int \hyperlink{class_libro_a76598c9b02e1432bf0ce5e8d6a9b2d25}{Ver\+Codigo\+Libro} () const \hypertarget{class_libro_a76598c9b02e1432bf0ce5e8d6a9b2d25}{}\label{class_libro_a76598c9b02e1432bf0ce5e8d6a9b2d25}
+
+\begin{DoxyCompactList}\small\item\em devuelve el código del \hyperlink{class_libro}{Libro} \end{DoxyCompactList}\item 
+string \hyperlink{class_libro_a34fab0359ef8f066abbc267a20377ca9}{Ver\+Tipo} () const \hypertarget{class_libro_a34fab0359ef8f066abbc267a20377ca9}{}\label{class_libro_a34fab0359ef8f066abbc267a20377ca9}
+
+\begin{DoxyCompactList}\small\item\em devuelve el tipo de \hyperlink{class_libro}{Libro} \end{DoxyCompactList}\item 
+string \hyperlink{class_libro_ad0fc3222db147beb0eb7df23ced2349a}{Ver\+Estado} () const \hypertarget{class_libro_ad0fc3222db147beb0eb7df23ced2349a}{}\label{class_libro_ad0fc3222db147beb0eb7df23ced2349a}
+
+\begin{DoxyCompactList}\small\item\em devuelve el estado del libro (Prestado o Disponible) \end{DoxyCompactList}\item 
+bool \hyperlink{class_libro_a0b23fb23651dfd5f778e6f0dc130b3d6}{Esta\+Disponible} () const \hypertarget{class_libro_a0b23fb23651dfd5f778e6f0dc130b3d6}{}\label{class_libro_a0b23fb23651dfd5f778e6f0dc130b3d6}
+
+\begin{DoxyCompactList}\small\item\em bool que indica si esta Disponible \end{DoxyCompactList}\item 
+bool \hyperlink{class_libro_acd838da95a0f0393d1fcd62fc3625d54}{Esta\+Oculto} () const \hypertarget{class_libro_acd838da95a0f0393d1fcd62fc3625d54}{}\label{class_libro_acd838da95a0f0393d1fcd62fc3625d54}
+
+\begin{DoxyCompactList}\small\item\em bool que devuelve si esta oculto/eliminado \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Clase que representa a un \hyperlink{class_libro}{Libro}. 
+
+Contiene los atributos que se guardan de cada libro, metodos para verlos y métodos para ocultar y ver si estan ocultos 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{_libro_8h}{Libro.\+h}\item 
+Libro.\+cpp\end{DoxyCompactItemize}
